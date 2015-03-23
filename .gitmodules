@@ -1,3 +1,6 @@
 [submodule "SFML"]
 	path = SFML
 	url = git@github.com:Meraz/SFML.git
+[submodule "bossjam_2015_assets"]
+	path = bossjam_2015_assets
+	url = git@github.com:Meraz/bossjam_2015_assets.git
