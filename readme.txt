@@ -9,7 +9,7 @@ Authors
 Rasmus "Bulten" Tilljander - Developer
 Joel "Poelsa" Begnert - Developer
 Nicholas "Micadurp" DeYoung - Developer
-Jonathan "T-Hissystem" Pedersen - Techninal Artist
+Jonathan "T-Hissystem" Pedersen - Technical Artist
 
 
 Notes
