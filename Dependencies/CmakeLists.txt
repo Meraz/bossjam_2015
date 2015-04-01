@@ -10,4 +10,7 @@ endif()
 
 
 # Move external dlls to executing folder
-add_custom_target(_dependencies ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${EXTERNAL_DLLS} ${OUTPUT_FOLDER})
+add_custom_target(_dependencies ALL 
+COMMAND ${CMAKE_COMMAND} -E copy_directory ${EXTERNAL_DLLS} ${OUTPUT_FOLDER}
+COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/SFML/extlibs/bin/x86/ ${OUTPUT_FOLDER}
+)
