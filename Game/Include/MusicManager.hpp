@@ -23,9 +23,13 @@ public:
 	MusicManager();
 	~MusicManager();
 
-	bool loadSong(std::string);
+	bool loadSong(std::string songName);
 
-	void playMusic(std::string);
+	void playSong(std::string songName);
+	void playSongExclusive(std::string songName);
+
+	void stopAllMusic();
+	void stopSong();
 };
 
 #endif
