@@ -10,10 +10,10 @@ private:
 	int m_deadZone;
 
 public:
-	XboxInput(int);
+	XboxInput(int playerNr);
 	~XboxInput();
 
-	void setDeadZone(int);
+	void setDeadZone(int deadZone);
 
 	//BUTTONS
 	bool isAbuttonPressed();

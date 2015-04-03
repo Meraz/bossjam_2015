@@ -26,7 +26,7 @@ int main()
 	MusicManager* music = new MusicManager();
 
 	music->loadSong("Hero.flac");
-	music->playMusic("Hero.flac");
+	music->playSong("Hero.flac");
 
 	while (window.isOpen())
 	{

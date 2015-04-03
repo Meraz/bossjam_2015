@@ -22,11 +22,28 @@ bool MusicManager::loadSong(std::string songName)
 }
 
 
-void MusicManager::playMusic(std::string songName)
+void MusicManager::playSong(std::string songName)
 {
 	for (int i = 0; i < m_songList.size(); i++)
 	{
-		if (m_songList[i]->songName == songName)
-			m_songList[i]->song.play();
+		if (m_songList.at(i)->songName == songName)
+			m_songList.at(i)->song.play();
 	}
+}
+
+void MusicManager::playSongExclusive(std::string songName)
+{
+	stopAllMusic();
+	playSong(songName);
+}
+
+void MusicManager::stopAllMusic()
+{
+	for (int i = 0; i < m_songList.size(); i++)
+	{
+		m_songList.at(i)->song.stop();
+	}
+}
+void MusicManager::stopSong()
+{
 }
