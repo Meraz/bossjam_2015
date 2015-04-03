@@ -16,7 +16,7 @@ public:
 private:
 	std::map<std::string, const T const*> m_map;
 
-	T* RetrieveEntryLocal(const std::string& name)
+	const T* RetrieveEntryLocal(const std::string& name)
 	{
 		return m_map[name];
 	}
