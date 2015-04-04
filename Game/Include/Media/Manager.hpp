@@ -32,6 +32,27 @@ private:
 	}
 
 public:
+	
+	std::vector<T*> GetAllElements()
+	{
+		std::vector<T*> returnVector;
+		for (auto i = m_map.begin(); i != m_map.end(); ++i)
+		{
+			returnVector.push_back(i);
+		}
+		return returnVector;
+	}
+
+	typename std::map <std::string, T*>::iterator GetBegin()
+	{
+		return m_map.begin();
+	}
+
+	typename std::map <std::string, T*>::iterator GetEnd()
+	{
+		return m_map.end();
+	}
+
 	bool AddEntry(const std::string& name, T* data)
 	{
 		bool successful = true;
