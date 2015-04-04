@@ -58,6 +58,15 @@ void MusicManager::playSongExclusiveFromStart(std::string songName)
 	playSong(songName);
 }
 
+void MusicManager::PlaySongFromTime(std::string songName, sf::Time time)
+{
+	Song* temp = nullptr;
+	m_songList.RetrieveEntry(songName, &temp);
+
+	temp->song.play();
+	temp->song.setPlayingOffset(time);
+}
+
 void MusicManager::stopAllMusic()
 {
 	//Song* temp;

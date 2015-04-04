@@ -30,6 +30,8 @@ int main()
 		music->playSong("Hero.flac");
 	}
 
+
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -54,6 +56,23 @@ int main()
 		if (Player1->isAbuttonPressed())
 		{
 			shape4.setPosition(600, 400);
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			music->stopSong("Hero.flac");
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			music->playSong("Hero.flac");
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			music->playSongFromStart("Hero.flac");
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+		{
+			music->PlaySongFromTime("Hero.flac", sf::seconds(30));
 		}
 
 		window.draw(shape);

@@ -14,7 +14,6 @@ private:
 		sf::Music song;
 	};
 	Manager<Song> m_songList;
-//	std::vector<Song*> m_songList;
 	int m_songCount;
 
 
@@ -34,6 +33,8 @@ public:
 	void playSongExclusive(std::string songName);
 	//Will stop all other songs and start chosen song from the start
 	void playSongExclusiveFromStart(std::string songName);
+	//Starts playing at a certain time in the song
+	void PlaySongFromTime(std::string songName, sf::Time time);
 
 	//Stops all music
 	void stopAllMusic();
