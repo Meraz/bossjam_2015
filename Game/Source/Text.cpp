@@ -1,4 +1,4 @@
-#include "Text.hpp"
+#include <System/Text.hpp>
 
 
 Text::Text()

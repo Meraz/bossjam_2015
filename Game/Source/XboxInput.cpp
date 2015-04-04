@@ -1,4 +1,4 @@
-#include "XboxInput.hpp"
+#include <System/XboxInput.hpp>
 
 
 XboxInput::XboxInput(int playerNr)

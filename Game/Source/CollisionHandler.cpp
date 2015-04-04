@@ -1,4 +1,4 @@
-#include "CollisionHandler.hpp"
+#include <Collision/CollisionHandler.hpp>
 
 
 CollisionHandler::CollisionHandler()
