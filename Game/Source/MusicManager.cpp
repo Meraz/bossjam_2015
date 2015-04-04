@@ -25,7 +25,7 @@ bool MusicManager::loadSong(std::string songName)
 void MusicManager::playSong(std::string songName)
 {
 	Song* temp = nullptr;
-	m_songList.RetrieveEntry(songName, temp);
+	m_songList.RetrieveEntry(songName, &temp);
 
 	if (temp->song.getStatus() != sf::Music::Playing)
 	{
@@ -40,7 +40,7 @@ void MusicManager::playSong(std::string songName)
 void MusicManager::playSongFromStart(std::string songName)
 {
 	Song* temp = nullptr;
-	m_songList.RetrieveEntry(songName, temp);
+	m_songList.RetrieveEntry(songName, &temp);
 
 
 	temp->song.play();
@@ -72,7 +72,7 @@ void MusicManager::stopAllMusic()
 void MusicManager::stopSong(std::string songName)
 {
 	Song* temp = nullptr;
-	m_songList.RetrieveEntry(songName, temp);
+	m_songList.RetrieveEntry(songName, &temp);
 
 	temp->song.stop();
 }
