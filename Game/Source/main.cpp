@@ -28,7 +28,10 @@ int main()
 
 	music->loadSong("Hero.flac");
 
+	TextManager* textBox = new TextManager();
+	textBox->init();
 
+	textBox->loadTextFromFile("example.txt");
 
 	while (window.isOpen())
 	{
@@ -72,11 +75,17 @@ int main()
 		{
 			music->PlaySongFromTime("Hero.flac", sf::seconds(30));
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+		{
+			textBox->loadTextFromFile("example2.txt");
+		}
 
 		window.draw(shape);
 		window.draw(shape2);
 		window.draw(shape3);
 		window.draw(shape4);
+
+		window.draw(textBox->getText());
 
 		window.display();
 	}
