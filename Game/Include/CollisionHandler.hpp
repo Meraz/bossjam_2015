@@ -10,7 +10,7 @@ public:
 	CollisionHandler();
 	~CollisionHandler();
 
-	bool IsIntersecting(const sf::FloatRect& a, const sf::FloatRect& b);
+	bool AreBoxesIntersecting(const sf::FloatRect& a, const sf::FloatRect& b);
 	sf::Vector2f GetIntersectionVector(const sf::FloatRect& a, const sf::FloatRect& b);
 	sf::FloatRect GetIntersectingBox(const sf::FloatRect& a, const sf::FloatRect& b);
 private:
