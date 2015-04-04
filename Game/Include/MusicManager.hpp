@@ -21,7 +21,7 @@ private:
 	
 public:
 	MusicManager();
-	~MusicManager();
+	virtual ~MusicManager();
 
 	bool loadSong(std::string songName);
 

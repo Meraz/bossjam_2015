@@ -3,11 +3,12 @@
 #include <iostream>
 #include "XboxInput.hpp"
 #include "MusicManager.hpp"
+#include "Textmanager.hpp"
 
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(800, 600), "BossJam!");
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
 
@@ -25,10 +26,7 @@ int main()
 
 	MusicManager* music = new MusicManager();
 
-	if (music->loadSong("Hero.flac"))
-	{
-		music->playSong("Hero.flac");
-	}
+	music->loadSong("Hero.flac");
 
 
 
