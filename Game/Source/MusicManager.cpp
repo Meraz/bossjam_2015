@@ -69,13 +69,12 @@ void MusicManager::PlaySongFromTime(std::string songName, sf::Time time)
 
 void MusicManager::stopAllMusic()
 {
-	//Song* temp;
-	//m_songList.RetrieveEntry(songName, temp);
+	std::vector<Song*> all = m_songList.GetAllElements();
 
-	//for (int i = 0; i < m_songList.size(); i++)
-	//{
-	//	temp->song.stop();
-	//}
+	for (unsigned int i = 0; i < all.size(); ++i)
+	{
+		all.at(i)->song.stop();
+	}
 }
 
 void MusicManager::stopSong(std::string songName)
