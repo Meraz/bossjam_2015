@@ -9,24 +9,15 @@ CollisionHandler::~CollisionHandler()
 {
 }
 
-bool CollisionHandler::IsIntersecting(const sf::FloatRect& a, const sf::FloatRect& b)
+bool CollisionHandler::AreBoxesIntersecting(const sf::FloatRect& a, const sf::FloatRect& b)
 {
 	return a.intersects(b);
-	/*
-	float aMidx = a.left + a.width / 2.f;
-	float aMidy = a.top + a.height / 2.f;
-	float bMidx = b.left + b.height / 2.f;
-	float bMidy = b.top + b.width / 2.f;
-	
-	return (abs(aMidx - bMidx) * 2 < (a.getSize().x + b.getSize().x)) &&
-		(abs(aMidy - bMidy) * 2 < (a.getSize().y + b.getSize().y));
-		*/
 }
 
 sf::Vector2f CollisionHandler::GetIntersectionVector(const sf::FloatRect& a, const sf::FloatRect& b)
 {
 	//Check intersect
-	if (IsIntersecting(a, b))
+	if (AreBoxesIntersecting(a, b))
 	{
 		sf::Vector2f corVec;
 		//Get intersect box
@@ -76,28 +67,6 @@ sf::Vector2f CollisionHandler::GetIntersectionVector(const sf::FloatRect& a, con
 sf::FloatRect CollisionHandler::GetIntersectingBox(const sf::FloatRect& a, const sf::FloatRect& b)
 {
 	sf::FloatRect intRect;
-
 	a.intersects(b, intRect);
-
 	return intRect;
-	/*
-	float ax = a.left;
-	float ay = a.top;
-	float axw = a.left + a.getSize().x;
-	float ayh = a.top + a.getSize().y;
-
-	float bx = b.left;
-	float by = b.top;
-	float bxw = b.left + b.getSize().x;
-	float byh = b.top + b.getSize().y;
-
-	float intX = std::max(0.f, std::min(axw, bxw) - std::max(ax, bx));
-	float intY = std::max(0.f, std::min(ayh, byh) - std::max(ay, by));
-
-	intRect.setSize(sf::Vector2f(intX, intY));
-	intRect.setPosition(sf::Vector2f(std::max(ax, bx), std::max(ay, by)));
-
-	return intRect;
-
-	*/
 }
