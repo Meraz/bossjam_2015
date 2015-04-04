@@ -13,35 +13,35 @@ public:
 	XboxInput(int playerNr);
 	~XboxInput();
 
-	void setDeadZone(int deadZone);
+	void SetDeadZone(int deadZone);
 
 	//BUTTONS
-	bool isAbuttonPressed();
-	bool isBbuttonPressed();
-	bool isXbuttonPressed();
-	bool isYbuttonPressed();
-	bool isLBbuttonPressed();
-	bool isRBbuttonPressed();
-	bool isBackbuttonPressed();
-	bool isStartbuttonPressed();
-	bool isLThumbStickPressed();
-	bool isRThumbStickPressed();
+	bool IsAbuttonPressed();
+	bool IsBbuttonPressed();
+	bool IsXbuttonPressed();
+	bool IsYbuttonPressed();
+	bool IsLBbuttonPressed();
+	bool IsRBbuttonPressed();
+	bool IsBackbuttonPressed();
+	bool IsStartbuttonPressed();
+	bool IsLThumbStickPressed();
+	bool IsRThumbStickPressed();
 
 
 	//AXISES
-	float getLThumbStickX();
-	float getLThumbStickY();
+	float GetLThumbStickX();
+	float GetLThumbStickY();
 
-	float getRThumbStickX();
-	float getRThumbStickY();
+	float GetRThumbStickX();
+	float GetRThumbStickY();
 
-	float getDPadX();
-	float getDPadY();
+	float GetDPadX();
+	float GetDPadY();
 
 
 	//TRIGGERS
-	float getLTrigger();
-	float getRTrigger();
+	float GetLTrigger();
+	float GetRTrigger();
 
 
 };

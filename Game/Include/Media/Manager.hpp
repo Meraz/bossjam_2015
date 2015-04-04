@@ -14,14 +14,14 @@ public:
 	}
 	
 private:
-	std::map<std::string, const T const*> m_map;
+	std::map<std::string, T*> m_map;
 
 	T* RetrieveEntryLocal(const std::string& name)
 	{
 		return m_map[name];
 	}
 
-	void AddEntryLocal(const std::string& name, const T* data)
+	void AddEntryLocal(const std::string& name, T* data)
 	{
 		m_map[name] = data;
 	}
@@ -32,7 +32,28 @@ private:
 	}
 
 public:
-	bool AddEntry(const std::string& name, const T const* data)
+	typedef typename std::map <std::string, T*>::iterator myIterator;
+	std::vector<T*> GetAllElements()
+	{
+		std::vector<T*> returnVector;
+		for (myIterator i = m_map.begin(); i != m_map.end(); ++i)
+		{
+			returnVector.push_back(i->second);
+		}
+		return returnVector;
+	}
+
+	typename std::map <std::string, T*>::iterator GetBegin()
+	{
+		return m_map.begin();
+	}
+
+	typename std::map <std::string, T*>::iterator GetEnd()
+	{
+		return m_map.end();
+	}
+
+	bool AddEntry(const std::string& name, T* data)
 	{
 		bool successful = true;
 		try
@@ -60,16 +81,16 @@ public:
 		return successful;
 	}
 
-	bool RetrieveEntry(const std::string& name, const T const* outData)
+	bool RetrieveEntry(const std::string& name, T** outData)
 	{
 		bool successful = true;
 		try
 		{
-			outData = RetrieveEntryLocal(name);
+			*outData = RetrieveEntryLocal(name);
 		}
 		catch (std::exception e)
 		{
-			outData = nullptr;
+			*outData = nullptr;
 			successful = false;
 		}
 		return successful;
