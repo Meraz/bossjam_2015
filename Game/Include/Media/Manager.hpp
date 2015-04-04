@@ -32,13 +32,13 @@ private:
 	}
 
 public:
-	
+	typedef typename std::map <std::string, T*>::iterator myIterator;
 	std::vector<T*> GetAllElements()
 	{
 		std::vector<T*> returnVector;
-		for (auto i = m_map.begin(); i != m_map.end(); ++i)
+		for (myIterator i = m_map.begin(); i != m_map.end(); ++i)
 		{
-			returnVector.push_back(i);
+			returnVector.push_back(i->second);
 		}
 		return returnVector;
 	}

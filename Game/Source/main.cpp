@@ -27,6 +27,8 @@ int main()
 	MusicManager* music = new MusicManager();
 
 	music->loadSong("Hero.flac");
+	music->loadSong("Ninja.flac");
+	music->loadSong("Winterstorm.flac");
 
 	Text* textBox = new Text();
 	textBox->init();
@@ -74,6 +76,22 @@ int main()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F))
 		{
 			music->PlaySongFromTime("Hero.flac", sf::seconds(30));
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::G))
+		{
+			music->playSong("Winterstorm.flac");
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::H))
+		{
+			music->playSong("Ninja.flac");
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::J))
+		{
+			music->stopAllMusic();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
+		{
+			music->stopAllOtherSongs("Hero.flac");
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 		{

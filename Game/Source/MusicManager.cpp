@@ -87,15 +87,17 @@ void MusicManager::stopSong(std::string songName)
 
 void MusicManager::stopAllOtherSongs(std::string songName)
 {
-	//for (int i = 0; i < m_songList.size(); i++)
-	//{
-	//	if (m_songList.at(i)->songName != songName)
-	//	{
-	//		m_songList.at(i)->song.stop();
-	//	}
-	//	else
-	//	{
-	//		//If it goes here it is on the song it shouldn't stop
-	//	}
-	//}
+	std::vector<Song*> all = m_songList.GetAllElements();
+
+	for (unsigned int i = 0; i < all.size(); ++i)
+	{
+		if (all.at(i)->songName != songName)
+		{
+			all.at(i)->song.stop();
+		}
+		else
+		{
+			//If it goes here it is on the song it shouldn't stop
+		}
+	}
 }
