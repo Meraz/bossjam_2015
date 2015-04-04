@@ -26,14 +26,14 @@ int main()
 
 	MusicManager* music = new MusicManager();
 
-	music->loadSong("Hero.flac");
-	music->loadSong("Ninja.flac");
-	music->loadSong("Winterstorm.flac");
+	music->LoadSong("Hero.flac");
+	music->LoadSong("Ninja.flac");
+	music->LoadSong("Winterstorm.flac");
 
 	Text* textBox = new Text();
-	textBox->init();
+	textBox->Init(sf::Color::Red);
 
-	textBox->loadTextFromFile("example.txt");
+	textBox->LoadTextFromFile("example.txt");
 
 	while (window.isOpen())
 	{
@@ -48,30 +48,30 @@ int main()
 
 
 
-		shape.move(Player1->getLThumbStickX() / 1000, Player1->getLThumbStickY() / 1000);
+		shape.move(Player1->GetLThumbStickX() / 1000, Player1->GetLThumbStickY() / 1000);
 
-		shape2.move(Player1->getRThumbStickX() / 1000, Player1->getRThumbStickY() / 1000);
+		shape2.move(Player1->GetRThumbStickX() / 1000, Player1->GetRThumbStickY() / 1000);
 
-		shape3.move(Player1->getDPadX() / 1000, Player1->getDPadY() / 1000);
+		shape3.move(Player1->GetDPadX() / 1000, Player1->GetDPadY() / 1000);
 
-		shape4.move(Player1->getLTrigger() / 1000, Player1->getRTrigger() / 1000);
+		shape4.move(Player1->GetLTrigger() / 1000, Player1->GetRTrigger() / 1000);
 
-		if (Player1->isAbuttonPressed())
+		if (Player1->IsAbuttonPressed())
 		{
 			shape4.setPosition(600, 400);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
-			music->stopSong("Hero.flac");
+			music->StopSong("Hero.flac");
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
-			music->playSong("Hero.flac");
+			music->PlaySong("Hero.flac");
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
-			music->playSongFromStart("Hero.flac");
+			music->PlaySongFromStart("Hero.flac");
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F))
 		{
@@ -79,23 +79,23 @@ int main()
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::G))
 		{
-			music->playSong("Winterstorm.flac");
+			music->PlaySong("Winterstorm.flac");
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::H))
 		{
-			music->playSong("Ninja.flac");
+			music->PlaySong("Ninja.flac");
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::J))
 		{
-			music->stopAllMusic();
+			music->StopAllMusic();
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
 		{
-			music->stopAllOtherSongs("Hero.flac");
+			music->StopAllOtherSongs("Hero.flac");
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 		{
-			textBox->loadTextFromFile("example2.txt");
+			textBox->LoadTextFromFile("example2.txt");
 		}
 
 		window.draw(shape);
@@ -103,7 +103,7 @@ int main()
 		window.draw(shape3);
 		window.draw(shape4);
 
-		window.draw(textBox->getText());
+		window.draw(textBox->GetText());
 
 		window.display();
 	}

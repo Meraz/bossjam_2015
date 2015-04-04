@@ -14,13 +14,13 @@ public:
 	Text();
 	virtual ~Text();
 
-	bool init();
+	bool Init(sf::Color color);
 
-	void setString(std::string string);
+	void SetString(std::string string);
 
-	sf::Text getText();
+	sf::Text GetText();
 
-	void loadTextFromFile(std::string filename);
+	void LoadTextFromFile(std::string filename);
 };
 
 #endif

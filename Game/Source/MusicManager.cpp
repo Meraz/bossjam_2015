@@ -11,7 +11,7 @@ MusicManager::~MusicManager()
 }
 
 
-bool MusicManager::loadSong(std::string songName)
+bool MusicManager::LoadSong(std::string songName)
 {
 	Song* song = new Song();
 	song->songName = songName;
@@ -22,7 +22,7 @@ bool MusicManager::loadSong(std::string songName)
 }
 
 
-void MusicManager::playSong(std::string songName)
+void MusicManager::PlaySong(std::string songName)
 {
 	Song* temp = nullptr;
 	m_songList.RetrieveEntry(songName, &temp);
@@ -37,7 +37,7 @@ void MusicManager::playSong(std::string songName)
 	}
 }
 
-void MusicManager::playSongFromStart(std::string songName)
+void MusicManager::PlaySongFromStart(std::string songName)
 {
 	Song* temp = nullptr;
 	m_songList.RetrieveEntry(songName, &temp);
@@ -46,16 +46,16 @@ void MusicManager::playSongFromStart(std::string songName)
 	temp->song.play();
 }
 
-void MusicManager::playSongExclusive(std::string songName)
+void MusicManager::PlaySongExclusive(std::string songName)
 {
-	stopAllOtherSongs(songName);
-	playSongFromStart(songName);
+	StopAllOtherSongs(songName);
+	PlaySongFromStart(songName);
 }
 
-void MusicManager::playSongExclusiveFromStart(std::string songName)
+void MusicManager::PlaySongExclusiveFromStart(std::string songName)
 {
-	stopAllMusic();
-	playSong(songName);
+	StopAllMusic();
+	PlaySong(songName);
 }
 
 void MusicManager::PlaySongFromTime(std::string songName, sf::Time time)
@@ -67,7 +67,7 @@ void MusicManager::PlaySongFromTime(std::string songName, sf::Time time)
 	temp->song.setPlayingOffset(time);
 }
 
-void MusicManager::stopAllMusic()
+void MusicManager::StopAllMusic()
 {
 	std::vector<Song*> all = m_songList.GetAllElements();
 
@@ -77,7 +77,7 @@ void MusicManager::stopAllMusic()
 	}
 }
 
-void MusicManager::stopSong(std::string songName)
+void MusicManager::StopSong(std::string songName)
 {
 	Song* temp = nullptr;
 	m_songList.RetrieveEntry(songName, &temp);
@@ -85,7 +85,7 @@ void MusicManager::stopSong(std::string songName)
 	temp->song.stop();
 }
 
-void MusicManager::stopAllOtherSongs(std::string songName)
+void MusicManager::StopAllOtherSongs(std::string songName)
 {
 	std::vector<Song*> all = m_songList.GetAllElements();
 

@@ -23,25 +23,25 @@ public:
 	MusicManager();
 	virtual ~MusicManager();
 
-	bool loadSong(std::string songName);
+	bool LoadSong(std::string songName);
 
 	//Will continue playing the song if it is already playing
-	void playSong(std::string songName);
+	void PlaySong(std::string songName);
 	//Will restart the song if its playing already
-	void playSongFromStart(std::string songName);
+	void PlaySongFromStart(std::string songName);
 	//Will stop all other songs and start chosen song if it isn't already playing
-	void playSongExclusive(std::string songName);
+	void PlaySongExclusive(std::string songName);
 	//Will stop all other songs and start chosen song from the start
-	void playSongExclusiveFromStart(std::string songName);
+	void PlaySongExclusiveFromStart(std::string songName);
 	//Starts playing at a certain time in the song
 	void PlaySongFromTime(std::string songName, sf::Time time);
 
 	//Stops all music
-	void stopAllMusic();
+	void StopAllMusic();
 	//Stops chosen song
-	void stopSong(std::string songName);
+	void StopSong(std::string songName);
 	//Stops all except chosen song
-	void stopAllOtherSongs(std::string songName);
+	void StopAllOtherSongs(std::string songName);
 };
 
 #endif

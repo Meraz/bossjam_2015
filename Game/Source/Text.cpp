@@ -9,7 +9,7 @@ Text::~Text()
 {
 }
 
-bool Text::init()
+bool Text::Init(sf::Color color)
 {
 	if (!m_font.loadFromFile("mytype.ttf"))
 	{
@@ -18,9 +18,9 @@ bool Text::init()
 
 	m_text.setFont(m_font);
 
-	setString("");
+	SetString("");
 	m_text.setCharacterSize(24);
-	m_text.setColor(sf::Color::Red);
+	m_text.setColor(color);
 	m_text.setStyle(sf::Text::Bold);
 	m_text.setPosition(200, 200);
 
@@ -28,25 +28,25 @@ bool Text::init()
 }
 
 
-void Text::setString(std::string string)
+void Text::SetString(std::string string)
 {
 	m_text.setString(string);
 }
 
-sf::Text Text::getText()
+sf::Text Text::GetText()
 {
 	return m_text;
 }
 
 
-void Text::loadTextFromFile(std::string filename)
+void Text::LoadTextFromFile(std::string filename)
 {
 	std::string tempText;
 	std::ifstream textFile;
 	textFile.open(filename);
 	getline(textFile, tempText);
 
-	setString(tempText);
+	SetString(tempText);
 
 	textFile.close();
 }

@@ -11,59 +11,59 @@ XboxInput::~XboxInput()
 {
 }
 
-void XboxInput::setDeadZone(int deadZone)
+void XboxInput::SetDeadZone(int deadZone)
 {
 	m_deadZone = deadZone;
 }
 
 #pragma region BUTTONS
 
-bool XboxInput::isAbuttonPressed()
+bool XboxInput::IsAbuttonPressed()
 {
 	return sf::Joystick::isButtonPressed(m_PlayerNr, 0);
 }
 
-bool XboxInput::isBbuttonPressed()
+bool XboxInput::IsBbuttonPressed()
 {
 	return sf::Joystick::isButtonPressed(m_PlayerNr, 1);
 }
 
-bool XboxInput::isXbuttonPressed()
+bool XboxInput::IsXbuttonPressed()
 {
 	return sf::Joystick::isButtonPressed(m_PlayerNr, 2);
 }
 
-bool XboxInput::isYbuttonPressed()
+bool XboxInput::IsYbuttonPressed()
 {
 	return sf::Joystick::isButtonPressed(m_PlayerNr, 3);
 }
 
-bool XboxInput::isLBbuttonPressed()
+bool XboxInput::IsLBbuttonPressed()
 {
 	return sf::Joystick::isButtonPressed(m_PlayerNr, 4);
 }
 
-bool XboxInput::isRBbuttonPressed()
+bool XboxInput::IsRBbuttonPressed()
 {
 	return sf::Joystick::isButtonPressed(m_PlayerNr, 5);
 }
 
-bool XboxInput::isBackbuttonPressed()
+bool XboxInput::IsBackbuttonPressed()
 {
 	return sf::Joystick::isButtonPressed(m_PlayerNr, 6);
 }
 
-bool XboxInput::isStartbuttonPressed()
+bool XboxInput::IsStartbuttonPressed()
 {
 	return sf::Joystick::isButtonPressed(m_PlayerNr, 7);
 }
 
-bool XboxInput::isLThumbStickPressed()
+bool XboxInput::IsLThumbStickPressed()
 {
 	return sf::Joystick::isButtonPressed(m_PlayerNr, 8);
 }
 
-bool XboxInput::isRThumbStickPressed()
+bool XboxInput::IsRThumbStickPressed()
 {
 	return sf::Joystick::isButtonPressed(m_PlayerNr, 9);
 }
@@ -73,7 +73,7 @@ bool XboxInput::isRThumbStickPressed()
 
 #pragma region AXISES
 
-float XboxInput::getLThumbStickX()
+float XboxInput::GetLThumbStickX()
 {
 	float position = sf::Joystick::getAxisPosition(m_PlayerNr, sf::Joystick::X);
 
@@ -83,7 +83,7 @@ float XboxInput::getLThumbStickX()
 	return position;
 }
 
-float XboxInput::getLThumbStickY()
+float XboxInput::GetLThumbStickY()
 {
 	float position = sf::Joystick::getAxisPosition(m_PlayerNr, sf::Joystick::Y);
 
@@ -94,7 +94,7 @@ float XboxInput::getLThumbStickY()
 }
 
 
-float XboxInput::getRThumbStickX()
+float XboxInput::GetRThumbStickX()
 {
 	float position = sf::Joystick::getAxisPosition(m_PlayerNr, sf::Joystick::U);
 
@@ -104,7 +104,7 @@ float XboxInput::getRThumbStickX()
 	return position;
 }
 
-float XboxInput::getRThumbStickY()
+float XboxInput::GetRThumbStickY()
 {
 	float position = sf::Joystick::getAxisPosition(m_PlayerNr, sf::Joystick::R);
 
@@ -114,12 +114,12 @@ float XboxInput::getRThumbStickY()
 	return position;
 }
 
-float  XboxInput::getDPadX()
+float  XboxInput::GetDPadX()
 {
 	return sf::Joystick::getAxisPosition(m_PlayerNr, sf::Joystick::PovX);
 }
 
-float XboxInput::getDPadY()
+float XboxInput::GetDPadY()
 {
 	return -sf::Joystick::getAxisPosition(m_PlayerNr, sf::Joystick::PovY);
 }
@@ -130,7 +130,7 @@ float XboxInput::getDPadY()
 #pragma region TRIGGERS
 
 //TRIGGERS
-float XboxInput::getLTrigger()
+float XboxInput::GetLTrigger()
 {
 	float position = sf::Joystick::getAxisPosition(m_PlayerNr, sf::Joystick::Z);
 
@@ -140,7 +140,7 @@ float XboxInput::getLTrigger()
 	return -position;
 }
 
-float XboxInput::getRTrigger()
+float XboxInput::GetRTrigger()
 {
 	float position = sf::Joystick::getAxisPosition(m_PlayerNr, sf::Joystick::Z);
 
