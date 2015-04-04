@@ -1,18 +1,18 @@
-#ifndef TEXTMANAGER_H
-#define TEXTMANAGER_H
+#ifndef TEXT_H
+#define TEXT_H
 
 #include <SFML/Graphics.hpp>
 #include <fstream>
 
-class TextManager
+class Text
 {
 private:
 	sf::Font m_font;
 	sf::Text m_text;
 
 public:
-	TextManager();
-	virtual ~TextManager();
+	Text();
+	virtual ~Text();
 
 	bool init();
 

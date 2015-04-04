@@ -1,15 +1,15 @@
-#include "Textmanager.hpp"
+#include "Text.hpp"
 
 
-TextManager::TextManager()
+Text::Text()
 {
 }
 
-TextManager::~TextManager()
+Text::~Text()
 {
 }
 
-bool TextManager::init()
+bool Text::init()
 {
 	if (!m_font.loadFromFile("mytype.ttf"))
 	{
@@ -28,18 +28,18 @@ bool TextManager::init()
 }
 
 
-void TextManager::setString(std::string string)
+void Text::setString(std::string string)
 {
 	m_text.setString(string);
 }
 
-sf::Text TextManager::getText()
+sf::Text Text::getText()
 {
 	return m_text;
 }
 
 
-void TextManager::loadTextFromFile(std::string filename)
+void Text::loadTextFromFile(std::string filename)
 {
 	std::string tempText;
 	std::ifstream textFile;

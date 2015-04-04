@@ -3,7 +3,7 @@
 #include <iostream>
 #include "XboxInput.hpp"
 #include "MusicManager.hpp"
-#include "Textmanager.hpp"
+#include "Text.hpp"
 
 
 int main()
@@ -28,7 +28,7 @@ int main()
 
 	music->loadSong("Hero.flac");
 
-	TextManager* textBox = new TextManager();
+	Text* textBox = new Text();
 	textBox->init();
 
 	textBox->loadTextFromFile("example.txt");
