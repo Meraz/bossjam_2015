@@ -30,7 +30,8 @@ private:
 	int m_score;
 
 public:
-	Player(int playerNr);
+	//(int playerNr);
+	Player(int playerNr, float movespeed, float acceleration, float jumpHeight, int jumpNr, float airControl, float groundControl);
 	virtual ~Player();
 
 	void update();
