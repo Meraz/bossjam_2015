@@ -34,7 +34,64 @@ public:
 	Player(int playerNr, float movespeed, float acceleration, float jumpHeight, int jumpNr, float airControl, float groundControl);
 	virtual ~Player();
 
-	void update();
+	void Update(float time);
+
+	void LoadStats();
+
+	void IncreaseScore(int amount);
+	void DecreaseScore(int amount);
+
+
+	//Set
+	void SetCurrentMoveSpeed(float moveSpeed);
+	void SetDefaultMoveSpeed(float moveSpeed);
+	void SetMaxMoveSpeed(float moveSpeed);
+
+	void SetCurrentAcceleration(float acceleration);
+	void SetDefaultAcceleration(float acceleration);
+	void SetMaxAcceleration(float acceleration);
+
+	void SetCurrentJumpHeight(float jumpHeight);
+	void SetDefaultJumpHeight(float jumpHeight);
+	void SetMaxJumpHeight(float jumpHeight);
+
+	void SetCurrentJumpNr(int jumpNr);
+	void SetDefaultJumpNr(int jumpNr);
+	void SetMaxJumpNr(int jumpNr);
+
+	void SetCurrentAirControl(float airControl);
+	void SetDefaultAirControl(float airControl);
+	void SetMaxAirControl(float airControl);
+
+	void SetCurrentGroundControl(float groundControl);
+	void SetDefaultGroundControl(float groundControl);
+	void SetMaxGroundControl(float groundControl);
+
+	//get
+	float GetCurrentMoveSpeed();
+	float GetDefaultMoveSpeed();
+	float GetMaxMoveSpeed();
+
+	float GetCurrentAcceleration();
+	float GetDefaultAcceleration();
+	float GetMaxAcceleration();
+
+	float GetCurrentJumpHeight();
+	float GetDefaultJumpHeight();
+	float GetMaxJumpHeight();
+
+	int GetCurrentJumpNr();
+	int GetDefaultJumpNr();
+	int GetMaxJumpNr();
+
+	float GetCurrentAirControl();
+	float GetDefaultAirControl();
+	float GetMaxAirControl();
+
+	float GetCurrentGroundControl();
+	float GetDefaultGroundControl();
+	float GetMaxGroundControl();
+
 
 };
 
