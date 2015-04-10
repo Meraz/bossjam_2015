@@ -1,5 +1,6 @@
 # 32 or 64 bit (Always 32 atm)
 set(EXTERNAL_DLLS ${CMAKE_SOURCE_DIR}/Dependencies/dll/x86)
+set(EXTERNAL_LIBS ${CMAKE_SOURCE_DIR}/Dependencies/lib/x86)
 
 # Release or debug
 if(COMPILE_RELEASE_BUILD)
@@ -10,7 +11,8 @@ endif()
 
 
 # Move external dlls to executing folder
-add_custom_target(_dependencies ALL 
+add_custom_target(_dependencies ALL
 COMMAND ${CMAKE_COMMAND} -E copy_directory ${EXTERNAL_DLLS} ${OUTPUT_FOLDER}
+COMMAND ${CMAKE_COMMAND} -E copy_directory ${EXTERNAL_LIBS} ${OUTPUT_FOLDER}
 COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/SFML/extlibs/bin/x86/ ${OUTPUT_FOLDER}
 )

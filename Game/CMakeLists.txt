@@ -6,12 +6,13 @@ set(PROJECT_NAME Game)
 project(${PROJECT_NAME})
 
 # Set the files used in the target
-file(GLOB_RECURSE HEADERS Headers/ *.hpp)
+file(GLOB_RECURSE HEADERS Headers/ *.h*)
 file(GLOB_RECURSE SOURCES Source/ *.cpp)
 include_directories(Include)
+include_directories(${CMAKE_SOURCE_DIR}/Dependencies/include/lua)
 create_source_group("Header Files" "${CMAKE_CURRENT_SOURCE_DIR}/Include" ${HEADERS})
 create_source_group("Source Files" "${CMAKE_CURRENT_SOURCE_DIR}/Source" ${SOURCES})
-set(LIBRARIES ${SFML_LIBRARIES})
+set(LIBRARIES ${SFML_LIBRARIES} lua52.lib)
 link_directories(${OUTPUT_FOLDER})
 
 # Add the target
