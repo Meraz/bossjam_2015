@@ -29,30 +29,10 @@
 //	m_score = 0;
 //}
 
-Player::Player(int playerNr, float movespeed, float acceleration, float jumpHeight, int jumpNr, float airControl, float groundControl)
+Player::Player(int playerNr)
 {
 	//Id
 	m_playerNr = playerNr;
-
-	//stats
-	m_moveSpeedCurrent = movespeed;
-	m_moveSpeedDefault = movespeed;
-	m_moveSpeedMax = 100;
-	m_accelerationCurrent = acceleration;
-	m_accelerationDefault = acceleration;
-	m_accelerationMax = 100;
-	m_jumpHeightCurrent = jumpHeight;
-	m_jumpHeightDefault = jumpHeight;
-	m_jumpHeightMax = 100;
-	m_jumpNrCurrent = jumpNr;
-	m_jumpNrDefault = jumpNr;
-	m_jumpNrMax = 100;
-	m_airControlCurrent = airControl;
-	m_airControlDefault = airControl;
-	m_airControlMax = 100;
-	m_groundControlCurrent = groundControl;
-	m_groundControlDefault = groundControl;
-	m_groundControlMax = 100;
 
 	m_score = 0;
 }

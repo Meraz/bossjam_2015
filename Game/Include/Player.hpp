@@ -33,7 +33,7 @@ private:
 
 public:
 	//(int playerNr);
-	Player(int playerNr, float movespeed, float acceleration, float jumpHeight, int jumpNr, float airControl, float groundControl);
+	Player(int playerNr);
 	virtual ~Player();
 
 	void Update(float time);
