@@ -18,6 +18,7 @@ public:
 	SceneType GetCurrentSceneType() const { return m_currentSceneEnum; };
 
 	void ChangeScene(SceneType newScene) override;
+	MusicManager* GetMusicManager() override;
 
 private:
 	AbstractScene* m_currentScene;
@@ -25,4 +26,5 @@ private:
 	GameScene* m_gameScene;
 	CharacterSelectScene* m_characterScene;
 	SceneType m_currentSceneEnum;
+	MusicManager* m_musicManager;
 };

@@ -3,9 +3,8 @@
 #include <Player.hpp>
 #include <System/Text.hpp>
 #include <XboxController.hpp>
-
-
 #include <iostream>
+#include <Audio/MusicManager.hpp>
 
 CharacterSelectScene::CharacterSelectScene(AbstractSceneManager* sceneManager)
 : BaseScene(SceneType::CHARSELECT, sceneManager)
@@ -20,9 +19,11 @@ CharacterSelectScene::CharacterSelectScene(AbstractSceneManager* sceneManager)
 		m_players[i].isActive = false;
 		m_players[i].isLocked = false;
 	}
-	m_backgroundTexture.loadFromFile("FlamePainter_Background.jpg");
+	m_backgroundTexture.loadFromFile("FlamePainter_Background1.jpg");
 	m_backGroundRectangle = sf::RectangleShape(sf::Vector2f(1280, 720));
 	m_backGroundRectangle.setTexture(&m_backgroundTexture);
+	m_sceneManager->GetMusicManager()->LoadSong("Audio/PATGOIN_-_SPANISH_GUITAR.flac");
+	m_sceneManager->GetMusicManager()->PlaySong("Audio/PATGOIN_-_SPANISH_GUITAR.flac");
 }
 
 CharacterSelectScene::~CharacterSelectScene()
