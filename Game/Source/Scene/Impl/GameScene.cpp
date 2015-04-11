@@ -4,8 +4,10 @@ GameScene::GameScene()
 : BaseScene(SceneType::GAME)
 {
 	playerCount = 0;
-	test = new BaseEntity();
-	test->Initialize(50,50);
+
+	m_world.push_back(new BaseEntity());
+	m_world.at(0)->Initialize(0, 550);
+	m_world.at(0)->setSize(800, 50);
 
 	m_players.push_back(new Player(playerCount++, 10, 10, 10, 10, 10, 10));
 	m_players.push_back(new Player(playerCount++, 10, 10, 10, 10, 10, 10));
@@ -26,7 +28,7 @@ void GameScene::Update(float deltaTime)
 
 void GameScene::Render(sf::RenderWindow* window)
 {
-	test->Render(window);
+	m_world.at(0)->Render(window);
 
 	for (int i = 0; i < playerCount; ++i)
 	{

@@ -17,6 +17,8 @@ public:
 	
 	const ColorCoding& GetColor() override { return m_color; }
 
+	void setSize(int sizeX, int sizeY);
+
 protected:
 	
 	ColorCoding m_color;

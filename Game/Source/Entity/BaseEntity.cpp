@@ -30,3 +30,8 @@ void BaseEntity::Render(sf::RenderWindow* window)
 {
 	window->draw(m_shape);
 }
+
+void BaseEntity::setSize(int sizeX, int sizeY)
+{
+	m_shape.setSize(sf::Vector2f(sizeX, sizeY));
+}
