@@ -3,7 +3,8 @@
 
 Player::Player(int playerNr)
 :
-	BaseEntity(EntityType::PLAYER)
+	BaseEntity(EntityType::PLAYER),
+	m_animating(false)
 {
 	//Id
 	m_playerNr = playerNr;
@@ -65,11 +66,18 @@ void Player::Update(sf::Time deltaT)
 	HandleMovement(deltaT.asSeconds());
 	if (m_vel.x > 0)
 	{
+		m_animating = true;
 		m_walkingAnimatedSprite.SetFlippedXAxis(false);
+
 	}
 	else if (m_vel.x < 0)
 	{
+		m_animating = true;
 		m_walkingAnimatedSprite.SetFlippedXAxis(true);
+	}
+	else
+	{
+		m_animating = false;
 	}
 }
 
@@ -78,7 +86,10 @@ void Player::Render(sf::RenderWindow* window)
 	//window->draw(m_shape);
 	m_walkingAnimatedSprite.play(*m_currentAnimation);
 	m_walkingAnimatedSprite.setPosition(m_shape.getPosition());
-	m_walkingAnimatedSprite.update(m_deltaT);
+	if (m_animating)
+	{
+		m_walkingAnimatedSprite.update(m_deltaT);
+	}
 	window->draw(m_walkingAnimatedSprite);
 }
 
