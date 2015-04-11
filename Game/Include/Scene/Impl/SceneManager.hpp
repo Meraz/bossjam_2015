@@ -5,6 +5,7 @@
 
 class MenuScene;
 class GameScene;
+class CharacterSelectScene;
 
 class SceneManager : public AbstractSceneManager
 {
@@ -22,7 +23,6 @@ private:
 	AbstractScene* m_currentScene;
 	MenuScene* m_menuScene;
 	GameScene* m_gameScene;
+	CharacterSelectScene* m_characterScene;
 	SceneType m_currentSceneEnum;
-
-	bool m_reAllocateOnChange;
 };

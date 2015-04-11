@@ -11,7 +11,7 @@ public:
 	static PlayerContext* GetPlayerContext();
 	Player* GetPlayer(int index);
 private:
-	PlayerContext(){};
+	PlayerContext();
 	~PlayerContext(){};
 
 	static PlayerContext* m_context;

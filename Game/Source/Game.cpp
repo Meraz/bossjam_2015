@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <Scene/Impl/SceneManager.hpp>
+#include <System/Text.hpp>
 
 Game::Game() :
 m_shutdownState(ShutdownState::UNKNOWN),
@@ -64,8 +65,11 @@ void Game::CleanUp()
 void Game::Update()
 {
 	sf::Time deltaT = m_clock.restart();
-	if (deltaT.asSeconds() > 0.01f)
+	if (deltaT.asSeconds() > 0.1f)
 		return;
+	Text dt;
+	dt.Init("fps: " + std::to_string(1.f/deltaT.asSeconds()), sf::Color::White, sf::Vector2f(0.f, 0.f));
+	m_window->draw(dt.GetText());
 	m_sceneManager->Update(deltaT);
 }
 

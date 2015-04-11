@@ -14,9 +14,13 @@ public:
 	Text();
 	virtual ~Text();
 
-	bool Init(sf::Color color);
+	bool Init(std::string text, sf::Color color, sf::Vector2f position);
 
-	void SetString(std::string string);
+	void SetText(std::string string);
+	void SetPositionTopLeft(sf::Vector2f position);
+	void SetPositionCenter(sf::Vector2f position);
+	void SetColor(sf::Color color);
+	void SetSize(int size);
 
 	sf::Text GetText();
 

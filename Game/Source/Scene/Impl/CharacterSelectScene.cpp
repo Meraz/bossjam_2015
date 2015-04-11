@@ -1,15 +1,25 @@
 #include <Scene/Impl/CharacterSelectScene.hpp>
 #include <PlayerContext.hpp>
 #include <Player.hpp>
-
+#include <System/Text.hpp>
 #include <XboxController.hpp>
 
-CharacterSelectScene::CharacterSelectScene()
-: BaseScene(SceneType::CHARSELECT)
+
+#include <iostream>
+
+CharacterSelectScene::CharacterSelectScene(AbstractSceneManager* sceneManager)
+: BaseScene(SceneType::CHARSELECT, sceneManager)
 {
 	m_totalCharacters = 5; //Including Character NONE
 	m_totalColors = 4;
 	InitSelectableCharacters();
+
+	for (size_t i = 0; i < 4; i++)
+	{
+		PlayerContext::GetPlayerContext()->GetPlayer(i);
+		m_players[i].isActive = false;
+		m_players[i].isLocked = false;
+	}
 }
 
 CharacterSelectScene::~CharacterSelectScene()
@@ -18,20 +28,26 @@ CharacterSelectScene::~CharacterSelectScene()
 
 void CharacterSelectScene::InitSelectableCharacters()
 {
-	for (size_t x = 0; x < m_totalCharacters; x++)
+	int size = 150;
+	std::string name = "avatars_spritesheet.png";
+	sf::Texture largeTex;
+	largeTex.loadFromFile(name);
+	for (size_t x = 0; x < /*m_totalCharacters*/4; x++)
 	{
 		for (size_t y = 0; y < m_totalColors; y++)
 		{
-			std::string name = "portrait_" + std::to_string(x);
 			if (x == 0)
 			{
 				//Set all these portaits to NONE/inactive/not in game/whatever
+				m_allSelectableCharacters[x][y].portrait.loadFromFile("no_character.png");
 			}
 			else
 			{
 				//Set portrait to portrait_x_y.png
-				name.append(std::to_string(y) + ".png");
+				m_allSelectableCharacters[x][y].portrait.loadFromFile(name, sf::IntRect(y*size, (x - 1)*size, size, size));
 			}
+			m_allSelectableCharacters[x][y].charClass = (CharacterClass)x;
+			m_allSelectableCharacters[x][y].charColor = (CharacterColor)y;
 		}
 	}
 }
@@ -43,8 +59,8 @@ void CharacterSelectScene::Update(sf::Time deltaT)
 	for (size_t i = 0; i < 4; i++)
 	{
 		Player* curPlayer = PlayerContext::GetPlayerContext()->GetPlayer(i);
-		XboxController* controller = new XboxController(i);
-		
+		XboxController* controller = curPlayer->GetController();
+		controller->Update();
 		
 		if (controller->GetAButtonState().current && !controller->GetAButtonState().last)
 		{
@@ -52,6 +68,9 @@ void CharacterSelectScene::Update(sf::Time deltaT)
 			if (!m_players[i].isActive)
 			{
 				m_players[i].isActive = true;
+				m_players[i].chosenChar.x = 1;
+				m_players[i].chosenChar.y = 0;
+				GetNextAvailableColor(m_players[i].chosenChar.x, m_players[i].chosenChar.y);
 			}
 			//if A and is active: lock character
 			else if (m_players[i].isActive)
@@ -64,13 +83,15 @@ void CharacterSelectScene::Update(sf::Time deltaT)
 				bool allLocked = true;
 				for (size_t j = 0; j < 4; j++)
 				{
+					if (!m_players[j].isActive)
+						continue;
 					allLocked = m_players[j].isLocked;
 					if (!allLocked)
 						break;
 				}
 				if (allLocked)
 				{
-					//Start!!
+					m_sceneManager->ChangeScene(SceneType::GAME);
 				}
 			}
 		}
@@ -94,7 +115,7 @@ void CharacterSelectScene::Update(sf::Time deltaT)
 			}
 		}
 
-		if (controller->GetRStickXState().current > 0.f && controller->GetRStickXState().current <= 0.f) // maybe?
+		if (controller->GetLStickXState().current > 0.f && controller->GetLStickXState().last <= 0.f) // maybe?
 		{
 			//if right (and active and not locked): select next character
 			if (m_players[i].isActive && !m_players[i].isLocked)
@@ -102,7 +123,7 @@ void CharacterSelectScene::Update(sf::Time deltaT)
 				SelectNextCharacter(i);
 			}
 		}
-		else if (controller->GetLStickXState().current > 0.f && controller->GetLStickXState().current <= 0.f) // maybe?
+		else if (controller->GetLStickXState().current < 0.f && controller->GetLStickXState().last >= 0.f) // maybe?
 		{
 			//if left (and active and not locked): select prev character
 			if (m_players[i].isActive && !m_players[i].isLocked)
@@ -133,7 +154,33 @@ void CharacterSelectScene::Update(sf::Time deltaT)
 
 void CharacterSelectScene::Render(sf::RenderWindow* window)
 {
+	
+	Text sceneTitle;
+	sceneTitle.Init("Select Character", sf::Color::Yellow, sf::Vector2f(window->getSize().x / 2.f, 0.f));
+	sceneTitle.SetPositionCenter(sf::Vector2f(window->getSize().x / 2.f, 20.f));
+	sceneTitle.SetSize(50);
+	window->draw(sceneTitle.GetText());
 
+	float spacing = window->getSize().x / 8.f;
+	for (size_t i = 0; i < 4; i++)
+	{
+		float curMiddle = spacing + i * spacing * 2.f;
+		//PX
+		Text playerText;
+		playerText.Init("P" + std::to_string(i + 1), sf::Color::Green, sf::Vector2f(curMiddle-spacing/2.f, 150.f));
+		//playerText.SetPositionCenter(sf::Vector2f(curMiddle, 150.f));
+		//Portrait
+		sf::Sprite sprite;
+		sprite.setTexture(m_allSelectableCharacters[m_players[i].chosenChar.x][m_players[i].chosenChar.y].portrait);
+		sprite.setPosition(curMiddle-spacing/2.f, 200.f);
+
+		//Character name
+
+		//Render
+		window->draw(playerText.GetText());
+		window->draw(sprite);
+	}
+	
 }
 
 void CharacterSelectScene::SelectNextCharacter(int playerID)
@@ -167,13 +214,20 @@ int CharacterSelectScene::GetNextAvailableColor(int character, int currentColor)
 		wantColor = 0;
 	while (wantColor != currentColor)
 	{
+		bool okColor = false;
 		for (size_t i = 0; i < 4; i++)
 		{
 			if (m_players[i].chosenChar.x != character)
 				continue;
 			if (m_players[i].chosenChar.y == wantColor)
+			{
+				okColor = false;
 				break;
+			}
+			okColor = true;
 		}
+		if (okColor)
+			return wantColor;
 		wantColor++;
 		if (wantColor == m_totalColors)
 			wantColor = 0;
@@ -184,20 +238,27 @@ int CharacterSelectScene::GetNextAvailableColor(int character, int currentColor)
 int CharacterSelectScene::GetPrevAvailableColor(int character, int currentColor)
 {
 	int wantColor = currentColor - 1;
-	if (wantColor == 0)
-		wantColor = m_totalColors;
+	if (wantColor < 0)
+		wantColor = m_totalColors-1;
 	while (wantColor != currentColor)
 	{
+		bool okColor = false;
 		for (size_t i = 0; i < 4; i++)
 		{
 			if (m_players[i].chosenChar.x != character)
 				continue;
 			if (m_players[i].chosenChar.y == wantColor)
+			{
+				okColor = false;
 				break;
+			}
+			okColor = true;
 		}
+		if (okColor)
+			return wantColor;
 		wantColor--;
-		if (wantColor == 0)
-			wantColor = m_totalColors;
+		if (wantColor < 0)
+			wantColor = m_totalColors-1;
 	}
 	return currentColor;
 }
