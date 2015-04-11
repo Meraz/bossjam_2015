@@ -16,7 +16,7 @@ void MenuScene::Update(float deltaTime)
 
 }
 
-void MenuScene::Render(sf::RenderWindow* m_window)
+void MenuScene::Render(sf::RenderWindow* window)
 {
 
 }
