@@ -9,8 +9,11 @@ GameScene::GameScene()
 	m_level = new Level();
 	m_level->Initialize("Level0.ppm");
 
-	m_player1 = new Player(1, 10, 10, 10, 10, 10, 10);
-	m_player2 = new Player(2, 10, 10, 10, 10, 10, 10);
+	m_player1 = new Player(1);
+	m_player2 = new Player(2);
+
+	m_player1->LoadStats("tiger.lua");
+	m_player2->LoadStats("tiger.lua");
 }
 
 GameScene::~GameScene()
