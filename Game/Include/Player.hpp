@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <string>
+
 class Player
 {
 private:
@@ -36,7 +38,7 @@ public:
 
 	void Update(float time);
 
-	void LoadStats();
+	void LoadStats(std::string characterName);
 
 	void IncreaseScore(int amount);
 	void DecreaseScore(int amount);

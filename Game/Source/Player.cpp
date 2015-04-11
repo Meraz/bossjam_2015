@@ -1,5 +1,5 @@
 #include <Player.hpp>
-
+#include <LuaScript.hpp>
 
 //Player::Player(int playerNr)
 //{
@@ -67,9 +67,27 @@ void Player::Update(float time)
 
 }
 
-void Player::LoadStats()
+void Player::LoadStats(std::string characterName)
 {
-
+	LuaScript* characterScript = new LuaScript(characterName);
+	m_moveSpeedCurrent		 = characterScript->GetVariable<float>("m_moveSpeedCurrent");
+	m_moveSpeedDefault		 = characterScript->GetVariable<float>("m_moveSpeedDefault");
+	m_moveSpeedMax			 = characterScript->GetVariable<float>("m_moveSpeedMax");
+	m_accelerationCurrent	 = characterScript->GetVariable<float>("m_accelerationCurrent");
+	m_accelerationDefault	 = characterScript->GetVariable<float>("m_accelerationDefault");
+	m_accelerationMax		 = characterScript->GetVariable<float>("m_accelerationMax");
+	m_jumpHeightCurrent		 = characterScript->GetVariable<float>("m_jumpHeightCurrent");
+	m_jumpHeightDefault		 = characterScript->GetVariable<float>("m_jumpHeightDefault");
+	m_jumpHeightMax			 = characterScript->GetVariable<float>("m_jumpHeightMax");
+	m_jumpNrCurrent			 = characterScript->GetVariable<int>("m_jumpNrCurrent");
+	m_jumpNrDefault			 = characterScript->GetVariable<int>("m_jumpNrDefault");
+	m_jumpNrMax				 = characterScript->GetVariable<int>("m_jumpNrMax");
+	m_airControlCurrent		 = characterScript->GetVariable<float>("m_airControlCurrent");
+	m_airControlDefault		 = characterScript->GetVariable<float>("m_airControlDefault");
+	m_airControlMax			 = characterScript->GetVariable<float>("m_airControlMax");
+	m_groundControlCurrent	 = characterScript->GetVariable<float>("m_groundControlCurrent");
+	m_groundControlDefault	 = characterScript->GetVariable<float>("m_groundControlDefault");
+	m_groundControlMax		 = characterScript->GetVariable<float>("m_groundControlMax");
 }
 
 void Player::IncreaseScore(int amount)
