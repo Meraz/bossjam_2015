@@ -1,6 +1,7 @@
 #pragma once
 #include <Scene/Impl/BaseScene.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
 enum class CharacterClass
 {
@@ -23,7 +24,7 @@ struct SelectableCharacter
 {
 	CharacterClass charClass;
 	CharacterColor charColor;
-	//Texture portrait
+	sf::Texture portrait;
 };
 
 struct PlayerInfo

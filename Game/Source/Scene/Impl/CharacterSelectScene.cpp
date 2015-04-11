@@ -1,7 +1,7 @@
 #include <Scene/Impl/CharacterSelectScene.hpp>
 #include <PlayerContext.hpp>
 #include <Player.hpp>
-
+#include <System/Text.hpp>
 #include <XboxController.hpp>
 
 CharacterSelectScene::CharacterSelectScene()
@@ -31,6 +31,7 @@ void CharacterSelectScene::InitSelectableCharacters()
 			{
 				//Set portrait to portrait_x_y.png
 				name.append(std::to_string(y) + ".png");
+				m_allSelectableCharacters[x][y].portrait.loadFromFile(name);
 			}
 		}
 	}
@@ -133,7 +134,30 @@ void CharacterSelectScene::Update(float deltaTime)
 
 void CharacterSelectScene::Render(sf::RenderWindow* window)
 {
+	
+	Text sceneTitle;
+	sceneTitle.Init("Select Character", sf::Color::Yellow, sf::Vector2f(window->getSize().x / 2.f, 0));
+	sceneTitle.SetPositionCenter(sf::Vector2f(window->getSize().x / 2.f, 20));
+	sceneTitle.SetSize(50);
+	window->draw(sceneTitle.GetText());
 
+	float spacing = window->getSize().x / 8.f;
+	for (size_t i = 0; i < 4; i++)
+	{
+		float curMiddle = i * spacing * 2.f;
+		//PX
+		Text playerText;
+		playerText.Init("P" + std::to_string(i + 1), sf::Color::Green, sf::Vector2f(curMiddle, 150.f));
+
+		//Portrait
+		sf::Sprite sprite;
+		sprite.setTexture(m_allSelectableCharacters[m_players[i].chosenChar.x][m_players[i].chosenChar.y].portrait);
+		sprite.setPosition(curMiddle - spacing, 200.f);
+
+		//Character name
+
+	}
+	
 }
 
 void CharacterSelectScene::SelectNextCharacter(int playerID)

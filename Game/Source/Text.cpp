@@ -9,28 +9,48 @@ Text::~Text()
 {
 }
 
-bool Text::Init(sf::Color color)
+bool Text::Init(std::string text, sf::Color color, sf::Vector2f position)
 {
-	if (!m_font.loadFromFile("mytype.ttf"))
+	if (!m_font.loadFromFile("OpenSans.ttf"))
 	{
 		return false;
 	}
 
 	m_text.setFont(m_font);
 
-	SetString("");
-	m_text.setCharacterSize(24);
-	m_text.setColor(color);
+	SetText(text);
+	SetSize(24);
+	SetColor(color);
 	m_text.setStyle(sf::Text::Bold);
-	m_text.setPosition(200, 200);
+	SetPositionTopLeft(position);
 
 	return true;
 }
 
 
-void Text::SetString(std::string string)
+void Text::SetText(std::string string)
 {
 	m_text.setString(string);
+}
+
+void Text::SetPositionTopLeft(sf::Vector2f position)
+{
+	m_text.setPosition(position.x, position.y);
+}
+
+void Text::SetPositionCenter(sf::Vector2f position)
+{
+	m_text.setPosition(position.x - m_text.getLocalBounds().width, position.y - m_text.getLocalBounds().height);
+}
+
+void Text::SetColor(sf::Color color)
+{
+	m_text.setColor(color);
+}
+
+void Text::SetSize(int size)
+{
+	m_text.setCharacterSize(size);
 }
 
 sf::Text Text::GetText()
@@ -46,7 +66,7 @@ void Text::LoadTextFromFile(std::string filename)
 	textFile.open(filename);
 	getline(textFile, tempText);
 
-	SetString(tempText);
+	SetText(tempText);
 
 	textFile.close();
 }
