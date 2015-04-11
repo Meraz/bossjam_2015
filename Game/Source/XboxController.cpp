@@ -3,6 +3,26 @@
 XboxController::XboxController(int playerNr)
 {
 	m_input = new XboxInput(playerNr);
+
+	m_aButton.current = m_input->IsAbuttonPressed();
+	m_bButton.current = m_input->IsBbuttonPressed();
+	m_xButton.current = m_input->IsXbuttonPressed();
+	m_yButton.current = m_input->IsYbuttonPressed();
+	m_lbButton.current = m_input->IsLBbuttonPressed();
+	m_rbButton.current = m_input->IsRBbuttonPressed();
+	m_backButton.current = m_input->IsBackbuttonPressed();
+	m_startButton.current = m_input->IsStartbuttonPressed();
+	m_lStickButton.current = m_input->IsLThumbStickPressed();
+	m_rStickButton.current = m_input->IsRThumbStickPressed();
+
+	m_lStickX.current = m_input->GetLThumbStickX();
+	m_lStickY.current = m_input->GetLThumbStickY();
+	m_rStickX.current = m_input->GetRThumbStickX();
+	m_rStickY.current = m_input->GetRThumbStickY();
+	m_lTrigger.current = m_input->GetLTrigger();
+	m_rTrigger.current = m_input->GetRTrigger();
+	m_dPadX.current = m_input->GetDPadX();
+	m_dPadY.current = m_input->GetDPadY();
 }
 
 XboxController::~XboxController()
