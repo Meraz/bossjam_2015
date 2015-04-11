@@ -9,13 +9,3 @@ BaseScene::~BaseScene()
 {
 	 
 }
-
-void BaseScene::Update(float deltaT)
-{
-
-}
-
-void BaseScene::Render(sf::RenderWindow* window)
-{
-
-}

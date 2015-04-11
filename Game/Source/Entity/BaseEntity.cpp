@@ -19,7 +19,7 @@ void BaseEntity::Initialize(float posX, float posY, const std::string& texturePa
 	m_shape.setPosition(sf::Vector2f(posX, posY));
 }
 
-void BaseEntity::Update(float deltaT)
+void BaseEntity::Update(sf::Time deltaT)
 {
 }
 

@@ -37,7 +37,7 @@ void CharacterSelectScene::InitSelectableCharacters()
 }
 
 
-void CharacterSelectScene::Update(float deltaTime)
+void CharacterSelectScene::Update(sf::Time deltaT)
 {
 	//get input from all controllers
 	for (size_t i = 0; i < 4; i++)

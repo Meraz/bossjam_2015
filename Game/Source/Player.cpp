@@ -44,11 +44,12 @@ Player::~Player()
 	//
 }
 
-void Player::Update(float deltaT)
+void Player::Update(sf::Time deltaT)
 {
-	m_time = deltaT;
+	m_deltaT = deltaT;
+	m_time = deltaT.asSeconds();
 	m_playerController->Update();
-	HandleMovement(deltaT);
+	HandleMovement(deltaT.asSeconds());
 }
 
 void Player::Render(sf::RenderWindow* window)

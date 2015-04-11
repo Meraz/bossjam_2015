@@ -26,7 +26,6 @@ void Game::Initialize()
 ShutdownState Game::Run()
 {
 	sf::Clock clock;
-	m_clock.restart().asSeconds();
 	while (m_window->isOpen())
 	{
 		m_window->clear();
@@ -63,8 +62,8 @@ void Game::CleanUp()
 
 void Game::Update()
 {
-	float deltaT = m_clock.restart().asSeconds();
-	if (deltaT > 0.01f)
+	sf::Time deltaT = m_clock.restart();
+	if (deltaT.asSeconds() > 0.01f)
 		return;
 	m_sceneManager->Update(deltaT);
 }
