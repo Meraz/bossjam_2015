@@ -13,7 +13,7 @@ public:
 	~SceneManager();	
 
 	void Update(float deltaT);
-	void Render(sf::RenderWindow* window);;
+	void Render(sf::RenderWindow* window);
 	SceneType GetCurrentSceneType() const { return m_currentSceneEnum; };
 
 	void ChangeScene(SceneType newScene) override;
