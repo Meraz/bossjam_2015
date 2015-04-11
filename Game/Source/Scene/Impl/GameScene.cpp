@@ -9,7 +9,7 @@ GameScene::GameScene(AbstractSceneManager* sceneManager)
 	playerCount = 0;
 
 	m_level = new Level();
-	m_level->Initialize("Levels/Level0.ppm");
+	m_level->Initialize("Levels/Level-Flatland.ppm");
 
 	m_players.push_back(new Player(playerCount++));
 	m_players.push_back(new Player(playerCount++));
