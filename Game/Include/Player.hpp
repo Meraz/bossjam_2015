@@ -9,9 +9,15 @@
 #include <System/XboxInput.hpp>
 #include <Sprite/AnimatedSprite.hpp>
 #include <Sprite/Animation.hpp>
-#define CHAR_WIDTH 90
+#define CHAR_WIDTH 87
 #define CHAR_HEIGHT 150
 #include <XboxController.hpp>
+
+enum class MovementDirection
+{
+	LEFT,
+	RIGHT
+};
 
 class Player : public BaseEntity
 {
@@ -24,6 +30,7 @@ private:
 	float m_maxVertSpeed;
 
 	bool m_isJumping;
+	int m_timesJumped;
 	float m_timeJumpButtonHeld;
 
 
@@ -50,23 +57,27 @@ private:
 	float m_groundControlDefault;
 	float m_groundControlMax;
 
-
+	
 	int m_score;
 	sf::Texture m_animationTexture;
 	Animation* m_currentAnimation;
-	Animation m_walking;
+	Animation m_walkingRight;
+	Animation m_walkingLeft;
 	AnimatedSprite m_walkingAnimatedSprite; 
 	float m_time;
+	sf::Time m_deltaT;
+	MovementDirection m_movementDirection;
 
 public:
 	//(int playerNr);
 	Player(int playerNr);
 	virtual ~Player();
 
-	void Update(float deltaT) override;
+	void Update(sf::Time deltaT) override;
 	void Render(sf::RenderWindow* window) override;
 
 	void LoadStats(std::string characterName);
+	void LoadInitStats(std::string characterName);
 	void HandleMovement(float deltaT);
 
 	void IncreaseScore(int amount);

@@ -11,7 +11,7 @@ MenuScene::~MenuScene()
 
 }
 
-void MenuScene::Update(float deltaTime)
+void MenuScene::Update(sf::Time deltaT)
 {
 
 }

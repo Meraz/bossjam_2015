@@ -64,11 +64,11 @@ void Game::CleanUp()
 
 void Game::Update()
 {
-	float deltaT = m_clock.restart().asSeconds();
-	if (deltaT > 0.1f)
+	sf::Time deltaT = m_clock.restart();
+	if (deltaT.asSeconds() > 0.1f)
 		return;
 	Text dt;
-	dt.Init("fps: " + std::to_string(1.f/deltaT), sf::Color::White, sf::Vector2f(0.f, 0.f));
+	dt.Init("fps: " + std::to_string(1.f/deltaT.asSeconds()), sf::Color::White, sf::Vector2f(0.f, 0.f));
 	m_window->draw(dt.GetText());
 	m_sceneManager->Update(deltaT);
 }

@@ -13,7 +13,7 @@ public:
 	SceneManager();
 	~SceneManager();	
 
-	void Update(float deltaT);
+	void Update(sf::Time deltaT);
 	void Render(sf::RenderWindow* window);
 	SceneType GetCurrentSceneType() const { return m_currentSceneEnum; };
 

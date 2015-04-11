@@ -17,7 +17,7 @@ public:
 	void setSize(int sizeX, int sizeY);
 	sf::FloatRect getCollisionRect();
 
-	virtual void Update(float deltaT);
+	virtual void Update(sf::Time deltaT);
 	virtual void Render(sf::RenderWindow* window);
 	
 	const ColorCoding& GetColor() { return m_color; }

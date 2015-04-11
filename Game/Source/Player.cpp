@@ -13,54 +13,78 @@ Player::Player(int playerNr)
 		
 
 	//PlayerBox
-	//Initialize(50 * (playerNr + 1), 50);
+	m_shape.setPosition(100 * (playerNr + 1), 50);
 	m_shape.setFillColor(sf::Color((playerNr + 1) * 60, (playerNr + 1) * 20, (playerNr + 1) * 40));
+	m_shape.setSize(sf::Vector2f(CHAR_WIDTH, CHAR_HEIGHT));
 	m_vel = sf::Vector2f(0, 0);
 
 	m_maxVertSpeed = 7;
 
 	m_isJumping = false;
+	m_timesJumped = 0;
 	m_timeJumpButtonHeld = 0.f;
 
 	m_score = 0;
 
+	m_animationTexture.loadFromFile("spritesheet_horse_5.png");
+	m_walkingRight.setSpriteSheet(m_animationTexture);
+	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 0, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 1, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 3, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 4, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, CHAR_WIDTH, CHAR_HEIGHT));
 
-	m_walking.setSpriteSheet(m_animationTexture);
-	m_walking.addFrame(sf::IntRect(88, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walking.addFrame(sf::IntRect(88 * 1, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walking.addFrame(sf::IntRect(88 * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walking.addFrame(sf::IntRect(88 * 3, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walking.addFrame(sf::IntRect(88 * 4, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_currentAnimation = &m_walking;
+	m_walkingLeft.setSpriteSheet(m_animationTexture);
+	//m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 4, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 3, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 1, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 0, 0, -CHAR_WIDTH, CHAR_HEIGHT));
 
-	m_walkingAnimatedSprite = AnimatedSprite(sf::seconds(0.2), true, true);
-	//m_walkingAnimatedSprite.set
+	m_currentAnimation = &m_walkingRight;
+
+	m_walkingAnimatedSprite = AnimatedSprite(sf::seconds(0.15), true, true);
 	m_walkingAnimatedSprite.setPosition(m_shape.getPosition());
 	m_time = 0;
 }
 
 Player::~Player()
 {
-	//
+	// TODO
 }
 
-void Player::Update(float deltaT)
+void Player::Update(sf::Time deltaT)
 {
-	m_time = deltaT;
+	m_deltaT = deltaT;
+	m_time = deltaT.asSeconds();
 	m_playerController->Update();
-	HandleMovement(deltaT);
+	HandleMovement(deltaT.asSeconds());
+	if (m_vel.x > 0)
+	{
+		m_walkingAnimatedSprite.SetFlippedXAxis(false);
+	}
+	else if (m_vel.x < 0)
+	{
+		m_walkingAnimatedSprite.SetFlippedXAxis(true);
+	}
 }
 
 void Player::Render(sf::RenderWindow* window)
 {
-	window->draw(m_shape);
-//	m_walkingAnimatedSprite.play(*m_currentAnimation);
-//	m_walkingAnimatedSprite.setPosition(sf::Vector2f(m_collisionRectangle.left, m_collisionRectangle.top));
-	window->draw(m_shape);
+	//window->draw(m_shape);
+	m_walkingAnimatedSprite.play(*m_currentAnimation);
+	m_walkingAnimatedSprite.setPosition(m_shape.getPosition());
+	m_walkingAnimatedSprite.update(m_deltaT);
+	window->draw(m_walkingAnimatedSprite);
 }
 
 void Player::LoadStats(std::string characterName)
 {
+	if (m_playerController->GetStartButtonState().current)
+	{
 		LuaScript* characterScript = new LuaScript(characterName);
 		m_moveSpeedCurrent = characterScript->GetVariable<float>("m_moveSpeedCurrent");
 		m_moveSpeedDefault = characterScript->GetVariable<float>("m_moveSpeedDefault");
@@ -80,12 +104,36 @@ void Player::LoadStats(std::string characterName)
 		m_groundControlCurrent = characterScript->GetVariable<float>("m_groundControlCurrent");
 		m_groundControlDefault = characterScript->GetVariable<float>("m_groundControlDefault");
 		m_groundControlMax = characterScript->GetVariable<float>("m_groundControlMax");
+	}
+}
 
+
+void Player::LoadInitStats(std::string characterName)
+{
+	LuaScript* characterScript = new LuaScript(characterName);
+	m_moveSpeedCurrent = characterScript->GetVariable<float>("m_moveSpeedCurrent");
+	m_moveSpeedDefault = characterScript->GetVariable<float>("m_moveSpeedDefault");
+	m_moveSpeedMax = characterScript->GetVariable<float>("m_moveSpeedMax");
+	m_accelerationCurrent = characterScript->GetVariable<float>("m_accelerationCurrent");
+	m_accelerationDefault = characterScript->GetVariable<float>("m_accelerationDefault");
+	m_accelerationMax = characterScript->GetVariable<float>("m_accelerationMax");
+	m_jumpHeightCurrent = characterScript->GetVariable<float>("m_jumpHeightCurrent");
+	m_jumpHeightDefault = characterScript->GetVariable<float>("m_jumpHeightDefault");
+	m_jumpHeightMax = characterScript->GetVariable<float>("m_jumpHeightMax");
+	m_jumpNrCurrent = characterScript->GetVariable<int>("m_jumpNrCurrent");
+	m_jumpNrDefault = characterScript->GetVariable<int>("m_jumpNrDefault");
+	m_jumpNrMax = characterScript->GetVariable<int>("m_jumpNrMax");
+	m_airControlCurrent = characterScript->GetVariable<float>("m_airControlCurrent");
+	m_airControlDefault = characterScript->GetVariable<float>("m_airControlDefault");
+	m_airControlMax = characterScript->GetVariable<float>("m_airControlMax");
+	m_groundControlCurrent = characterScript->GetVariable<float>("m_groundControlCurrent");
+	m_groundControlDefault = characterScript->GetVariable<float>("m_groundControlDefault");
+	m_groundControlMax = characterScript->GetVariable<float>("m_groundControlMax");
 }
 
 void Player::HandleMovement(float deltaT)
 {
-	float grav = 9.81f * 30.f;
+	float grav = 9.81f * 400.f;
 	float acc = 100.f * m_accelerationCurrent;
 	bool notMoving = true;
 	if (m_playerController->GetLStickXState().current < 0)
@@ -139,18 +187,25 @@ void Player::HandleMovement(float deltaT)
 
 	//Handle jump
 
-	if (m_playerController->GetAButtonState().current)
+	if (m_playerController->GetAButtonState().current == true && m_timesJumped < m_jumpNrCurrent)
 	{
-		m_timeJumpButtonHeld += deltaT;
-		if (m_timeJumpButtonHeld < 0.2f)
-		{
-			m_isJumping = true;
-			m_vel.y = -m_jumpHeightCurrent;
-		}
-		if (m_isJumping == false)
+		if (m_playerController->GetAButtonState().last == false)
 		{
 			m_timeJumpButtonHeld = 0;
+			m_vel.y = -m_jumpHeightCurrent;
 		}
+		else
+		{
+			m_timeJumpButtonHeld += deltaT;
+			if (m_timeJumpButtonHeld < 0.2f)
+			{
+				m_vel.y = -m_jumpHeightCurrent;
+			}
+		}
+	}
+	else if (m_playerController->GetAButtonState().current == false && m_playerController->GetAButtonState().last == true)
+	{
+		m_timesJumped++;
 	}
 
 	//Gravity
@@ -173,8 +228,8 @@ void Player::CollisionEvent(sf::Vector2f velocity)
 	m_shape.move(velocity);
 	if (velocity.y < 0)
 	{
-		m_isJumping = false;
 		m_vel.y = 0;
+		m_timesJumped = 0;
 	}
 }
 

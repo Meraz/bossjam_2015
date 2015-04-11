@@ -53,6 +53,7 @@ public:
     bool isPlaying() const;
     sf::Time getFrameTime() const;
     void setFrame(std::size_t newFrame, bool resetTime = true);
+	void SetFlippedXAxis(bool flipXAxis);
 
 private:
     const Animation* m_animation;
@@ -63,6 +64,7 @@ private:
     bool m_isLooped;
     const sf::Texture* m_texture;
     sf::Vertex m_vertices[4];
+	bool m_flippedXAxis;
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

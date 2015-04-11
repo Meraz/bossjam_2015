@@ -65,8 +65,8 @@ BaseEntity* Level::EvaluateTileDataFromFile(size_t r, size_t g, size_t b, size_t
 	BaseEntity* returnEntity = nullptr;
 	if(EmptyCondition(r,g,b))
 	{
-		returnEntity = new BaseEntity(EntityType::EMPTY);
-		returnEntity->Initialize(TILE_SIZE * x, TILE_SIZE * y, GetTextureFromColorCoding(g));
+	//	returnEntity = new BaseEntity(EntityType::EMPTY);
+	//	returnEntity->Initialize(TILE_SIZE * x, TILE_SIZE * y, GetTextureFromColorCoding(g));
 	}
 	else if (SimleWallCondition(r, g, b))
 	{
