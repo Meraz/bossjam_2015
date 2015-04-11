@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <Scene/Impl/SceneManager.hpp>
+#include <System/Text.hpp>
 
 Game::Game() :
 m_shutdownState(ShutdownState::UNKNOWN),

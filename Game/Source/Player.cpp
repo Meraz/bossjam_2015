@@ -25,14 +25,25 @@ Player::Player(int playerNr)
 
 	m_score = 0;
 
-	m_animationTexture.loadFromFile("spritesheet_tiger.png");
-	m_walking.setSpriteSheet(m_animationTexture);
-	m_walking.addFrame(sf::IntRect(CHAR_WIDTH, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walking.addFrame(sf::IntRect(CHAR_WIDTH * 1, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walking.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walking.addFrame(sf::IntRect(CHAR_WIDTH * 3, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walking.addFrame(sf::IntRect(CHAR_WIDTH * 4, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_currentAnimation = &m_walking;
+	m_animationTexture.loadFromFile("spritesheet_horse_5.png");
+	m_walkingRight.setSpriteSheet(m_animationTexture);
+	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 0, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 1, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 3, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 4, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, CHAR_WIDTH, CHAR_HEIGHT));
+
+	m_walkingLeft.setSpriteSheet(m_animationTexture);
+	//m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 4, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 3, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 1, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 0, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+
+	m_currentAnimation = &m_walkingRight;
 
 	m_walkingAnimatedSprite = AnimatedSprite(sf::seconds(0.15), true, true);
 	m_walkingAnimatedSprite.setPosition(m_shape.getPosition());
@@ -50,6 +61,14 @@ void Player::Update(sf::Time deltaT)
 	m_time = deltaT.asSeconds();
 	m_playerController->Update();
 	HandleMovement(deltaT.asSeconds());
+	if (m_vel.x > 0)
+	{
+		m_walkingAnimatedSprite.SetFlippedXAxis(false);
+	}
+	else if (m_vel.x < 0)
+	{
+		m_walkingAnimatedSprite.SetFlippedXAxis(true);
+	}
 }
 
 void Player::Render(sf::RenderWindow* window)

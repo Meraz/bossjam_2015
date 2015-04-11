@@ -16,7 +16,7 @@ void BaseEntity::Initialize(float posX, float posY, const std::string& texturePa
 {
 	m_texture.loadFromFile(texturePath);
 	m_shape.setTexture(&m_texture);
-	m_shape.setPosition(sf::Vector2f(posX, posY));
+	m_shape.setPosition(sf::Vector2f(posX+25, posY));
 }
 
 void BaseEntity::Update(sf::Time deltaT)
