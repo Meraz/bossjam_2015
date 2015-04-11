@@ -8,12 +8,14 @@ class Player;
 class PlayerContext
 {
 public:
-	static Player* GetPlayer(int index);
+	static PlayerContext* GetPlayerContext();
+	Player* GetPlayer(int index);
 private:
 	PlayerContext(){};
 	~PlayerContext(){};
 
-	static Player* m_players[4];
+	static PlayerContext* m_context;
+	Player* m_players[4];
 };
 
 #endif

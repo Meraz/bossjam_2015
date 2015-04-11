@@ -1,5 +1,6 @@
 #include <Scene/Impl/CharacterSelectScene.hpp>
 #include <PlayerContext.hpp>
+#include <Player.hpp>
 
 CharacterSelectScene::CharacterSelectScene()
 : BaseScene(SceneType::CHARSELECT)
@@ -37,7 +38,11 @@ void CharacterSelectScene::InitSelectableCharacters()
 void CharacterSelectScene::Update(float deltaTime)
 {
 	//get input from all controllers
-
+	for (size_t i = 0; i < 4; i++)
+	{
+		Player* curPlayer = PlayerContext::GetPlayerContext()->GetPlayer(i);
+		
+	}
 	//if A: add to active players
 	//if A and is active: lock character
 	//if A and all active players characters are locked: start game
