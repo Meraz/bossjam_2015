@@ -46,7 +46,7 @@ void Level::LoadFile(const std::string& filePath)
 		{
 			m_quadTree->AddEntity(EvaluateTileDataFromFile(r, g, b, x, y));
 			++x;
-			if (x == width-1)
+			if (x == width)
 			{
 				x = 0;
 				++y;

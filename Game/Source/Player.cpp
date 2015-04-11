@@ -29,17 +29,18 @@ Player::Player(int playerNr)
 
 	m_isDead = false;
 
-	m_animationTexture.loadFromFile("spritesheet_horse_360x490.png");
+	m_animationTexture.loadFromFile("spritesheet_rabbit_5.png");
+
 	m_walkingRight.setSpriteSheet(m_animationTexture);
 	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 0, 0, CHAR_WIDTH, CHAR_HEIGHT));
 	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 1, 0, CHAR_WIDTH, CHAR_HEIGHT));
 	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
 	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 3, 0, CHAR_WIDTH, CHAR_HEIGHT));
 	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 4, 0, CHAR_WIDTH, CHAR_HEIGHT));
-//	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, CHAR_WIDTH, CHAR_HEIGHT));
 
 	m_walkingLeft.setSpriteSheet(m_animationTexture);
-	//m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, -CHAR_WIDTH, CHAR_HEIGHT));
 	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, -CHAR_WIDTH, CHAR_HEIGHT));
 	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 4, 0, -CHAR_WIDTH, CHAR_HEIGHT));
 	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 3, 0, -CHAR_WIDTH, CHAR_HEIGHT));
@@ -301,7 +302,6 @@ void Player::PlayerCollisionEvent(sf::Vector2f velocity)
 	{
 		//Start death animation
 		m_isDead = true;
-		
 		m_walkingAnimatedSprite.SetFlippedYAxis(true);
 	}
 }
