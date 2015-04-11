@@ -19,8 +19,8 @@ GameScene::GameScene()
 	m_players.push_back(new Player(playerCount++));
 	m_players.push_back(new Player(playerCount++));
 
-	m_players.at(0)->LoadStats("tiger.lua");
-	m_players.at(1)->LoadStats("tiger.lua");
+	m_players.at(0)->LoadStats("CharacterScripts/tiger.lua");
+	m_players.at(1)->LoadStats("CharacterScripts/tiger.lua");
 }
 
 GameScene::~GameScene()
@@ -31,19 +31,20 @@ GameScene::~GameScene()
 void GameScene::Update(float deltaTime)
 {
 	sf::FloatRect test = m_players.at(0)->getCollisionRect();
-	std::vector<BaseEntity*>* all = new std::vector<BaseEntity*>;
+	std::vector<BaseEntity*>* all;
 	for (int i = 0; i < playerCount; ++i)
 	{
 		m_players.at(i)->Update(deltaTime);
-		m_players.at(i)->LoadStats("tiger.lua");
-		all = m_level->FindNearObjects(m_players.at(i)->getCollisionRect(), all);
+		//m_players.at(i)->LoadStats("CharacterScripts/tiger.lua");
+		all = m_level->GetAllObjects();
 		for (int j = 0; j < all->size(); ++j)
 		{
-			m_players.at(i)->CollisionEvent(collisionHandler.GetIntersectionVector(m_players.at(i)->getCollisionRect(), all->at(j)->GetCollisionRectangle()));
+			if (all->at(j)->GetType() != EntityType::EMPTY)
+			{
+				m_players.at(i)->CollisionEvent(collisionHandler.GetIntersectionVector(m_players.at(i)->getCollisionRect(), all->at(j)->getCollisionRect()));
+			}
 		}
 	}
-
-	delete all;
 }
 
 void GameScene::Render(sf::RenderWindow* window)

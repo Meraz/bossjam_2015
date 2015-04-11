@@ -35,7 +35,7 @@ Player::Player(int playerNr)
 
 	m_walkingAnimatedSprite = AnimatedSprite(sf::seconds(0.2), true, true);
 	//m_walkingAnimatedSprite.set
-	m_walkingAnimatedSprite.setPosition(sf::Vector2f(m_collisionRectangle.left, m_collisionRectangle.top));
+	m_walkingAnimatedSprite.setPosition(m_shape.getPosition());
 	m_time = 0;
 }
 
@@ -61,8 +61,6 @@ void Player::Render(sf::RenderWindow* window)
 
 void Player::LoadStats(std::string characterName)
 {
-	if (m_playerController->GetStartButtonState().current)
-	{
 		LuaScript* characterScript = new LuaScript(characterName);
 		m_moveSpeedCurrent = characterScript->GetVariable<float>("m_moveSpeedCurrent");
 		m_moveSpeedDefault = characterScript->GetVariable<float>("m_moveSpeedDefault");
@@ -82,12 +80,12 @@ void Player::LoadStats(std::string characterName)
 		m_groundControlCurrent = characterScript->GetVariable<float>("m_groundControlCurrent");
 		m_groundControlDefault = characterScript->GetVariable<float>("m_groundControlDefault");
 		m_groundControlMax = characterScript->GetVariable<float>("m_groundControlMax");
-	}
+
 }
 
 void Player::HandleMovement(float deltaT)
 {
-	float grav = 9.81f * 3.f;
+	float grav = 9.81f * 30.f;
 	float acc = 100.f * m_accelerationCurrent;
 	bool notMoving = true;
 	if (m_playerController->GetLStickXState().current < 0)

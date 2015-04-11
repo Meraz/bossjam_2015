@@ -28,7 +28,7 @@ void Node::AddEntity(BaseEntity* p_entity)
 {
 	if (p_entity == nullptr)
 		return;
-	if(m_rectangle.intersects(p_entity->GetCollisionRectangle()) == true)
+	if(m_rectangle.intersects(p_entity->getCollisionRect()) == true)
 	{
 		if (m_leafAvailable == false)
 		{
