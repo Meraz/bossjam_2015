@@ -1,5 +1,4 @@
-#include <LuaBridge/LuaScript.h>
-
+#include <LuaScript.h>
 
 LuaScript::LuaScript(const std::string& filename) 
 {
@@ -15,7 +14,7 @@ LuaScript::~LuaScript()
 	if (L) lua_close(L);
 }
 
-void LuaScript::printError(const std::string& variableName, const std::string& reason) 
+void LuaScript::PrintError(const std::string& variableName, const std::string& reason) 
 {
 	std::cout << "Error: can't get [" << variableName << "]. " << reason << std::endl;
 }

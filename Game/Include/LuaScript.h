@@ -56,7 +56,7 @@ private:
 				}
 
 				if (lua_isnil(L, -1)) {
-					printError(variableName, var + " is not defined");
+					PrintError(variableName, var + " is not defined");
 					return false;
 				}
 				else {
@@ -75,7 +75,7 @@ private:
 			lua_getfield(L, -1, var.c_str());
 		}
 		if (lua_isnil(L, -1)) {
-			printError(variableName, var + " is not defined");
+			PrintError(variableName, var + " is not defined");
 			return false;
 		}
 
@@ -112,7 +112,7 @@ inline float LuaScript::lua_get<float>(const std::string& variableName)
 {
 	if (!lua_isnumber(L, -1))
 	{
-		printError(variableName, "Not a number");
+		PrintError(variableName, "Not a number");
 	}
 	return (float)lua_tonumber(L, -1);
 }
@@ -122,7 +122,7 @@ inline int LuaScript::lua_get<int>(const std::string& variableName)
 {
 	if (!lua_isnumber(L, -1)) 
 	{
-		printError(variableName, "Not a number");
+		PrintError(variableName, "Not a number");
 	}
 	return (int)lua_tonumber(L, -1);
 }
@@ -137,7 +137,7 @@ inline std::string LuaScript::lua_get<std::string>(const std::string& variableNa
 	}
 	else 
 	{
-		printError(variableName, "Not a string");
+		PrintError(variableName, "Not a string");
 	}
 	return s;
 }
