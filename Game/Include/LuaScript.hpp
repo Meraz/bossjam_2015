@@ -21,7 +21,7 @@ public:
 	{
 		if (!L) 
 		{
-			printError(variableName, "Script is not loaded");
+			PrintError(variableName, "Script is not loaded");
 			return lua_getdefault<T>();
 		}
 
