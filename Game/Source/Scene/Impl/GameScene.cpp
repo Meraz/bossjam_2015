@@ -9,7 +9,7 @@ GameScene::GameScene(AbstractSceneManager* sceneManager)
 	playerCount = 0;
 
 	m_level = new Level();
-	m_level->Initialize("Levels/Level0.ppm");
+	m_level->Initialize("Levels/Level-Flatland.ppm");
 
 	m_players.push_back(new Player(playerCount++));
 	m_players.push_back(new Player(playerCount++));
@@ -34,7 +34,7 @@ void GameScene::Update(sf::Time deltaT)
 		all = m_level->GetAllObjects();
 		for (int j = 0; j < all->size(); ++j)
 		{
-			if (all->at(j)->GetType() != EntityType::EMPTY)
+			if (all->at(j)->GetType() != EntityType::EMPTY && !m_players.at(i)->IsDead())
 			{
 				m_players.at(i)->CollisionEvent(collisionHandler.GetIntersectionVector(m_players.at(i)->getCollisionRect(), all->at(j)->getCollisionRect()));
 			}
@@ -42,7 +42,7 @@ void GameScene::Update(sf::Time deltaT)
 
 		for (int j = 0; j < playerCount; ++j)
 		{
-			if (i != j)
+			if (i != j && !m_players.at(i)->IsDead() && !m_players.at(j)->IsDead())
 			{
 				m_players.at(i)->PlayerCollisionEvent(collisionHandler.GetIntersectionVector(m_players.at(i)->getCollisionRect(), m_players.at(j)->getCollisionRect()));
 			}

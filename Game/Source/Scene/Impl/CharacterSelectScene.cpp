@@ -33,10 +33,10 @@ CharacterSelectScene::~CharacterSelectScene()
 void CharacterSelectScene::InitSelectableCharacters()
 {
 	int size = 150;
-	std::string name = "avatars_spritesheet.png";
+	std::string name = "avatar_spritesheet_4.png";
 	sf::Texture largeTex;
 	largeTex.loadFromFile(name);
-	for (size_t x = 0; x < /*m_totalCharacters*/4; x++)
+	for (size_t x = 0; x < m_totalCharacters; x++)
 	{
 		for (size_t y = 0; y < m_totalColors; y++)
 		{
@@ -172,18 +172,61 @@ void CharacterSelectScene::Render(sf::RenderWindow* window)
 		float curMiddle = spacing + i * spacing * 2.f;
 		//PX
 		Text playerText;
-		playerText.Init("P" + std::to_string(i + 1), sf::Color::Green, sf::Vector2f(curMiddle-spacing/2.f, 150.f));
+		playerText.Init("P" + std::to_string(i + 1), sf::Color::Blue, sf::Vector2f(curMiddle - spacing / 2.f, 150.f));
 		//playerText.SetPositionCenter(sf::Vector2f(curMiddle, 150.f));
 		//Portrait
 		sf::Sprite sprite;
 		sprite.setTexture(m_allSelectableCharacters[m_players[i].chosenChar.x][m_players[i].chosenChar.y].portrait);
 		sprite.setPosition(curMiddle-spacing/2.f, 200.f);
+		
+		sf::RectangleShape border;
+		border.setPosition(curMiddle - spacing / 2.f, 200.f);
+		border.setSize(sf::Vector2f(150.f, 150.f));
+		border.setFillColor(sf::Color::Transparent);
+		border.setOutlineThickness(5.f);
+		if (m_players[i].isLocked)
+		{
+			border.setOutlineColor(sf::Color::Blue);
+		}
+		else
+		{
+			border.setOutlineColor(sf::Color::Yellow);
+		}
 
 		//Character name
-
+		float posY = 365.f;
+		Text charName;
+		if (!m_players[i].isActive)
+		{
+			charName.Init("Press A to join", sf::Color::Yellow, sf::Vector2f(curMiddle - spacing * 0.4f, posY));
+			charName.SetSize(14);
+		}
+		else
+		{
+			switch (m_players[i].chosenChar.x)
+			{
+			case(1) :
+				charName.Init("Göran", sf::Color::Yellow, sf::Vector2f(curMiddle - spacing * 0.4f, posY));
+				break;
+			case(2) :
+				charName.Init("Sven", sf::Color::Yellow, sf::Vector2f(curMiddle - spacing * 0.4f, posY));
+				break;
+			case(3) :
+				charName.Init("Roger", sf::Color::Yellow, sf::Vector2f(curMiddle - spacing * 0.4f, posY));
+				break;
+			case(4) :
+				charName.Init("Peter", sf::Color::Yellow, sf::Vector2f(curMiddle - spacing * 0.4f, posY));
+				break;
+			default:
+				break;
+			}
+		}
+		
 		//Render
 		window->draw(playerText.GetText());
 		window->draw(sprite);
+		window->draw(border);
+		window->draw(charName.GetText());
 	}
 }
 
