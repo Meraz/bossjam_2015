@@ -10,7 +10,7 @@ class Player;
 class GameScene : public BaseScene
 {
 public:
-	GameScene();
+	GameScene(AbstractSceneManager* sceneManager);
 	~GameScene();
 
 	void Update(sf::Time deltaT) override;

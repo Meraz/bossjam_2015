@@ -2,6 +2,7 @@
 #include <Scene/Impl/BaseScene.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics.hpp>
 
 enum class CharacterClass
 {
@@ -37,7 +38,7 @@ struct PlayerInfo
 class CharacterSelectScene : public BaseScene
 {
 public:
-	CharacterSelectScene();
+	CharacterSelectScene(AbstractSceneManager* sceneManager);
 	~CharacterSelectScene();
 
 	void Update(sf::Time deltaT) override;
@@ -56,4 +57,7 @@ private:
 	void SelectPrevColor(int playerID);
 	int GetNextAvailableColor(int character, int currentColor);
 	int GetPrevAvailableColor(int character, int currentColor);
+
+	sf::Texture m_backgroundTexture;
+	sf::RectangleShape m_backGroundRectangle;
 };

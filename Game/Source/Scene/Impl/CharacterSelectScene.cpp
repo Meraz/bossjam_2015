@@ -7,8 +7,8 @@
 
 #include <iostream>
 
-CharacterSelectScene::CharacterSelectScene()
-: BaseScene(SceneType::CHARSELECT)
+CharacterSelectScene::CharacterSelectScene(AbstractSceneManager* sceneManager)
+: BaseScene(SceneType::CHARSELECT, sceneManager)
 {
 	m_totalCharacters = 5; //Including Character NONE
 	m_totalColors = 4;
@@ -20,6 +20,9 @@ CharacterSelectScene::CharacterSelectScene()
 		m_players[i].isActive = false;
 		m_players[i].isLocked = false;
 	}
+	m_backgroundTexture.loadFromFile("FlamePainter_Background.jpg");
+	m_backGroundRectangle = sf::RectangleShape(sf::Vector2f(1280, 720));
+	m_backGroundRectangle.setTexture(&m_backgroundTexture);
 }
 
 CharacterSelectScene::~CharacterSelectScene()
@@ -91,7 +94,7 @@ void CharacterSelectScene::Update(sf::Time deltaT)
 				}
 				if (allLocked)
 				{
-					//Start!!
+					m_sceneManager->ChangeScene(SceneType::GAME);
 				}
 			}
 		}
@@ -154,6 +157,7 @@ void CharacterSelectScene::Update(sf::Time deltaT)
 
 void CharacterSelectScene::Render(sf::RenderWindow* window)
 {
+	window->draw(m_backGroundRectangle);
 	
 	Text sceneTitle;
 	sceneTitle.Init("Select Character", sf::Color::Yellow, sf::Vector2f(window->getSize().x / 2.f, 0.f));
@@ -207,7 +211,6 @@ void CharacterSelectScene::Render(sf::RenderWindow* window)
 		window->draw(sprite);
 		window->draw(charName.GetText());
 	}
-	
 }
 
 void CharacterSelectScene::SelectNextCharacter(int playerID)

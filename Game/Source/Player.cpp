@@ -3,7 +3,8 @@
 
 Player::Player(int playerNr)
 :
-	BaseEntity(EntityType::PLAYER)
+	BaseEntity(EntityType::PLAYER),
+	m_animating(false)
 {
 	//Id
 	m_playerNr = playerNr;
@@ -26,14 +27,14 @@ Player::Player(int playerNr)
 
 	m_score = 0;
 
-	m_animationTexture.loadFromFile("spritesheet_horse_5.png");
+	m_animationTexture.loadFromFile("spritesheet_horse_360x490.png");
 	m_walkingRight.setSpriteSheet(m_animationTexture);
 	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 0, 0, CHAR_WIDTH, CHAR_HEIGHT));
 	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 1, 0, CHAR_WIDTH, CHAR_HEIGHT));
 	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
 	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 3, 0, CHAR_WIDTH, CHAR_HEIGHT));
 	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 4, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, CHAR_WIDTH, CHAR_HEIGHT));
+//	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, CHAR_WIDTH, CHAR_HEIGHT));
 
 	m_walkingLeft.setSpriteSheet(m_animationTexture);
 	//m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, -CHAR_WIDTH, CHAR_HEIGHT));
@@ -64,11 +65,18 @@ void Player::Update(sf::Time deltaT)
 	HandleMovement(deltaT.asSeconds());
 	if (m_vel.x > 0)
 	{
+		m_animating = true;
 		m_walkingAnimatedSprite.SetFlippedXAxis(false);
+
 	}
 	else if (m_vel.x < 0)
 	{
+		m_animating = true;
 		m_walkingAnimatedSprite.SetFlippedXAxis(true);
+	}
+	else
+	{
+		m_animating = false;
 	}
 }
 
@@ -77,7 +85,10 @@ void Player::Render(sf::RenderWindow* window)
 	//window->draw(m_shape);
 	m_walkingAnimatedSprite.play(*m_currentAnimation);
 	m_walkingAnimatedSprite.setPosition(m_shape.getPosition());
-	m_walkingAnimatedSprite.update(m_deltaT);
+	if (m_animating)
+	{
+		m_walkingAnimatedSprite.update(m_deltaT);
+	}
 	window->draw(m_walkingAnimatedSprite);
 }
 
@@ -142,7 +153,7 @@ void Player::HandleMovement(float deltaT)
 		m_vel.x -= acc*deltaT;
 		if (m_vel.x < -m_moveSpeedCurrent)
 		{
-			if (m_isJumping)
+			if (m_timesJumped > 0)
 			{
 				m_vel.x = -m_moveSpeedCurrent * m_airControlCurrent;
 			}
@@ -158,7 +169,7 @@ void Player::HandleMovement(float deltaT)
 		m_vel.x += acc*deltaT;
 		if (m_vel.x > m_moveSpeedCurrent)
 		{
-			if (m_isJumping)
+			if (m_timesJumped > 0)
 			{
 				m_vel.x = m_moveSpeedCurrent * m_airControlCurrent;
 			}
@@ -223,6 +234,17 @@ void Player::DecreaseScore(int amount)
 	m_score -= amount;
 }
 
+sf::FloatRect Player::getCollisionRect()
+{
+	m_shape.setSize(sf::Vector2f(CHAR_WIDTH / 2, CHAR_HEIGHT));
+	m_shape.move(sf::Vector2f(CHAR_WIDTH / 4, 0));
+	sf::FloatRect temp = m_shape.getGlobalBounds();
+	m_shape.move(sf::Vector2f(-CHAR_WIDTH / 4, 0));
+	m_shape.setSize(sf::Vector2f(CHAR_WIDTH, CHAR_HEIGHT));
+
+	return temp;
+}
+
 void Player::CollisionEvent(sf::Vector2f velocity)
 {
 	m_shape.move(velocity);
@@ -230,6 +252,19 @@ void Player::CollisionEvent(sf::Vector2f velocity)
 	{
 		m_vel.y = 0;
 		m_timesJumped = 0;
+	}
+}
+
+void Player::PlayerCollisionEvent(sf::Vector2f velocity)
+{
+	m_shape.move(velocity.x, 0);
+	if (velocity.y < 0)
+	{
+		IncreaseScore(1);
+	}
+	if (velocity.y > 0)
+	{
+		m_shape.setPosition(0, 0);
 	}
 }
 

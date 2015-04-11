@@ -9,8 +9,8 @@
 #include <System/XboxInput.hpp>
 #include <Sprite/AnimatedSprite.hpp>
 #include <Sprite/Animation.hpp>
-#define CHAR_WIDTH 87
-#define CHAR_HEIGHT 150
+#define CHAR_WIDTH 72
+#define CHAR_HEIGHT 122
 #include <XboxController.hpp>
 
 enum class MovementDirection
@@ -56,7 +56,6 @@ private:
 	float m_groundControlCurrent;
 	float m_groundControlDefault;
 	float m_groundControlMax;
-
 	
 	int m_score;
 	sf::Texture m_animationTexture;
@@ -66,7 +65,8 @@ private:
 	AnimatedSprite m_walkingAnimatedSprite; 
 	float m_time;
 	sf::Time m_deltaT;
-	MovementDirection m_movementDirection;
+	bool m_animating;
+
 
 public:
 	//(int playerNr);
@@ -83,7 +83,9 @@ public:
 	void IncreaseScore(int amount);
 	void DecreaseScore(int amount);
 
+	sf::FloatRect getCollisionRect() override;
 	void CollisionEvent(sf::Vector2f velocity);
+	void PlayerCollisionEvent(sf::Vector2f velocity);
 
 	//Set
 	void SetCurrentMoveSpeed(float moveSpeed);
