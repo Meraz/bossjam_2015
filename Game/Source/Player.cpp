@@ -35,10 +35,9 @@ Player::Player(int playerNr, float movespeed, float acceleration, float jumpHeig
 	m_playerNr = playerNr;
 
 	//controller
-	m_playerController = new XboxInput(playerNr);
+	m_playerController = new XboxInput(playerNr - 1);
 		
 	//PlayerBox
-	m_shape.setSize(sf::Vector2f(100, 100));
 	m_shape.setFillColor(sf::Color(playerNr * 60, playerNr * 20, playerNr * 40));
 
 
@@ -70,9 +69,9 @@ Player::~Player()
 	//
 }
 
-void Player::Update(float time)
+void Player::Update(float deltaT)
 {
-
+	m_shape.move(m_playerController->GetLThumbStickX()/1000, m_playerController->GetLThumbStickY()/1000);
 }
 
 void Player::LoadStats()

@@ -17,7 +17,8 @@ GameScene::~GameScene()
 
 void GameScene::Update(float deltaTime)
 {
-
+	m_player1->Update(deltaTime);
+	m_player2->Update(deltaTime);
 }
 
 void GameScene::Render(sf::RenderWindow* window)
@@ -25,5 +26,5 @@ void GameScene::Render(sf::RenderWindow* window)
 	test->Render(window);
 
 	m_player1->Render(window);
-	//m_player2->Render(window);
+	m_player2->Render(window);
 }
