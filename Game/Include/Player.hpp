@@ -9,7 +9,7 @@
 #include <System/XboxInput.hpp>
 #include <Sprite/AnimatedSprite.hpp>
 #include <Sprite/Animation.hpp>
-#define CHAR_WIDTH 90
+#define CHAR_WIDTH 88
 #define CHAR_HEIGHT 150
 #include <XboxController.hpp>
 
