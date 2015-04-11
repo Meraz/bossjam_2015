@@ -137,6 +137,11 @@ std::vector<BaseEntity*>* Level::FindNearObjects(sf::FloatRect rectangle, std::v
 	return m_quadTree->FindNearObjects(rectangle, destination);
 }
 
+std::vector<BaseEntity*>* Level::GetAllObjects()
+{
+	return &m_all;
+}
+
 std::string Level::GetTextureFromColorCoding(size_t g)
 {
 	std::string texture;

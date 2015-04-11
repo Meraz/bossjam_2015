@@ -14,6 +14,7 @@ public:
 	void Initialize(const std::string& filePath);
 	void Render(sf::RenderWindow* window);
 	std::vector<BaseEntity*>* FindNearObjects(sf::FloatRect rectangle, std::vector<BaseEntity*>* destination);
+	std::vector<BaseEntity*>* GetAllObjects();
 
 private:
 	Node* m_quadTree;
