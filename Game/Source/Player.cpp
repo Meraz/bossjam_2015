@@ -9,7 +9,7 @@ Player::Player(int playerNr)
 	m_playerNr = playerNr;
 
 	//controller
-	m_playerController = new XboxInput(playerNr);
+	m_playerController = new XboxController(playerNr);
 		
 	//PlayerBox
 	m_shape.setSize(sf::Vector2f(100, 100));

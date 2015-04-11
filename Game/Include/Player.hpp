@@ -6,7 +6,7 @@
 #include <Entity/Impl/BaseEntity.hpp>
 
 #include <SFML/Graphics.hpp>
-#include <System/XboxInput.hpp>
+#include <XboxController.hpp>
 
 
 class Player : public BaseEntity
@@ -18,7 +18,7 @@ private:
 	//PlayerBox
 
 	//controller
-	XboxInput* m_playerController;
+	XboxController* m_playerController;
 
 	//stats
 	float m_moveSpeedCurrent;
