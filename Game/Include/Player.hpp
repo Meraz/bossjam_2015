@@ -44,11 +44,13 @@ private:
 	float m_groundControlDefault;
 	float m_groundControlMax;
 
+
 	int m_score;
 	sf::Texture m_animationTexture;
 	Animation* m_currentAnimation;
 	Animation m_walking;
 	AnimatedSprite m_walkingAnimatedSprite; 
+	float m_time;
 
 public:
 	//(int playerNr);

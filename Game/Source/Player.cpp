@@ -30,6 +30,7 @@ Player::Player(int playerNr)
 	m_walkingAnimatedSprite = AnimatedSprite(sf::seconds(0.2), true, true);
 	//m_walkingAnimatedSprite.set
 	m_walkingAnimatedSprite.setPosition(sf::Vector2f(m_collisionRectangle.left, m_collisionRectangle.top));
+	m_time = 0;
 }
 
 Player::~Player()
@@ -39,7 +40,7 @@ Player::~Player()
 
 void Player::Update(float deltaT)
 {
-
+	m_time = deltaT;
 }
 
 void Player::Render(sf::RenderWindow* window)
