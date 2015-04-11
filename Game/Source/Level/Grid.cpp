@@ -1,9 +1,10 @@
 #include <Level/Level.hpp>
 
-#include <Entity/AbstractEntity.hpp>
+#include <Entity/Impl/BaseEntity.hpp>
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
 Grid::Grid()
 :
@@ -27,8 +28,30 @@ void Grid::Initialize(const std::string& filePath)
 
 bool Grid::LoadGrid(const std::string& filePath)
 {
+	using namespace std;
+	ifstream file(filePath);
+	if(file.is_open())
+	{
+		string line;
+		size_t width, height;
+		width = height = 0;
+		getline(file, line); // Magic number
+		file >> width >> height; // width, height
+		getline(file, line); // Max color size
+		size_t r, g, b;
+		r = g = b = 0;
 
-
+		while (file >> r >> g >> b)
+		{
+			
+			// process pair (a,b,c)
+		}		
+		file.close();
+	}
+	else
+	{
+		cout << "Error opening file" << endl;
+	}
 
 	return false;
 }
@@ -50,8 +73,35 @@ bool Grid::SaveGrid(const std::string& filePath)
 	{
 		for (size_t j = 0; j < m_countWidth; ++j)
 		{
-			file << m_grid[m_countHeight*i + j].color;
+			file << m_grid[m_countHeight*i + j].GetColor();
 		}
 	}
 	return false;
+}
+
+AbstractEntity* Grid::EvaluateRGB(size_t r, size_t g, size_t b)
+{
+	return new BaseEntity();
+}
+
+void Grid::Update(float deltaT)
+{
+	for (size_t y = 0; y < m_countHeight; ++y)
+	{
+		for (size_t x = 0; x < m_countWidth; ++x)
+		{
+			m_grid[y*m_countWidth + x].Update(deltaT);
+		}
+	}
+}
+
+void Grid::Render(sf::RenderWindow* window)
+{
+	for (size_t y = 0; y < m_countHeight; ++y)
+	{
+		for (size_t x = 0; x < m_countWidth; ++x)
+		{
+			m_grid[y*m_countWidth + x].Render(window);
+		}
+	}
 }

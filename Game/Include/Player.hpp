@@ -1,7 +1,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-class Player
+#include <Entity/Impl/BaseEntity.hpp>
+
+class Player : BaseEntity
 {
 private:
 	//Id
@@ -34,7 +36,7 @@ public:
 	Player(int playerNr, float movespeed, float acceleration, float jumpHeight, int jumpNr, float airControl, float groundControl);
 	virtual ~Player();
 
-	void Update(float time);
+	void Update(float deltaT) override;
 
 	void LoadStats();
 
