@@ -3,8 +3,8 @@
 #include <Player.hpp>
 #include <Level/Level.hpp>
 
-GameScene::GameScene()
-: BaseScene(SceneType::GAME)
+GameScene::GameScene(AbstractSceneManager* sceneManager)
+: BaseScene(SceneType::GAME, sceneManager)
 {
 	playerCount = 0;
 

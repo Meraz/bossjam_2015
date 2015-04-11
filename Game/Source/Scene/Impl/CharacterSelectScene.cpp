@@ -7,8 +7,8 @@
 
 #include <iostream>
 
-CharacterSelectScene::CharacterSelectScene()
-: BaseScene(SceneType::CHARSELECT)
+CharacterSelectScene::CharacterSelectScene(AbstractSceneManager* sceneManager)
+: BaseScene(SceneType::CHARSELECT, sceneManager)
 {
 	m_totalCharacters = 5; //Including Character NONE
 	m_totalColors = 4;
@@ -91,7 +91,7 @@ void CharacterSelectScene::Update(sf::Time deltaT)
 				}
 				if (allLocked)
 				{
-					//Start!!
+					m_sceneManager->ChangeScene(SceneType::GAME);
 				}
 			}
 		}

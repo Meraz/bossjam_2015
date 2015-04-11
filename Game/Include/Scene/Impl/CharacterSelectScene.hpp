@@ -37,7 +37,7 @@ struct PlayerInfo
 class CharacterSelectScene : public BaseScene
 {
 public:
-	CharacterSelectScene();
+	CharacterSelectScene(AbstractSceneManager* sceneManager);
 	~CharacterSelectScene();
 
 	void Update(sf::Time deltaT) override;

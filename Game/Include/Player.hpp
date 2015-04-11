@@ -9,8 +9,8 @@
 #include <System/XboxInput.hpp>
 #include <Sprite/AnimatedSprite.hpp>
 #include <Sprite/Animation.hpp>
-#define CHAR_WIDTH 87
-#define CHAR_HEIGHT 150
+#define CHAR_WIDTH 72
+#define CHAR_HEIGHT 122
 #include <XboxController.hpp>
 
 enum class MovementDirection

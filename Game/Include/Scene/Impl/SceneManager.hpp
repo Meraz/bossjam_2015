@@ -25,6 +25,4 @@ private:
 	GameScene* m_gameScene;
 	CharacterSelectScene* m_characterScene;
 	SceneType m_currentSceneEnum;
-
-	bool m_reAllocateOnChange;
 };
