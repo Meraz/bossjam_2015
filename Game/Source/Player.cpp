@@ -260,9 +260,10 @@ void Player::PlayerCollisionEvent(sf::Vector2f velocity)
 	m_shape.move(velocity.x, 0);
 	if (velocity.y < 0)
 	{
+		m_vel.y -= m_jumpHeightCurrent * 1.7f;
 		IncreaseScore(1);
 	}
-	if (velocity.y > 0)
+	else if (velocity.y > 0)
 	{
 		m_shape.setPosition(0, 0);
 	}
