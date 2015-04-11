@@ -24,6 +24,7 @@ private:
 	float m_maxVertSpeed;
 
 	bool m_isJumping;
+	int m_timesJumped;
 	float m_timeJumpButtonHeld;
 
 
@@ -67,6 +68,7 @@ public:
 	void Render(sf::RenderWindow* window) override;
 
 	void LoadStats(std::string characterName);
+	void LoadInitStats(std::string characterName);
 	void HandleMovement(float deltaT);
 
 	void IncreaseScore(int amount);

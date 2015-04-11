@@ -17,7 +17,6 @@ public:
 	void Render(sf::RenderWindow* window) override;
 
 private:
-
 	std::vector<Player*> m_players;
 	int playerCount;
 

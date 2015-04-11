@@ -25,7 +25,7 @@ void Game::Initialize()
 ShutdownState Game::Run()
 {
 	sf::Clock clock;
-	
+	m_clock.restart().asSeconds();
 	while (m_window->isOpen())
 	{
 		m_window->clear();
