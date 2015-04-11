@@ -1,65 +1,19 @@
 #include <Player.hpp>
+#include <LuaScript.hpp>
 
-
-//Player::Player(int playerNr)
-//{
-//	//Id
-//	m_playerNr = playerNr;
-//
-//	//stats
-//	m_moveSpeedCurrent = 1;
-//	m_moveSpeedDefault = 1;
-//	m_moveSpeedMax = 1;
-//	m_accelerationCurrent = 1;
-//	m_accelerationDefault = 1;
-//	m_accelerationMax = 1;
-//	m_jumpHeightCurrent = 1;
-//	m_jumpHeightDefault = 1;
-//	m_jumpHeightMax = 1;
-//	m_jumpNrCurrent = 1;
-//	m_jumpNrDefault = 1;
-//	m_jumpNrMax = 1;
-//	m_airControlCurrent = 1;
-//	m_airControlDefault = 1;
-//	m_airControlMax = 1;
-//	m_groundControlCurrent = 1;
-//	m_groundControlDefault = 1;
-//	m_groundControlMax = 1;
-//
-//	m_score = 0;
-//}
-
-Player::Player(int playerNr, float movespeed, float acceleration, float jumpHeight, int jumpNr, float airControl, float groundControl)
+Player::Player(int playerNr)
+:
+	BaseEntity(EntityType::PLAYER)
 {
 	//Id
 	m_playerNr = playerNr;
 
 	//controller
-	m_playerController = new XboxInput(playerNr - 1);
+	//m_playerController = new XboxInput(playerNr - 1);
 		
 	//PlayerBox
 	m_shape.setFillColor(sf::Color(playerNr * 60, playerNr * 20, playerNr * 40));
 
-
-	//stats
-	m_moveSpeedCurrent = movespeed;
-	m_moveSpeedDefault = movespeed;
-	m_moveSpeedMax = 100;
-	m_accelerationCurrent = acceleration;
-	m_accelerationDefault = acceleration;
-	m_accelerationMax = 100;
-	m_jumpHeightCurrent = jumpHeight;
-	m_jumpHeightDefault = jumpHeight;
-	m_jumpHeightMax = 100;
-	m_jumpNrCurrent = jumpNr;
-	m_jumpNrDefault = jumpNr;
-	m_jumpNrMax = 100;
-	m_airControlCurrent = airControl;
-	m_airControlDefault = airControl;
-	m_airControlMax = 100;
-	m_groundControlCurrent = groundControl;
-	m_groundControlDefault = groundControl;
-	m_groundControlMax = 100;
 
 	m_score = 0;
 }
@@ -71,12 +25,30 @@ Player::~Player()
 
 void Player::Update(float deltaT)
 {
-	m_shape.move(m_playerController->GetLThumbStickX()/1000, m_playerController->GetLThumbStickY()/1000);
+	//m_shape.move(m_playerController->GetLThumbStickX()/1000, m_playerController->GetLThumbStickY()/1000);
 }
 
-void Player::LoadStats()
+void Player::LoadStats(std::string characterName)
 {
-
+	LuaScript* characterScript = new LuaScript(characterName);
+	m_moveSpeedCurrent		 = characterScript->GetVariable<float>("m_moveSpeedCurrent");
+	m_moveSpeedDefault		 = characterScript->GetVariable<float>("m_moveSpeedDefault");
+	m_moveSpeedMax			 = characterScript->GetVariable<float>("m_moveSpeedMax");
+	m_accelerationCurrent	 = characterScript->GetVariable<float>("m_accelerationCurrent");
+	m_accelerationDefault	 = characterScript->GetVariable<float>("m_accelerationDefault");
+	m_accelerationMax		 = characterScript->GetVariable<float>("m_accelerationMax");
+	m_jumpHeightCurrent		 = characterScript->GetVariable<float>("m_jumpHeightCurrent");
+	m_jumpHeightDefault		 = characterScript->GetVariable<float>("m_jumpHeightDefault");
+	m_jumpHeightMax			 = characterScript->GetVariable<float>("m_jumpHeightMax");
+	m_jumpNrCurrent			 = characterScript->GetVariable<int>("m_jumpNrCurrent");
+	m_jumpNrDefault			 = characterScript->GetVariable<int>("m_jumpNrDefault");
+	m_jumpNrMax				 = characterScript->GetVariable<int>("m_jumpNrMax");
+	m_airControlCurrent		 = characterScript->GetVariable<float>("m_airControlCurrent");
+	m_airControlDefault		 = characterScript->GetVariable<float>("m_airControlDefault");
+	m_airControlMax			 = characterScript->GetVariable<float>("m_airControlMax");
+	m_groundControlCurrent	 = characterScript->GetVariable<float>("m_groundControlCurrent");
+	m_groundControlDefault	 = characterScript->GetVariable<float>("m_groundControlDefault");
+	m_groundControlMax		 = characterScript->GetVariable<float>("m_groundControlMax");
 }
 
 void Player::IncreaseScore(int amount)

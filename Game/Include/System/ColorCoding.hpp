@@ -1,5 +1,12 @@
 #pragma once
 
+#include <ostream>
+/*
+	r: type
+	g: texture
+	b: special, teleporter index etc
+*/
+
 struct ColorCoding
 {
 	ColorCoding(size_t _r, size_t _g, size_t _b) : r(_r), g(_g), b(_b)

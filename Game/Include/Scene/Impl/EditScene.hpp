@@ -1,6 +1,8 @@
 #pragma once
 #include <Scene/Impl/BaseScene.hpp>
 
+class Level;
+
 class EditScene : public BaseScene
 {
 public:
@@ -11,7 +13,6 @@ public:
 	void Render(sf::RenderWindow* window) override;
 
 private:
-
-
-
+	Level* m_level;
+	
 };

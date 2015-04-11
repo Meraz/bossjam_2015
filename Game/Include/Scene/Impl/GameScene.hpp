@@ -3,7 +3,9 @@
 #include <Player.hpp>
 #include <vector>
 
-#include <Entity/Impl/BaseEntity.hpp>
+class Level;
+class Player;
+
 class GameScene : public BaseScene
 {
 public:
@@ -14,10 +16,10 @@ public:
 	void Render(sf::RenderWindow* window) override;
 
 private:
-	std::vector<BaseEntity*> m_world;
+	//std::vector<BaseEntity*> m_world;
 
 	std::vector<Player*> m_players;
 	int playerCount;
 
-
+	Level* m_level;
 };

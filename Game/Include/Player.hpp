@@ -1,10 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <string>
+
 #include <Entity/Impl/BaseEntity.hpp>
 
 #include <SFML/Graphics.hpp>
-#include <System/XboxInput.hpp>
+#include <XboxController.hpp>
 
 
 class Player : public BaseEntity
@@ -16,7 +18,7 @@ private:
 	//PlayerBox
 
 	//controller
-	XboxInput* m_playerController;
+	XboxController* m_playerController;
 
 	//stats
 	float m_moveSpeedCurrent;
@@ -42,12 +44,12 @@ private:
 
 public:
 	//(int playerNr);
-	Player(int playerNr, float movespeed, float acceleration, float jumpHeight, int jumpNr, float airControl, float groundControl);
+	Player(int playerNr);
 	virtual ~Player();
 
 	void Update(float deltaT) override;
 
-	void LoadStats();
+	void LoadStats(std::string characterName);
 
 	void IncreaseScore(int amount);
 	void DecreaseScore(int amount);
