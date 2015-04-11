@@ -37,22 +37,22 @@ Player::Player(int playerNr, float movespeed, float acceleration, float jumpHeig
 	//stats
 	m_moveSpeedCurrent = movespeed;
 	m_moveSpeedDefault = movespeed;
-	m_moveSpeedMax = 1;
+	m_moveSpeedMax = 100;
 	m_accelerationCurrent = acceleration;
 	m_accelerationDefault = acceleration;
-	m_accelerationMax = 1;
+	m_accelerationMax = 100;
 	m_jumpHeightCurrent = jumpHeight;
 	m_jumpHeightDefault = jumpHeight;
-	m_jumpHeightMax = 1;
+	m_jumpHeightMax = 100;
 	m_jumpNrCurrent = jumpNr;
 	m_jumpNrDefault = jumpNr;
-	m_jumpNrMax = 1;
+	m_jumpNrMax = 100;
 	m_airControlCurrent = airControl;
 	m_airControlDefault = airControl;
-	m_airControlMax = 1;
+	m_airControlMax = 100;
 	m_groundControlCurrent = groundControl;
 	m_groundControlDefault = groundControl;
-	m_groundControlMax = 1;
+	m_groundControlMax = 100;
 
 	m_score = 0;
 }
