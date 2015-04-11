@@ -1,5 +1,6 @@
 #pragma once
 #include <Scene/Impl/BaseScene.hpp>
+#include <Player.hpp>
 
 #include <Entity/Impl/BaseEntity.hpp>
 class GameScene : public BaseScene
@@ -14,6 +15,8 @@ public:
 private:
 	BaseEntity* test;
 
+	Player* m_player1;
+	Player* m_player2;
 
 
 };

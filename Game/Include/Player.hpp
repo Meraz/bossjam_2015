@@ -3,11 +3,20 @@
 
 #include <Entity/Impl/BaseEntity.hpp>
 
-class Player : BaseEntity
+#include <SFML/Graphics.hpp>
+#include <System/XboxInput.hpp>
+
+
+class Player : public BaseEntity
 {
 private:
 	//Id
 	int m_playerNr;
+
+	//PlayerBox
+
+	//controller
+	XboxInput* m_playerController;
 
 	//stats
 	float m_moveSpeedCurrent;

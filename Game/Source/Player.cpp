@@ -34,6 +34,14 @@ Player::Player(int playerNr, float movespeed, float acceleration, float jumpHeig
 	//Id
 	m_playerNr = playerNr;
 
+	//controller
+	m_playerController = new XboxInput(playerNr);
+		
+	//PlayerBox
+	m_shape.setSize(sf::Vector2f(100, 100));
+	m_shape.setFillColor(sf::Color(playerNr * 60, playerNr * 20, playerNr * 40));
+
+
 	//stats
 	m_moveSpeedCurrent = movespeed;
 	m_moveSpeedDefault = movespeed;

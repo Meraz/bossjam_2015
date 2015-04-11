@@ -17,7 +17,7 @@ public:
 	
 	const ColorCoding& GetColor() override { return m_color; }
 
-private:
+protected:
 	
 	ColorCoding m_color;
 	sf::Texture m_texture;

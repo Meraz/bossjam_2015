@@ -34,14 +34,12 @@ ShutdownState Game::Run()
 		Render();
 		m_window->display();
 
-
 		sf::Event event;
 		while (m_window->pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				m_window->close();
 		}
-
 	}
 	return m_shutdownState;
 }

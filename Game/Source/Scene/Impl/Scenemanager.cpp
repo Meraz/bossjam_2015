@@ -28,5 +28,12 @@ void SceneManager::Render(sf::RenderWindow* window)
 
 void SceneManager::ChangeScene(SceneType newScene)
 {
-
+	if (newScene == SceneType::GAME)
+	{
+		m_currentScene = m_gameScene;
+	}
+	else if (newScene == SceneType::MENU)
+	{
+		m_currentScene = m_menuScene;
+	}
 }
