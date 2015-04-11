@@ -8,7 +8,7 @@ m_currentScene(nullptr),
 m_menuScene(nullptr),
 m_gameScene(nullptr)
 {
-	m_currentScene = new MenuScene();
+	m_currentScene = new GameScene();
 	m_reAllocateOnChange = false;
 }
 

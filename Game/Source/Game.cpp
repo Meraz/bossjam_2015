@@ -28,8 +28,12 @@ ShutdownState Game::Run()
 	
 	while (m_window->isOpen())
 	{
+		m_window->clear();
+
 		Update();
 		Render();
+		m_window->display();
+
 
 		sf::Event event;
 		while (m_window->pollEvent(event))
@@ -38,8 +42,6 @@ ShutdownState Game::Run()
 				m_window->close();
 		}
 
-		m_window->clear();
-		m_window->display();
 	}
 	return m_shutdownState;
 }

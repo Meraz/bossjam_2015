@@ -2,11 +2,11 @@
 
 BaseEntity::BaseEntity()
 {
-	m_shape = sf::RectangleShape();
+	m_shape = sf::RectangleShape(sf::Vector2f(50, 50));
 
 	std::string name = "tile";
 	std::stringstream stream;
-	stream << name << "_r" << m_color.r << "_g" << m_color.g << "_b" << m_color.b << std::endl;
+	stream << name << "_r" << m_color.r << "_g" << m_color.g << "_b" << m_color.b << ".png";
 	m_texture.loadFromFile(stream.str());
 	m_shape.setTexture(&m_texture);
 }

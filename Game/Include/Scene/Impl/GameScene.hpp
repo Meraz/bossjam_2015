@@ -1,6 +1,7 @@
 #pragma once
 #include <Scene/Impl/BaseScene.hpp>
 
+#include <Entity/Impl/BaseEntity.hpp>
 class GameScene : public BaseScene
 {
 public:
@@ -11,6 +12,7 @@ public:
 	void Render(sf::RenderWindow* window) override;
 
 private:
+	BaseEntity* test;
 
 
 
