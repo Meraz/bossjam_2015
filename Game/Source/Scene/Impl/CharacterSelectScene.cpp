@@ -2,6 +2,8 @@
 #include <PlayerContext.hpp>
 #include <Player.hpp>
 
+#include <System/XboxInput.hpp>
+
 CharacterSelectScene::CharacterSelectScene()
 : BaseScene(SceneType::CHARSELECT)
 {
@@ -41,21 +43,43 @@ void CharacterSelectScene::Update(float deltaTime)
 	for (size_t i = 0; i < 4; i++)
 	{
 		Player* curPlayer = PlayerContext::GetPlayerContext()->GetPlayer(i);
+		XboxInput* controller = new XboxInput(i);
+
 		
+		if (controller->IsAbuttonPressed())
+		{
+			//if A: add to active players
+			if (!m_players[i].isActive)
+
+			//if A and is active: lock character
+			//if A and all active players characters are locked: start game
+		}
+
+		else if (controller->IsBbuttonPressed())
+		{
+			//if B and is active: remove from active characters
+			//if B and has locked character: unlock
+			//if B and no locked characters: back to prev scene (rule select?)
+		}
+
+		if (controller->GetLThumbStickX() > 0.f) // maybe?
+		{
+			//if right (and active and not locked): select next character
+		}
+		else if (controller->GetLThumbStickX() < 0.f) // maybe?
+		{
+			//if left (and active and not locked): select prev character
+		}
+
+		if (controller->IsRBbuttonPressed())
+		{
+			//if rButton (and active and not locked): select next color
+		}
+		else if (controller->IsRBbuttonPressed())
+		{
+			//if lButton (and active and not locked): select prev color
+		}
 	}
-	//if A: add to active players
-	//if A and is active: lock character
-	//if A and all active players characters are locked: start game
-
-	//if B and is active: remove from active characters
-	//if B and has locked character: unlock
-	//if B and no locked characters: back to prev scene (rule select?)
-
-	//if right (and active and not locked): select next character
-	//if left (and active and not locked): select prev character
-
-	//if rButton (and active and not locked): select next color
-	//if lButton (and active and not locked): select prev color
 }
 
 void CharacterSelectScene::Render(sf::RenderWindow* window)
