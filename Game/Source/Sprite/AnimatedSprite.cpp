@@ -24,7 +24,7 @@
 #include <Sprite/AnimatedSprite.hpp>
 
 AnimatedSprite::AnimatedSprite(sf::Time frameTime, bool paused, bool looped) :
-m_animation(NULL), m_frameTime(frameTime), m_currentFrame(0), m_isPaused(paused), m_isLooped(looped), m_texture(NULL), m_flippedXAxis(false)
+m_animation(NULL), m_frameTime(frameTime), m_currentFrame(0), m_isPaused(paused), m_isLooped(looped), m_texture(NULL), m_flippedXAxis(false), m_flippedYAxis(false)
 {
 
 }
@@ -132,20 +132,24 @@ void AnimatedSprite::setFrame(std::size_t newFrame, bool resetTime)
 		float top = static_cast<float>(rect.top);
 		float bottom = top + static_cast<float>(rect.height);
 
-		if (!m_flippedXAxis)
+		if (m_flippedXAxis)
 		{
-			m_vertices[0].texCoords = sf::Vector2f(left, top);
-			m_vertices[1].texCoords = sf::Vector2f(left, bottom);
-			m_vertices[2].texCoords = sf::Vector2f(right, bottom);
-			m_vertices[3].texCoords = sf::Vector2f(right, top);
+			float temp = left;
+			left = right;
+			right = temp;
 		}
-		else
+		if (m_flippedYAxis)
 		{
-			m_vertices[3].texCoords = sf::Vector2f(left, top);
-			m_vertices[2].texCoords = sf::Vector2f(left, bottom);
-			m_vertices[1].texCoords = sf::Vector2f(right, bottom);
-			m_vertices[0].texCoords = sf::Vector2f(right, top);
-		}	
+			float temp = top;
+			top = bottom;
+			bottom = temp;
+		}
+
+		m_vertices[0].texCoords = sf::Vector2f(left, top);
+		m_vertices[1].texCoords = sf::Vector2f(left, bottom);
+		m_vertices[2].texCoords = sf::Vector2f(right, bottom);
+		m_vertices[3].texCoords = sf::Vector2f(right, top);
+		
     }
 
     if (resetTime)
@@ -200,4 +204,11 @@ void AnimatedSprite::draw(sf::RenderTarget& target, sf::RenderStates states) con
 void AnimatedSprite::SetFlippedXAxis(bool flipXAxis)
 {
 	m_flippedXAxis = flipXAxis;
+	setFrame(m_currentFrame, false);
+}
+
+void AnimatedSprite::SetFlippedYAxis(bool flipYAxis)
+{
+	m_flippedYAxis = flipYAxis;
+	setFrame(m_currentFrame, false);
 }

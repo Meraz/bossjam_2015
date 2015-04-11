@@ -66,7 +66,9 @@ private:
 	float m_time;
 	sf::Time m_deltaT;
 	bool m_animating;
+	bool m_isDead;
 
+	void HandleBoundaries();
 
 public:
 	//(int playerNr);
@@ -86,6 +88,8 @@ public:
 	sf::FloatRect getCollisionRect() override;
 	void CollisionEvent(sf::Vector2f velocity);
 	void PlayerCollisionEvent(sf::Vector2f velocity);
+
+	bool IsDead() { return m_isDead; };
 
 	//Set
 	void SetCurrentMoveSpeed(float moveSpeed);

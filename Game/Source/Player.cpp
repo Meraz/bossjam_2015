@@ -27,6 +27,8 @@ Player::Player(int playerNr)
 
 	m_score = 0;
 
+	m_isDead = false;
+
 	m_animationTexture.loadFromFile("spritesheet_horse_360x490.png");
 	m_walkingRight.setSpriteSheet(m_animationTexture);
 	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 0, 0, CHAR_WIDTH, CHAR_HEIGHT));
@@ -62,22 +64,34 @@ void Player::Update(sf::Time deltaT)
 	m_deltaT = deltaT;
 	m_time = deltaT.asSeconds();
 	m_playerController->Update();
-	HandleMovement(deltaT.asSeconds());
-	if (m_vel.x > 0)
+	if (!m_isDead)
 	{
-		m_animating = true;
-		m_walkingAnimatedSprite.SetFlippedXAxis(false);
+		HandleMovement(deltaT.asSeconds());
+		if (m_vel.x > 0)
+		{
+			m_animating = true;
+			m_walkingAnimatedSprite.SetFlippedXAxis(false);
 
-	}
-	else if (m_vel.x < 0)
-	{
-		m_animating = true;
-		m_walkingAnimatedSprite.SetFlippedXAxis(true);
+		}
+		else if (m_vel.x < 0)
+		{
+			m_animating = true;
+			m_walkingAnimatedSprite.SetFlippedXAxis(true);
+		}
+
+		else
+		{
+			m_animating = false;
+		}
 	}
 	else
 	{
 		m_animating = false;
+		float grav = 9.81f * 400.f;
+		m_vel.y += grav*deltaT.asSeconds();
+		m_shape.move(m_vel*deltaT.asSeconds());
 	}
+	HandleBoundaries();
 }
 
 void Player::Render(sf::RenderWindow* window)
@@ -140,6 +154,26 @@ void Player::LoadInitStats(std::string characterName)
 	m_groundControlCurrent = characterScript->GetVariable<float>("m_groundControlCurrent");
 	m_groundControlDefault = characterScript->GetVariable<float>("m_groundControlDefault");
 	m_groundControlMax = characterScript->GetVariable<float>("m_groundControlMax");
+}
+
+void Player::HandleBoundaries()
+{
+	//Sides
+	if (m_shape.getPosition().x > 1280.f) //Hardcoded values woo!
+	{
+		m_shape.setPosition(-m_shape.getSize().x, m_shape.getPosition().y);
+	}
+	else if (m_shape.getPosition().x < -m_shape.getSize().x)
+	{
+		m_shape.setPosition(1280.f, m_shape.getPosition().y);
+	}
+	//Down
+	if (m_shape.getPosition().y > 850.f) //Hardcoded values woo!
+	{
+		m_shape.setPosition(m_shape.getPosition().x, 0.f);
+		m_isDead = false;
+		m_walkingAnimatedSprite.SetFlippedYAxis(false);
+	}
 }
 
 void Player::HandleMovement(float deltaT)
@@ -265,7 +299,10 @@ void Player::PlayerCollisionEvent(sf::Vector2f velocity)
 	}
 	else if (velocity.y > 0)
 	{
-		m_shape.setPosition(0, 0);
+		//Start death animation
+		m_isDead = true;
+		
+		m_walkingAnimatedSprite.SetFlippedYAxis(true);
 	}
 }
 
