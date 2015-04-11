@@ -83,7 +83,9 @@ public:
 	void IncreaseScore(int amount);
 	void DecreaseScore(int amount);
 
+	sf::FloatRect getCollisionRect() override;
 	void CollisionEvent(sf::Vector2f velocity);
+	void PlayerCollisionEvent(sf::Vector2f velocity);
 
 	//Set
 	void SetCurrentMoveSpeed(float moveSpeed);
