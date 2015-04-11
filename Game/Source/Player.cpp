@@ -9,11 +9,18 @@ Player::Player(int playerNr)
 	m_playerNr = playerNr;
 
 	//controller
-	//m_playerController = new XboxInput(playerNr - 1);
+	//m_playerController = new XboxInput(playerNr);
 		
-	//PlayerBox
-	m_shape.setFillColor(sf::Color(playerNr * 60, playerNr * 20, playerNr * 40));
 
+	//PlayerBox
+	//Initialize(50 * (playerNr + 1), 50);
+	m_shape.setFillColor(sf::Color((playerNr + 1) * 60, (playerNr + 1) * 20, (playerNr + 1) * 40));
+	m_vel = sf::Vector2f(0, 0);
+	m_maxHorSpeed = 700;
+	m_maxVertSpeed = 700;
+
+	m_isJumping = false;
+	m_timeJumpButtonHeld = 0.f;
 
 	m_score = 0;
 }
@@ -25,7 +32,7 @@ Player::~Player()
 
 void Player::Update(float deltaT)
 {
-	//m_shape.move(m_playerController->GetLThumbStickX()/1000, m_playerController->GetLThumbStickY()/1000);
+		HandleMovement(deltaT);
 }
 
 void Player::LoadStats(std::string characterName)
@@ -51,6 +58,71 @@ void Player::LoadStats(std::string characterName)
 	m_groundControlMax		 = characterScript->GetVariable<float>("m_groundControlMax");
 }
 
+void Player::HandleMovement(float deltaT)
+{
+	float grav = 9.81f * 300.f;
+	float acc = 10000.f;
+	bool notMoving = true;
+	if (m_playerController->GetLThumbStickX() < 0)
+	{
+		notMoving = false;
+		m_vel.x -= acc*deltaT;
+		if (m_vel.x < -m_maxHorSpeed)
+			m_vel.x = -m_maxHorSpeed;
+	}
+	if (m_playerController->GetLThumbStickX() > 0)
+	{
+		notMoving = false;
+		m_vel.x += acc*deltaT;
+		if (m_vel.x > m_maxHorSpeed)
+			m_vel.x = m_maxHorSpeed;
+	}
+	if (notMoving)
+	{
+		float friction = 5000.f;
+		if (m_vel.x > 0.f)
+		{
+			m_vel.x -= friction * deltaT;
+			if (m_vel.x < 0.f)
+				m_vel.x = 0.f;
+		}
+		else if (m_vel.x < 0.f)
+		{
+			m_vel.x += friction * deltaT;
+			if (m_vel.x > 0.f)
+				m_vel.x = 0.f;
+		}
+	}
+
+	//Handle jump
+	float jumpForce = 700.f;
+
+	if (m_playerController->IsAbuttonPressed())
+	{
+		m_timeJumpButtonHeld += deltaT;
+		if (m_timeJumpButtonHeld < 0.2f)
+		{
+			m_isJumping = true;
+			m_vel.y = -jumpForce;
+		}
+		if (m_isJumping == false)
+		{
+			m_timeJumpButtonHeld = 0;
+		}
+	}
+
+	//Gravity
+	m_vel.y += grav*deltaT;
+	m_shape.move(m_vel*deltaT); //os?ker
+}
+
+
+void Player::LoadStats()
+{
+
+>>>>>>> Stashed changes
+}
+
 void Player::IncreaseScore(int amount)
 {
 	m_score += amount;
@@ -59,6 +131,16 @@ void Player::IncreaseScore(int amount)
 void Player::DecreaseScore(int amount)
 {
 	m_score -= amount;
+}
+
+void Player::CollisionEvent(sf::Vector2f velocity)
+{
+	m_shape.move(velocity);
+	if (velocity.y < 0)
+	{
+		m_isJumping = false;
+		m_vel.y = 0;
+	}
 }
 
 //set
