@@ -17,7 +17,6 @@ private:
 
 	//PlayerBox
 	sf::Vector2f m_vel;
-	float m_maxHorSpeed;
 	float m_maxVertSpeed;
 
 	bool m_isJumping;

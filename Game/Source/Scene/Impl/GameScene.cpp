@@ -34,15 +34,15 @@ void GameScene::Update(float deltaTime)
 	for (int i = 0; i < playerCount; ++i)
 	{
 		m_players.at(i)->Update(deltaTime);
+		m_players.at(i)->LoadStats("tiger.lua");
 		//m_players.at(i)->CollisionEvent(collisionHandler.GetIntersectionVector(m_players.at(i)->getCollisionRect(), m_world.at(0)->getCollisionRect()));
 	}
+
 
 }
 
 void GameScene::Render(sf::RenderWindow* window)
 {
-	//m_world.at(0)->Render(window);
-
 	for (int i = 0; i < playerCount; ++i)
 	{
 		m_players.at(i)->Render(window);

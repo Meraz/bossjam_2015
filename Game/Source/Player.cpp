@@ -16,8 +16,8 @@ Player::Player(int playerNr)
 	//Initialize(50 * (playerNr + 1), 50);
 	m_shape.setFillColor(sf::Color((playerNr + 1) * 60, (playerNr + 1) * 20, (playerNr + 1) * 40));
 	m_vel = sf::Vector2f(0, 0);
-	m_maxHorSpeed = 700;
-	m_maxVertSpeed = 700;
+
+	m_maxVertSpeed = 7;
 
 	m_isJumping = false;
 	m_timeJumpButtonHeld = 0.f;
@@ -38,45 +38,66 @@ void Player::Update(float deltaT)
 
 void Player::LoadStats(std::string characterName)
 {
-	LuaScript* characterScript = new LuaScript(characterName);
-	m_moveSpeedCurrent		 = characterScript->GetVariable<float>("m_moveSpeedCurrent");
-	m_moveSpeedDefault		 = characterScript->GetVariable<float>("m_moveSpeedDefault");
-	m_moveSpeedMax			 = characterScript->GetVariable<float>("m_moveSpeedMax");
-	m_accelerationCurrent	 = characterScript->GetVariable<float>("m_accelerationCurrent");
-	m_accelerationDefault	 = characterScript->GetVariable<float>("m_accelerationDefault");
-	m_accelerationMax		 = characterScript->GetVariable<float>("m_accelerationMax");
-	m_jumpHeightCurrent		 = characterScript->GetVariable<float>("m_jumpHeightCurrent");
-	m_jumpHeightDefault		 = characterScript->GetVariable<float>("m_jumpHeightDefault");
-	m_jumpHeightMax			 = characterScript->GetVariable<float>("m_jumpHeightMax");
-	m_jumpNrCurrent			 = characterScript->GetVariable<int>("m_jumpNrCurrent");
-	m_jumpNrDefault			 = characterScript->GetVariable<int>("m_jumpNrDefault");
-	m_jumpNrMax				 = characterScript->GetVariable<int>("m_jumpNrMax");
-	m_airControlCurrent		 = characterScript->GetVariable<float>("m_airControlCurrent");
-	m_airControlDefault		 = characterScript->GetVariable<float>("m_airControlDefault");
-	m_airControlMax			 = characterScript->GetVariable<float>("m_airControlMax");
-	m_groundControlCurrent	 = characterScript->GetVariable<float>("m_groundControlCurrent");
-	m_groundControlDefault	 = characterScript->GetVariable<float>("m_groundControlDefault");
-	m_groundControlMax		 = characterScript->GetVariable<float>("m_groundControlMax");
+	if (m_playerController->GetStartButtonState().current)
+	{
+		LuaScript* characterScript = new LuaScript(characterName);
+		m_moveSpeedCurrent = characterScript->GetVariable<float>("m_moveSpeedCurrent");
+		m_moveSpeedDefault = characterScript->GetVariable<float>("m_moveSpeedDefault");
+		m_moveSpeedMax = characterScript->GetVariable<float>("m_moveSpeedMax");
+		m_accelerationCurrent = characterScript->GetVariable<float>("m_accelerationCurrent");
+		m_accelerationDefault = characterScript->GetVariable<float>("m_accelerationDefault");
+		m_accelerationMax = characterScript->GetVariable<float>("m_accelerationMax");
+		m_jumpHeightCurrent = characterScript->GetVariable<float>("m_jumpHeightCurrent");
+		m_jumpHeightDefault = characterScript->GetVariable<float>("m_jumpHeightDefault");
+		m_jumpHeightMax = characterScript->GetVariable<float>("m_jumpHeightMax");
+		m_jumpNrCurrent = characterScript->GetVariable<int>("m_jumpNrCurrent");
+		m_jumpNrDefault = characterScript->GetVariable<int>("m_jumpNrDefault");
+		m_jumpNrMax = characterScript->GetVariable<int>("m_jumpNrMax");
+		m_airControlCurrent = characterScript->GetVariable<float>("m_airControlCurrent");
+		m_airControlDefault = characterScript->GetVariable<float>("m_airControlDefault");
+		m_airControlMax = characterScript->GetVariable<float>("m_airControlMax");
+		m_groundControlCurrent = characterScript->GetVariable<float>("m_groundControlCurrent");
+		m_groundControlDefault = characterScript->GetVariable<float>("m_groundControlDefault");
+		m_groundControlMax = characterScript->GetVariable<float>("m_groundControlMax");
+	}
 }
 
 void Player::HandleMovement(float deltaT)
 {
 	float grav = 9.81f * 300.f;
-	float acc = 10000.f;
+	float acc = 100.f * m_accelerationCurrent;
 	bool notMoving = true;
 	if (m_playerController->GetLStickXState().current < 0)
 	{
 		notMoving = false;
 		m_vel.x -= acc*deltaT;
-		if (m_vel.x < -m_maxHorSpeed)
-			m_vel.x = -m_maxHorSpeed;
+		if (m_vel.x < -m_moveSpeedCurrent)
+		{
+			if (m_isJumping)
+			{
+				m_vel.x = -m_moveSpeedCurrent * m_airControlCurrent;
+			}
+			else
+			{
+				m_vel.x = -m_moveSpeedCurrent * m_groundControlCurrent;
+			}
+		}
 	}
 	if (m_playerController->GetLStickXState().current > 0)
 	{
 		notMoving = false;
 		m_vel.x += acc*deltaT;
-		if (m_vel.x > m_maxHorSpeed)
-			m_vel.x = m_maxHorSpeed;
+		if (m_vel.x > m_moveSpeedCurrent)
+		{
+			if (m_isJumping)
+			{
+				m_vel.x = m_moveSpeedCurrent * m_airControlCurrent;
+			}
+			else
+			{
+				m_vel.x = m_moveSpeedCurrent * m_groundControlCurrent;
+			}
+		}
 	}
 	if (notMoving)
 	{
@@ -96,7 +117,6 @@ void Player::HandleMovement(float deltaT)
 	}
 
 	//Handle jump
-	float jumpForce = 700.f;
 
 	if (m_playerController->GetAButtonState().current)
 	{
@@ -104,7 +124,7 @@ void Player::HandleMovement(float deltaT)
 		if (m_timeJumpButtonHeld < 0.2f)
 		{
 			m_isJumping = true;
-			m_vel.y = -jumpForce;
+			m_vel.y = -m_jumpHeightCurrent;
 		}
 		if (m_isJumping == false)
 		{
