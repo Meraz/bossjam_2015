@@ -2,7 +2,7 @@
 #include <PlayerContext.hpp>
 #include <Player.hpp>
 
-#include <System/XboxInput.hpp>
+#include <XboxController.hpp>
 
 CharacterSelectScene::CharacterSelectScene()
 : BaseScene(SceneType::CHARSELECT)
@@ -43,41 +43,90 @@ void CharacterSelectScene::Update(float deltaTime)
 	for (size_t i = 0; i < 4; i++)
 	{
 		Player* curPlayer = PlayerContext::GetPlayerContext()->GetPlayer(i);
-		XboxInput* controller = new XboxInput(i);
-
+		XboxController* controller = new XboxController(i);
 		
-		if (controller->IsAbuttonPressed())
+		
+		if (controller->GetAButtonState().current && !controller->GetAButtonState().last)
 		{
 			//if A: add to active players
 			if (!m_players[i].isActive)
-
+			{
+				m_players[i].isActive = true;
+			}
 			//if A and is active: lock character
+			else if (m_players[i].isActive)
+			{
+				m_players[i].isLocked = true;
+			}
 			//if A and all active players characters are locked: start game
+			if (m_players[i].isLocked)
+			{
+				bool allLocked = true;
+				for (size_t j = 0; j < 4; j++)
+				{
+					allLocked = m_players[j].isLocked;
+					if (!allLocked)
+						break;
+				}
+				if (allLocked)
+				{
+					//Start!!
+				}
+			}
 		}
 
-		else if (controller->IsBbuttonPressed())
+		else if (controller->GetBButtonState().current && !controller->GetBButtonState().last)
 		{
 			//if B and is active: remove from active characters
+			if (!m_players[i].isActive)
+			{
+				m_players[i].isActive = false;
+			}
 			//if B and has locked character: unlock
+			else if (m_players[i].isActive)
+			{
+				m_players[i].isLocked = false;
+			}
 			//if B and no locked characters: back to prev scene (rule select?)
+			if (!m_players[i].isLocked)
+			{
+				//Exit
+			}
 		}
 
-		if (controller->GetLThumbStickX() > 0.f) // maybe?
+		if (controller->GetRStickXState().current > 0.f && controller->GetRStickXState().current <= 0.f) // maybe?
 		{
 			//if right (and active and not locked): select next character
+			if (m_players[i].isActive && !m_players[i].isLocked)
+			{
+				SelectNextCharacter(i);
+			}
 		}
-		else if (controller->GetLThumbStickX() < 0.f) // maybe?
+		else if (controller->GetLStickXState().current > 0.f && controller->GetLStickXState().current <= 0.f) // maybe?
 		{
 			//if left (and active and not locked): select prev character
+			if (m_players[i].isActive && !m_players[i].isLocked)
+			{
+				SelectPrevCharacter(i);
+			}
 		}
 
-		if (controller->IsRBbuttonPressed())
+		if (controller->GetRBButtonState().current && !controller->GetRBButtonState().last)
 		{
 			//if rButton (and active and not locked): select next color
+			if (m_players[i].isActive && !m_players[i].isLocked)
+			{
+				SelectNextColor(i);
+			}
+
 		}
-		else if (controller->IsRBbuttonPressed())
+		else if (controller->GetLBButtonState().current && !controller->GetLBButtonState().last)
 		{
 			//if lButton (and active and not locked): select prev color
+			if (m_players[i].isActive && !m_players[i].isLocked)
+			{
+				SelectPrevColor(i);
+			}
 		}
 	}
 }
