@@ -3,11 +3,22 @@
 
 #include <string>
 
-class Player
+#include <Entity/Impl/BaseEntity.hpp>
+
+#include <SFML/Graphics.hpp>
+#include <System/XboxInput.hpp>
+
+
+class Player : public BaseEntity
 {
 private:
 	//Id
 	int m_playerNr;
+
+	//PlayerBox
+
+	//controller
+	XboxInput* m_playerController;
 
 	//stats
 	float m_moveSpeedCurrent;
@@ -36,7 +47,7 @@ public:
 	Player(int playerNr);
 	virtual ~Player();
 
-	void Update(float time);
+	void Update(float deltaT) override;
 
 	void LoadStats(std::string characterName);
 

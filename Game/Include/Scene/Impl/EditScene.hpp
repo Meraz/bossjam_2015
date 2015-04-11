@@ -1,20 +1,18 @@
 #pragma once
 #include <Scene/Impl/BaseScene.hpp>
-class Level;
-class Player;
 
-class GameScene : public BaseScene
+class Level;
+
+class EditScene : public BaseScene
 {
 public:
-	GameScene();
-	~GameScene();
+	EditScene();
+	~EditScene();
 
 	void Update(float deltaT) override;
 	void Render(sf::RenderWindow* window) override;
 
 private:
-	Player* m_player1;
-	Player* m_player2;
 	Level* m_level;
 	
 };
