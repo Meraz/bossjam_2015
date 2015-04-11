@@ -7,7 +7,7 @@ GameScene::GameScene()
 : BaseScene(SceneType::GAME)
 {
 	m_level = new Level();
-	m_level->Initialize("test.ppm");
+	m_level->Initialize("Level0.ppm");
 
 	m_player1 = new Player(1, 10, 10, 10, 10, 10, 10);
 	m_player2 = new Player(2, 10, 10, 10, 10, 10, 10);
@@ -30,4 +30,5 @@ void GameScene::Render(sf::RenderWindow* window)
 	all = m_level->FindNearObjects(sf::FloatRect(sf::Vector2f(0,0), sf::Vector2f(50,50)), all);
 	//m_player1->Render(window);
 	//m_player2->Render(window);
+	delete all;
 }
