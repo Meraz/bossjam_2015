@@ -23,13 +23,13 @@ GameScene::~GameScene()
 
 }
 
-void GameScene::Update(float deltaTime)
+void GameScene::Update(sf::Time deltaT)
 {
 	sf::FloatRect test = m_players.at(0)->getCollisionRect();
 	std::vector<BaseEntity*>* all;
 	for (int i = 0; i < playerCount; ++i)
 	{
-		m_players.at(i)->Update(deltaTime);
+		m_players.at(i)->Update(deltaT);
 		m_players.at(i)->LoadStats("CharacterScripts/tiger.lua");
 		all = m_level->GetAllObjects();
 		for (int j = 0; j < all->size(); ++j)

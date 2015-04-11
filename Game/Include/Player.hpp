@@ -9,7 +9,7 @@
 #include <System/XboxInput.hpp>
 #include <Sprite/AnimatedSprite.hpp>
 #include <Sprite/Animation.hpp>
-#define CHAR_WIDTH 90
+#define CHAR_WIDTH 88
 #define CHAR_HEIGHT 150
 #include <XboxController.hpp>
 
@@ -58,13 +58,14 @@ private:
 	Animation m_walking;
 	AnimatedSprite m_walkingAnimatedSprite; 
 	float m_time;
+	sf::Time m_deltaT;
 
 public:
 	//(int playerNr);
 	Player(int playerNr);
 	virtual ~Player();
 
-	void Update(float deltaT) override;
+	void Update(sf::Time deltaT) override;
 	void Render(sf::RenderWindow* window) override;
 
 	void LoadStats(std::string characterName);

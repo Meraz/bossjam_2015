@@ -13,7 +13,7 @@ EditScene::~EditScene()
 
 }
 
-void EditScene::Update(float deltaTime)
+void EditScene::Update(sf::Time deltaT)
 {
 
 }

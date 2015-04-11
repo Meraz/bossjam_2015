@@ -16,7 +16,7 @@ SceneManager::~SceneManager()
 {
 
 }
-void SceneManager::Update(float deltaT)
+void SceneManager::Update(sf::Time deltaT)
 {
 	m_currentScene->Update(deltaT);
 }

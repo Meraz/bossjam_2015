@@ -13,7 +13,8 @@ public:
 	GameScene();
 	~GameScene();
 
-	void Update(float deltaT) override;
+	void Update(sf::Time deltaT) override;
+
 	void Render(sf::RenderWindow* window) override;
 
 private:

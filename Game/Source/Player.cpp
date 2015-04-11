@@ -15,6 +15,7 @@ Player::Player(int playerNr)
 	//PlayerBox
 	m_shape.setPosition(100 * (playerNr + 1), 50);
 	m_shape.setFillColor(sf::Color((playerNr + 1) * 60, (playerNr + 1) * 20, (playerNr + 1) * 40));
+	m_shape.setSize(sf::Vector2f(CHAR_WIDTH, CHAR_HEIGHT));
 	m_vel = sf::Vector2f(0, 0);
 
 	m_maxVertSpeed = 7;
@@ -25,39 +26,40 @@ Player::Player(int playerNr)
 
 	m_score = 0;
 
-
+	m_animationTexture.loadFromFile("spritesheet_tiger.png");
 	m_walking.setSpriteSheet(m_animationTexture);
-	m_walking.addFrame(sf::IntRect(88, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walking.addFrame(sf::IntRect(88 * 1, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walking.addFrame(sf::IntRect(88 * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walking.addFrame(sf::IntRect(88 * 3, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walking.addFrame(sf::IntRect(88 * 4, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walking.addFrame(sf::IntRect(CHAR_WIDTH, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walking.addFrame(sf::IntRect(CHAR_WIDTH * 1, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walking.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walking.addFrame(sf::IntRect(CHAR_WIDTH * 3, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walking.addFrame(sf::IntRect(CHAR_WIDTH * 4, 0, CHAR_WIDTH, CHAR_HEIGHT));
 	m_currentAnimation = &m_walking;
 
-	m_walkingAnimatedSprite = AnimatedSprite(sf::seconds(0.2), true, true);
-	//m_walkingAnimatedSprite.set
+	m_walkingAnimatedSprite = AnimatedSprite(sf::seconds(0.15), true, true);
 	m_walkingAnimatedSprite.setPosition(m_shape.getPosition());
 	m_time = 0;
 }
 
 Player::~Player()
 {
-	//
+	// TODO
 }
 
-void Player::Update(float deltaT)
+void Player::Update(sf::Time deltaT)
 {
-	m_time = deltaT;
+	m_deltaT = deltaT;
+	m_time = deltaT.asSeconds();
 	m_playerController->Update();
-	HandleMovement(deltaT);
+	HandleMovement(deltaT.asSeconds());
 }
 
 void Player::Render(sf::RenderWindow* window)
 {
-	window->draw(m_shape);
-//	m_walkingAnimatedSprite.play(*m_currentAnimation);
-//	m_walkingAnimatedSprite.setPosition(sf::Vector2f(m_collisionRectangle.left, m_collisionRectangle.top));
-	window->draw(m_shape);
+	//window->draw(m_shape);
+	m_walkingAnimatedSprite.play(*m_currentAnimation);
+	m_walkingAnimatedSprite.setPosition(m_shape.getPosition());
+	m_walkingAnimatedSprite.update(m_deltaT);
+	window->draw(m_walkingAnimatedSprite);
 }
 
 void Player::LoadStats(std::string characterName)

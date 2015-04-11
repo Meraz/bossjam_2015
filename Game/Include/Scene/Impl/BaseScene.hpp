@@ -8,8 +8,8 @@ public:
 	virtual ~BaseScene();
 
 	SceneType GetSceneType() override { return m_sceneType; }
-	virtual void Update(float deltaT) override;
-	virtual void Render(sf::RenderWindow* window) override;
+	virtual void Update(sf::Time deltaT) = 0;
+	virtual void Render(sf::RenderWindow* window) = 0;
 
 private:
 	SceneType m_sceneType;
