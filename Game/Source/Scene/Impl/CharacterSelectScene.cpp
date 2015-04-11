@@ -29,10 +29,10 @@ CharacterSelectScene::~CharacterSelectScene()
 void CharacterSelectScene::InitSelectableCharacters()
 {
 	int size = 150;
-	std::string name = "avatars_spritesheet.png";
+	std::string name = "avatar_spritesheet_4.png";
 	sf::Texture largeTex;
 	largeTex.loadFromFile(name);
-	for (size_t x = 0; x < /*m_totalCharacters*/4; x++)
+	for (size_t x = 0; x < m_totalCharacters; x++)
 	{
 		for (size_t y = 0; y < m_totalColors; y++)
 		{
@@ -175,10 +175,37 @@ void CharacterSelectScene::Render(sf::RenderWindow* window)
 		sprite.setPosition(curMiddle-spacing/2.f, 200.f);
 
 		//Character name
-
+		Text charName;
+		if (!m_players[i].isActive)
+		{
+			charName.Init("Press A to join", sf::Color::Yellow, sf::Vector2f(curMiddle - spacing * 0.4f, 350.f));
+			charName.SetSize(14);
+		}
+		else
+		{
+			switch (m_players[i].chosenChar.x)
+			{
+			case(1) :
+				charName.Init("Göran", sf::Color::Yellow, sf::Vector2f(curMiddle - spacing * 0.4f, 350.f));
+				break;
+			case(2) :
+				charName.Init("Sven", sf::Color::Yellow, sf::Vector2f(curMiddle - spacing * 0.4f, 350.f));
+				break;
+			case(3) :
+				charName.Init("Roger", sf::Color::Yellow, sf::Vector2f(curMiddle - spacing * 0.4f, 350.f));
+				break;
+			case(4) :
+				charName.Init("Peter", sf::Color::Yellow, sf::Vector2f(curMiddle - spacing * 0.4f, 350.f));
+				break;
+			default:
+				break;
+			}
+		}
+		
 		//Render
 		window->draw(playerText.GetText());
 		window->draw(sprite);
+		window->draw(charName.GetText());
 	}
 	
 }
