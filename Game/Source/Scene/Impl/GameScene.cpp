@@ -34,7 +34,7 @@ void GameScene::Update(float deltaTime)
 	for (int i = 0; i < playerCount; ++i)
 	{
 		m_players.at(i)->Update(deltaTime);
-		m_players.at(i)->CollisionEvent(collisionHandler.GetIntersectionVector(m_players.at(i)->getCollisionRect(), m_world.at(0)->getCollisionRect()));
+		//m_players.at(i)->CollisionEvent(collisionHandler.GetIntersectionVector(m_players.at(i)->getCollisionRect(), m_world.at(0)->getCollisionRect()));
 	}
 
 }

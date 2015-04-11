@@ -116,13 +116,6 @@ void Player::HandleMovement(float deltaT)
 	m_shape.move(m_vel*deltaT); //os?ker
 }
 
-
-void Player::LoadStats()
-{
-
->>>>>>> Stashed changes
-}
-
 void Player::IncreaseScore(int amount)
 {
 	m_score += amount;
