@@ -8,7 +8,7 @@ public:
 	~GameScene();
 
 	void Update(float deltaT) override;
-	void Render(sf::RenderWindow* m_window) override;
+	void Render(sf::RenderWindow* window) override;
 
 private:
 

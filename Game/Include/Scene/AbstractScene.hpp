@@ -9,5 +9,5 @@ class AbstractScene
 public:
 	virtual SceneType GetSceneType() = 0;
 	virtual void Update(float deltaT) = 0;
-	virtual void Render(sf::RenderWindow* m_window) = 0;
+	virtual void Render(sf::RenderWindow* window) = 0;
 };
