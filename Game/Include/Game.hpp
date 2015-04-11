@@ -21,6 +21,7 @@ public:
 private:
 	void Update();
 	void Render();
+	bool m_hasFocus;
 
 private:
 	ShutdownState m_shutdownState;
