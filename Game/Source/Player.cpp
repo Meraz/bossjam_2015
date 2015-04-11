@@ -9,7 +9,7 @@ Player::Player(int playerNr)
 	m_playerNr = playerNr;
 
 	//controller
-	//m_playerController = new XboxInput(playerNr);
+	m_playerController = new XboxController(playerNr);
 		
 
 	//PlayerBox
@@ -32,6 +32,7 @@ Player::~Player()
 
 void Player::Update(float deltaT)
 {
+		m_playerController->Update();
 		HandleMovement(deltaT);
 }
 
@@ -63,14 +64,14 @@ void Player::HandleMovement(float deltaT)
 	float grav = 9.81f * 300.f;
 	float acc = 10000.f;
 	bool notMoving = true;
-	if (m_playerController->GetLThumbStickX() < 0)
+	if (m_playerController->GetLStickXState().current < 0)
 	{
 		notMoving = false;
 		m_vel.x -= acc*deltaT;
 		if (m_vel.x < -m_maxHorSpeed)
 			m_vel.x = -m_maxHorSpeed;
 	}
-	if (m_playerController->GetLThumbStickX() > 0)
+	if (m_playerController->GetLStickXState().current > 0)
 	{
 		notMoving = false;
 		m_vel.x += acc*deltaT;
@@ -97,7 +98,7 @@ void Player::HandleMovement(float deltaT)
 	//Handle jump
 	float jumpForce = 700.f;
 
-	if (m_playerController->IsAbuttonPressed())
+	if (m_playerController->GetAButtonState().current)
 	{
 		m_timeJumpButtonHeld += deltaT;
 		if (m_timeJumpButtonHeld < 0.2f)
