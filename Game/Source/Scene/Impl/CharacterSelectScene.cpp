@@ -4,6 +4,9 @@
 #include <System/Text.hpp>
 #include <XboxController.hpp>
 
+
+#include <iostream>
+
 CharacterSelectScene::CharacterSelectScene()
 : BaseScene(SceneType::CHARSELECT)
 {
@@ -25,11 +28,14 @@ CharacterSelectScene::~CharacterSelectScene()
 
 void CharacterSelectScene::InitSelectableCharacters()
 {
-	for (size_t x = 0; x < /*m_totalCharacters*/2; x++)
+	int size = 150;
+	std::string name = "avatars_spritesheet.png";
+	sf::Texture largeTex;
+	largeTex.loadFromFile(name);
+	for (size_t x = 0; x < /*m_totalCharacters*/4; x++)
 	{
 		for (size_t y = 0; y < m_totalColors; y++)
 		{
-			std::string name = "portrait_" + std::to_string(x);
 			if (x == 0)
 			{
 				//Set all these portaits to NONE/inactive/not in game/whatever
@@ -38,8 +44,7 @@ void CharacterSelectScene::InitSelectableCharacters()
 			else
 			{
 				//Set portrait to portrait_x_y.png
-				name.append("_" + std::to_string(y) + ".png");
-				m_allSelectableCharacters[x][y].portrait.loadFromFile(name);
+				m_allSelectableCharacters[x][y].portrait.loadFromFile(name, sf::IntRect(y*size, (x - 1)*size, size, size));
 			}
 			m_allSelectableCharacters[x][y].charClass = (CharacterClass)x;
 			m_allSelectableCharacters[x][y].charColor = (CharacterColor)y;
@@ -110,7 +115,7 @@ void CharacterSelectScene::Update(float deltaTime)
 			}
 		}
 
-		if (controller->GetRStickXState().current > 0.f && controller->GetRStickXState().current <= 0.f) // maybe?
+		if (controller->GetLStickXState().current > 0.f && controller->GetLStickXState().last <= 0.f) // maybe?
 		{
 			//if right (and active and not locked): select next character
 			if (m_players[i].isActive && !m_players[i].isLocked)
@@ -118,7 +123,7 @@ void CharacterSelectScene::Update(float deltaTime)
 				SelectNextCharacter(i);
 			}
 		}
-		else if (controller->GetLStickXState().current > 0.f && controller->GetLStickXState().current <= 0.f) // maybe?
+		else if (controller->GetLStickXState().current < 0.f && controller->GetLStickXState().last >= 0.f) // maybe?
 		{
 			//if left (and active and not locked): select prev character
 			if (m_players[i].isActive && !m_players[i].isLocked)
