@@ -28,5 +28,6 @@ private:
 	bool PlayerSpawnCondition(size_t r, size_t g, size_t b);
 	bool SimleWallCondition(size_t r, size_t g, size_t b);
 	bool TeleporterCondition(size_t r, size_t g, size_t b);
+	bool EmptyCondition(size_t r, size_t g, size_t b);
 	std::string GetTextureFromColorCoding(size_t g);
 };

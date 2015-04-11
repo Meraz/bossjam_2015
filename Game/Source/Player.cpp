@@ -54,7 +54,8 @@ void Player::Update(float deltaT)
 void Player::Render(sf::RenderWindow* window)
 {
 //	m_walkingAnimatedSprite.play(*m_currentAnimation);
-//	m_walkingAnimatedSprite.move(
+//	m_walkingAnimatedSprite.setPosition(sf::Vector2f(m_collisionRectangle.left, m_collisionRectangle.top));
+	window->draw(m_shape);
 }
 
 void Player::LoadStats(std::string characterName)
