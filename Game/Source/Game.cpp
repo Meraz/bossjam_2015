@@ -8,6 +8,7 @@ m_shutdownState(ShutdownState::UNKNOWN),
 m_sceneManager(nullptr)
 {
 	m_sceneManager = new SceneManager();
+	m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "GameName");
 }
 
 Game::~Game()
@@ -23,23 +24,22 @@ void Game::Initialize()
 
 ShutdownState Game::Run()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "GameName");
 	sf::Clock clock;
 	
-	while (window.isOpen())
+	while (m_window->isOpen())
 	{
 		Update();
 		Render();
 
 		sf::Event event;
-		while (window.pollEvent(event))
+		while (m_window->pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
-				window.close();
+				m_window->close();
 		}
 
-		window.clear();
-		window.display();
+		m_window->clear();
+		m_window->display();
 	}
 	return m_shutdownState;
 }

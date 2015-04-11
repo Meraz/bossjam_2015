@@ -26,4 +26,5 @@ private:
 	ShutdownState m_shutdownState;
 	SceneManager* m_sceneManager;
 	sf::Clock m_clock;
+	sf::RenderWindow* m_window;
 };
