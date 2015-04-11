@@ -57,7 +57,6 @@ void Game::Update()
 
 void Game::Render()
 {
-
 	m_sceneManager->Render(m_window);
 }
 
