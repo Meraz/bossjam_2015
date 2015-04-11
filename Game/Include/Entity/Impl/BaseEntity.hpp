@@ -21,10 +21,10 @@ public:
 	virtual void Render(sf::RenderWindow* window);
 	
 	const ColorCoding& GetColor() { return m_color; }
-	const sf::FloatRect& GetCollisionRectangle() { return m_collisionRectangle; }
 
-protected:	
-	sf::FloatRect m_collisionRectangle;
+	EntityType GetType() { return m_type; }
+
+protected:
 	ColorCoding m_color;
 	sf::Texture m_texture;
 	sf::RectangleShape m_shape;
