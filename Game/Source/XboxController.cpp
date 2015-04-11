@@ -35,23 +35,23 @@ void XboxController::Update()
 
 	//Set new values
 	
-	m_aButton.last = m_input->IsAbuttonPressed();
-	m_bButton.last = m_input->IsBbuttonPressed();
-	m_xButton.last = m_input->IsXbuttonPressed();
-	m_yButton.last = m_input->IsYbuttonPressed();
-	m_lbButton.last = m_input->IsLBbuttonPressed();
-	m_rbButton.last = m_input->IsRBbuttonPressed();
-	m_backButton.last = m_input->IsBackbuttonPressed();
-	m_startButton.last = m_input->IsStartbuttonPressed();
-	m_lStickButton.last = m_input->IsLThumbStickPressed();
-	m_rStickButton.last = m_input->IsRThumbStickPressed();
+	m_aButton.current = m_input->IsAbuttonPressed();
+	m_bButton.current = m_input->IsBbuttonPressed();
+	m_xButton.current = m_input->IsXbuttonPressed();
+	m_yButton.current = m_input->IsYbuttonPressed();
+	m_lbButton.current = m_input->IsLBbuttonPressed();
+	m_rbButton.current = m_input->IsRBbuttonPressed();
+	m_backButton.current = m_input->IsBackbuttonPressed();
+	m_startButton.current = m_input->IsStartbuttonPressed();
+	m_lStickButton.current = m_input->IsLThumbStickPressed();
+	m_rStickButton.current = m_input->IsRThumbStickPressed();
 
-	m_lStickX.last = m_input->GetLThumbStickX();
-	m_lStickY.last = m_input->GetLThumbStickY();
-	m_rStickX.last = m_input->GetRThumbStickX();
-	m_rStickY.last = m_input->GetRThumbStickY();
-	m_lTrigger.last = m_input->GetLTrigger();
-	m_rTrigger.last = m_input->GetRTrigger();
-	m_dPadX.last = m_input->GetDPadX();
-	m_dPadY.last = m_input->GetDPadY();
+	m_lStickX.current = m_input->GetLThumbStickX();
+	m_lStickY.current = m_input->GetLThumbStickY();
+	m_rStickX.current = m_input->GetRThumbStickX();
+	m_rStickY.current = m_input->GetRThumbStickY();
+	m_lTrigger.current = m_input->GetLTrigger();
+	m_rTrigger.current = m_input->GetRTrigger();
+	m_dPadX.current = m_input->GetDPadX();
+	m_dPadY.current = m_input->GetDPadY();
 }
