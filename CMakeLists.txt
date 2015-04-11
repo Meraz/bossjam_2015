@@ -67,7 +67,7 @@ add_subdirectory(Game)
 
 # Copy game resources
 add_custom_target(_resourceCopy ALL 
-#	COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/bossjam_2015_assets ${CMAKE_BINARY_DIR}/Game
+	COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/bossjam_2015_assets ${CMAKE_BINARY_DIR}/Game
 	COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/bossjam_2015_assets ${OUTPUT_FOLDER}
 )
 

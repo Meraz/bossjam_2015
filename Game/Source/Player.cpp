@@ -23,6 +23,19 @@ Player::Player(int playerNr)
 	m_timeJumpButtonHeld = 0.f;
 
 	m_score = 0;
+
+
+	m_walking.setSpriteSheet(m_animationTexture);
+	m_walking.addFrame(sf::IntRect(88, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walking.addFrame(sf::IntRect(88 * 1, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walking.addFrame(sf::IntRect(88 * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walking.addFrame(sf::IntRect(88 * 3, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walking.addFrame(sf::IntRect(88 * 4, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_currentAnimation = &m_walking;
+
+	m_walkingAnimatedSprite = AnimatedSprite(sf::seconds(0.2), true, true);
+	//m_walkingAnimatedSprite.set
+	m_walkingAnimatedSprite.setPosition(sf::Vector2f(m_collisionRectangle.left, m_collisionRectangle.top));
 }
 
 Player::~Player()
@@ -34,6 +47,12 @@ void Player::Update(float deltaT)
 {
 		m_playerController->Update();
 		HandleMovement(deltaT);
+}
+
+void Player::Render(sf::RenderWindow* window)
+{
+//	m_walkingAnimatedSprite.play(*m_currentAnimation);
+//	m_walkingAnimatedSprite.move(
 }
 
 void Player::LoadStats(std::string characterName)

@@ -14,7 +14,7 @@ GameScene::GameScene()
 
 
 	m_level = new Level();
-	m_level->Initialize("test.ppm");
+	m_level->Initialize("Level0.ppm");
 
 	m_players.push_back(new Player(playerCount++));
 	m_players.push_back(new Player(playerCount++));
@@ -51,4 +51,6 @@ void GameScene::Render(sf::RenderWindow* window)
 	m_level->Render(window);
 	std::vector<BaseEntity*>* all = new std::vector<BaseEntity*>;
 	all = m_level->FindNearObjects(sf::FloatRect(sf::Vector2f(0,0), sf::Vector2f(50,50)), all);
+
+	delete all;
 }
