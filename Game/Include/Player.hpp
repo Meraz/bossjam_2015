@@ -6,8 +6,12 @@
 #include <Entity/Impl/BaseEntity.hpp>
 
 #include <SFML/Graphics.hpp>
+#include <System/XboxInput.hpp>
+#include <Sprite/AnimatedSprite.hpp>
+#include <Sprite/Animation.hpp>
+#define CHAR_WIDTH 90
+#define CHAR_HEIGHT 150
 #include <XboxController.hpp>
-
 
 class Player : public BaseEntity
 {
@@ -41,6 +45,10 @@ private:
 	float m_groundControlMax;
 
 	int m_score;
+	sf::Texture m_animationTexture;
+	Animation* m_currentAnimation;
+	Animation m_walking;
+	AnimatedSprite m_walkingAnimatedSprite; 
 
 public:
 	//(int playerNr);
@@ -48,6 +56,7 @@ public:
 	virtual ~Player();
 
 	void Update(float deltaT) override;
+	void Render(sf::RenderWindow* window) override;
 
 	void LoadStats(std::string characterName);
 

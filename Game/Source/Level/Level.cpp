@@ -28,24 +28,25 @@ void Level::Initialize(const std::string& filePath)
 void Level::LoadFile(const std::string& filePath)
 {
 	using namespace std;
-	ifstream file(filePath);
+	ifstream file(filePath, std::ios::binary);
 	if (file.is_open())
 	{
 		string line;
-		size_t width, height, x, y;
-		width = height = x = y = 0;
-		getline(file, line); // Magic number
+		size_t width, height, x, y, maxColor;
+		width = height = x = y = maxColor= 0;
+		getline(file, line); // Max color size
 		file >> width >> height; // width, height
 		m_quadTree->Initialize(sf::FloatRect(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(width * TILE_SIZE, height * TILE_SIZE)));
 		getline(file, line); // Max color size
+		file >> maxColor;
+
 		size_t r, g, b;
 		r = g = b = 0;
-
 		while (file >> r >> g >> b)
 		{
 			m_quadTree->AddEntity(EvaluateTileDataFromFile(r, g, b, x, y));
 			++x;
-			if (x == width)
+			if (x == width-1)
 			{
 				x = 0;
 				++y;
@@ -128,7 +129,7 @@ std::string Level::GetTextureFromColorCoding(size_t g)
 	switch (g)
 	{
 	case 0:
-		texture = "character_new.png";
+	//	texture = "character_new.png";
 		break;
 	case 1:
 		texture = "dirt_tile.jpg";
