@@ -48,12 +48,10 @@ void GameScene::Update(float deltaTime)
 
 void GameScene::Render(sf::RenderWindow* window)
 {
-
 	m_level->Render(window);
 
 	for (int i = 0; i < playerCount; ++i)
 	{
 		m_players.at(i)->Render(window);
 	}
-
 }

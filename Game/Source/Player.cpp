@@ -36,6 +36,7 @@ Player::Player(int playerNr)
 	m_walkingAnimatedSprite = AnimatedSprite(sf::seconds(0.2), true, true);
 	//m_walkingAnimatedSprite.set
 	m_walkingAnimatedSprite.setPosition(sf::Vector2f(m_collisionRectangle.left, m_collisionRectangle.top));
+	m_time = 0;
 }
 
 Player::~Player()
@@ -45,15 +46,17 @@ Player::~Player()
 
 void Player::Update(float deltaT)
 {
-		m_playerController->Update();
-		HandleMovement(deltaT);
+	m_time = deltaT;
+	m_playerController->Update();
+	HandleMovement(deltaT);
 }
 
 void Player::Render(sf::RenderWindow* window)
 {
 	window->draw(m_shape);
 //	m_walkingAnimatedSprite.play(*m_currentAnimation);
-//	m_walkingAnimatedSprite.move(
+//	m_walkingAnimatedSprite.setPosition(sf::Vector2f(m_collisionRectangle.left, m_collisionRectangle.top));
+	window->draw(m_shape);
 }
 
 void Player::LoadStats(std::string characterName)

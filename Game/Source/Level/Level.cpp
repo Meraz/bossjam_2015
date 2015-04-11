@@ -62,22 +62,28 @@ void Level::LoadFile(const std::string& filePath)
 
 BaseEntity* Level::EvaluateTileDataFromFile(size_t r, size_t g, size_t b, size_t x, size_t y)
 {
-	BaseEntity* returnEntity;
-	if(PlayerSpawnCondition(r,g,b))
+	BaseEntity* returnEntity = nullptr;
+	if(EmptyCondition(r,g,b))
 	{
-		m_spawnPositions.push_back(sf::Vector2i(x,y));
-		returnEntity = new TeleportEntity();
+		returnEntity = new BaseEntity(EntityType::EMPTY);
+		returnEntity->Initialize(TILE_SIZE * x, TILE_SIZE * y, GetTextureFromColorCoding(g));
 	}
-//	if (SimleWallCondition(r, g, b))
+	else if (SimleWallCondition(r, g, b))
 	{
 		returnEntity = new BaseEntity(EntityType::WALL);
 		returnEntity->Initialize(TILE_SIZE * x, TILE_SIZE * y, GetTextureFromColorCoding(g));
 	}
-	if (TeleporterCondition(r, g, b))
+	else if (PlayerSpawnCondition(r, g, b))
+	{
+//		m_spawnPositions.push_back(sf::Vector2i(x, y));
+//		returnEntity = new TeleportEntity();
+	}
+	else if (TeleporterCondition(r, g, b))
 	{
 		m_telePorterPositions.push_back(sf::Vector2i(x, y));
 	}
-	m_all.push_back(returnEntity);
+	if (returnEntity != nullptr)
+		m_all.push_back(returnEntity);
 	return returnEntity;
 }
 
@@ -92,7 +98,7 @@ bool Level::PlayerSpawnCondition(size_t r, size_t g, size_t b)
 
 bool Level::SimleWallCondition(size_t r, size_t g, size_t b)
 {
-	if (g == 0)
+	if (r == 1)
 	{
 		return true;
 	}
@@ -102,6 +108,15 @@ bool Level::SimleWallCondition(size_t r, size_t g, size_t b)
 bool Level::TeleporterCondition(size_t r, size_t g, size_t b)
 {
 	if (r == 0 && g == 0 && b == 255)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Level::EmptyCondition(size_t r, size_t g, size_t b)
+{
+	if (r == 0 && g == 0 && b == 0)
 	{
 		return true;
 	}
