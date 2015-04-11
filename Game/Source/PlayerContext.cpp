@@ -3,6 +3,14 @@
 
 PlayerContext* PlayerContext::m_context = nullptr;
 
+PlayerContext::PlayerContext()
+{
+	m_players[0] = nullptr;
+	m_players[1] = nullptr;
+	m_players[2] = nullptr;
+	m_players[3] = nullptr;
+}
+
 Player* PlayerContext::GetPlayer(int index)
 {
 	if (m_players[index] == nullptr)
@@ -16,6 +24,8 @@ Player* PlayerContext::GetPlayer(int index)
 PlayerContext* PlayerContext::GetPlayerContext()
 {
 	if (m_context == nullptr)
+	{
 		m_context = new PlayerContext();
+	}
 	return m_context;
 }

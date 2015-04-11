@@ -39,7 +39,7 @@ Player::~Player()
 
 void Player::Update(float deltaT)
 {
-
+	m_playerController->Update();
 }
 
 void Player::Render(sf::RenderWindow* window)

@@ -10,6 +10,11 @@ CharacterSelectScene::CharacterSelectScene()
 	m_totalCharacters = 5; //Including Character NONE
 	m_totalColors = 4;
 	InitSelectableCharacters();
+
+	for (size_t i = 0; i < 4; i++)
+	{
+		PlayerContext::GetPlayerContext()->GetPlayer(i);
+	}
 }
 
 CharacterSelectScene::~CharacterSelectScene()
@@ -18,7 +23,7 @@ CharacterSelectScene::~CharacterSelectScene()
 
 void CharacterSelectScene::InitSelectableCharacters()
 {
-	for (size_t x = 0; x < m_totalCharacters; x++)
+	for (size_t x = 0; x < /*m_totalCharacters*/2; x++)
 	{
 		for (size_t y = 0; y < m_totalColors; y++)
 		{
@@ -26,13 +31,16 @@ void CharacterSelectScene::InitSelectableCharacters()
 			if (x == 0)
 			{
 				//Set all these portaits to NONE/inactive/not in game/whatever
+				m_allSelectableCharacters[x][y].portrait.loadFromFile("no_character.png");
 			}
 			else
 			{
 				//Set portrait to portrait_x_y.png
-				name.append(std::to_string(y) + ".png");
+				name.append("_" + std::to_string(y) + ".png");
 				m_allSelectableCharacters[x][y].portrait.loadFromFile(name);
 			}
+			m_allSelectableCharacters[x][y].charClass = (CharacterClass)x;
+			m_allSelectableCharacters[x][y].charColor = (CharacterColor)y;
 		}
 	}
 }
@@ -44,7 +52,7 @@ void CharacterSelectScene::Update(float deltaTime)
 	for (size_t i = 0; i < 4; i++)
 	{
 		Player* curPlayer = PlayerContext::GetPlayerContext()->GetPlayer(i);
-		XboxController* controller = new XboxController(i);
+		XboxController* controller = curPlayer->GetController();
 		
 		
 		if (controller->GetAButtonState().current && !controller->GetAButtonState().last)
@@ -144,18 +152,21 @@ void CharacterSelectScene::Render(sf::RenderWindow* window)
 	float spacing = window->getSize().x / 8.f;
 	for (size_t i = 0; i < 4; i++)
 	{
-		float curMiddle = i * spacing * 2.f;
+		float curMiddle = spacing + i * spacing * 2.f;
 		//PX
 		Text playerText;
 		playerText.Init("P" + std::to_string(i + 1), sf::Color::Green, sf::Vector2f(curMiddle, 150.f));
-
+		//playerText.SetPositionCenter(sf::Vector2f(curMiddle, 150.f));
 		//Portrait
 		sf::Sprite sprite;
 		sprite.setTexture(m_allSelectableCharacters[m_players[i].chosenChar.x][m_players[i].chosenChar.y].portrait);
-		sprite.setPosition(curMiddle - spacing, 200.f);
+		sprite.setPosition(curMiddle-spacing/2.f, 200.f);
 
 		//Character name
 
+		//Render
+		window->draw(playerText.GetText());
+		window->draw(sprite);
 	}
 	
 }

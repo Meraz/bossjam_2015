@@ -114,7 +114,7 @@ public:
 	float GetDefaultGroundControl();
 	float GetMaxGroundControl();
 
-
+	XboxController* GetController() { return m_playerController; };
 };
 
 #endif
