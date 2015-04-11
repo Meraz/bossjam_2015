@@ -1,4 +1,5 @@
 #include <Scene/Impl/CharacterSelectScene.hpp>
+#include <PlayerContext.hpp>
 
 CharacterSelectScene::CharacterSelectScene()
 : BaseScene(SceneType::CHARSELECT)
@@ -10,7 +11,6 @@ CharacterSelectScene::CharacterSelectScene()
 
 CharacterSelectScene::~CharacterSelectScene()
 {
-
 }
 
 void CharacterSelectScene::InitSelectableCharacters()
