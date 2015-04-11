@@ -9,7 +9,7 @@ public:
 
 	SceneType GetSceneType() override { return m_sceneType; }
 	virtual void Update(float deltaT) override;
-	virtual void Render() override;
+	virtual void Render(sf::RenderWindow* m_window) override;
 
 private:
 	SceneType m_sceneType;

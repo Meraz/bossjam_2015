@@ -57,7 +57,8 @@ void Game::Update()
 
 void Game::Render()
 {
-	m_sceneManager->Render();
+
+	m_sceneManager->Render(m_window);
 }
 
 void Game::SetShutdownState(ShutdownState newState)

@@ -16,7 +16,7 @@ void GameScene::Update(float deltaTime)
 
 }
 
-void GameScene::Render()
+void GameScene::Render(sf::RenderWindow* m_window)
 {
 
 }

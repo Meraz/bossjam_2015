@@ -21,9 +21,9 @@ void SceneManager::Update(float deltaT)
 	m_currentScene->Update(deltaT);
 }
 
-void SceneManager::Render()
+void SceneManager::Render(sf::RenderWindow* m_window)
 {
-	m_currentScene->Render();
+	m_currentScene->Render(m_window);
 }
 
 void SceneManager::ChangeScene(SceneType newScene)

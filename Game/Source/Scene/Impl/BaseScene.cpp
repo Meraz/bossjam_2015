@@ -15,7 +15,7 @@ void BaseScene::Update(float deltaT)
 
 }
 
-void BaseScene::Render()
+void BaseScene::Render(sf::RenderWindow* m_window)
 {
 
 }
