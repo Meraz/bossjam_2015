@@ -14,7 +14,7 @@ GameScene::GameScene()
 
 
 	m_level = new Level();
-	m_level->Initialize("Level0.ppm");
+	m_level->Initialize("Levels/Level0.ppm");
 
 	m_players.push_back(new Player(playerCount++));
 	m_players.push_back(new Player(playerCount++));
@@ -31,26 +31,29 @@ GameScene::~GameScene()
 void GameScene::Update(float deltaTime)
 {
 	sf::FloatRect test = m_players.at(0)->getCollisionRect();
+	std::vector<BaseEntity*>* all = new std::vector<BaseEntity*>;
 	for (int i = 0; i < playerCount; ++i)
 	{
 		m_players.at(i)->Update(deltaTime);
 		m_players.at(i)->LoadStats("tiger.lua");
-		//m_players.at(i)->CollisionEvent(collisionHandler.GetIntersectionVector(m_players.at(i)->getCollisionRect(), m_world.at(0)->getCollisionRect()));
+		all = m_level->FindNearObjects(m_players.at(i)->getCollisionRect(), all);
+		for (int j = 0; j < all->size(); ++j)
+		{
+			m_players.at(i)->CollisionEvent(collisionHandler.GetIntersectionVector(m_players.at(i)->getCollisionRect(), all->at(j)->GetCollisionRectangle()));
+		}
 	}
 
-
+	delete all;
 }
 
 void GameScene::Render(sf::RenderWindow* window)
 {
+
+	m_level->Render(window);
+
 	for (int i = 0; i < playerCount; ++i)
 	{
 		m_players.at(i)->Render(window);
 	}
 
-	m_level->Render(window);
-	std::vector<BaseEntity*>* all = new std::vector<BaseEntity*>;
-	all = m_level->FindNearObjects(sf::FloatRect(sf::Vector2f(0,0), sf::Vector2f(50,50)), all);
-
-	delete all;
 }

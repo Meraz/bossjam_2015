@@ -51,6 +51,7 @@ void Player::Update(float deltaT)
 
 void Player::Render(sf::RenderWindow* window)
 {
+	window->draw(m_shape);
 //	m_walkingAnimatedSprite.play(*m_currentAnimation);
 //	m_walkingAnimatedSprite.move(
 }
@@ -83,7 +84,7 @@ void Player::LoadStats(std::string characterName)
 
 void Player::HandleMovement(float deltaT)
 {
-	float grav = 9.81f * 300.f;
+	float grav = 9.81f * 3.f;
 	float acc = 100.f * m_accelerationCurrent;
 	bool notMoving = true;
 	if (m_playerController->GetLStickXState().current < 0)
