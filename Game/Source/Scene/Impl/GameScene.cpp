@@ -39,6 +39,14 @@ void GameScene::Update(sf::Time deltaT)
 				m_players.at(i)->CollisionEvent(collisionHandler.GetIntersectionVector(m_players.at(i)->getCollisionRect(), all->at(j)->getCollisionRect()));
 			}
 		}
+
+		for (int j = 0; j < playerCount; ++j)
+		{
+			if (i != j)
+			{
+				m_players.at(i)->PlayerCollisionEvent(collisionHandler.GetIntersectionVector(m_players.at(i)->getCollisionRect(), m_players.at(j)->getCollisionRect()));
+			}
+		}
 	}
 }
 

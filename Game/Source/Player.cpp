@@ -123,7 +123,7 @@ void Player::HandleMovement(float deltaT)
 		m_vel.x -= acc*deltaT;
 		if (m_vel.x < -m_moveSpeedCurrent)
 		{
-			if (m_isJumping)
+			if (m_timesJumped > 0)
 			{
 				m_vel.x = -m_moveSpeedCurrent * m_airControlCurrent;
 			}
@@ -139,7 +139,7 @@ void Player::HandleMovement(float deltaT)
 		m_vel.x += acc*deltaT;
 		if (m_vel.x > m_moveSpeedCurrent)
 		{
-			if (m_isJumping)
+			if (m_timesJumped > 0)
 			{
 				m_vel.x = m_moveSpeedCurrent * m_airControlCurrent;
 			}
@@ -204,6 +204,17 @@ void Player::DecreaseScore(int amount)
 	m_score -= amount;
 }
 
+sf::FloatRect Player::getCollisionRect()
+{
+	m_shape.setSize(sf::Vector2f(CHAR_WIDTH / 2, CHAR_HEIGHT));
+	m_shape.move(sf::Vector2f(CHAR_WIDTH / 4, 0));
+	sf::FloatRect temp = m_shape.getGlobalBounds();
+	m_shape.move(sf::Vector2f(-CHAR_WIDTH / 4, 0));
+	m_shape.setSize(sf::Vector2f(CHAR_WIDTH, CHAR_HEIGHT));
+
+	return temp;
+}
+
 void Player::CollisionEvent(sf::Vector2f velocity)
 {
 	m_shape.move(velocity);
@@ -211,6 +222,19 @@ void Player::CollisionEvent(sf::Vector2f velocity)
 	{
 		m_vel.y = 0;
 		m_timesJumped = 0;
+	}
+}
+
+void Player::PlayerCollisionEvent(sf::Vector2f velocity)
+{
+	m_shape.move(velocity.x, 0);
+	if (velocity.y < 0)
+	{
+		IncreaseScore(1);
+	}
+	if (velocity.y > 0)
+	{
+		m_shape.setPosition(0, 0);
 	}
 }
 
