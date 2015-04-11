@@ -24,10 +24,20 @@ void BaseEntity::Initialize(float posX, float posY, const std::string& texturePa
 
 void BaseEntity::Update(float deltaT)
 {
-
 }
 
 void BaseEntity::Render(sf::RenderWindow* window)
 {
 	window->draw(m_shape);
+}
+
+void BaseEntity::setSize(int sizeX, int sizeY)
+{
+	m_shape.setSize(sf::Vector2f(sizeX, sizeY));
+	
+}
+
+sf::FloatRect BaseEntity::getCollisionRect()
+{
+	return m_shape.getGlobalBounds();
 }

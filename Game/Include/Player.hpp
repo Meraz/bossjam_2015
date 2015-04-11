@@ -20,6 +20,12 @@ private:
 	int m_playerNr;
 
 	//PlayerBox
+	sf::Vector2f m_vel;
+	float m_maxVertSpeed;
+
+	bool m_isJumping;
+	float m_timeJumpButtonHeld;
+
 
 	//controller
 	XboxController* m_playerController;
@@ -61,10 +67,12 @@ public:
 	void Render(sf::RenderWindow* window) override;
 
 	void LoadStats(std::string characterName);
+	void HandleMovement(float deltaT);
 
 	void IncreaseScore(int amount);
 	void DecreaseScore(int amount);
 
+	void CollisionEvent(sf::Vector2f velocity);
 
 	//Set
 	void SetCurrentMoveSpeed(float moveSpeed);
