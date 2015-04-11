@@ -3,5 +3,6 @@
 enum class SceneType
 {
 	MENU,
-	GAME
+	GAME,
+	CHARSELECT
 };
