@@ -8,7 +8,7 @@ m_shutdownState(ShutdownState::UNKNOWN),
 m_sceneManager(nullptr)
 {
 	m_sceneManager = new SceneManager();
-	m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "GameName");
+	m_window = new sf::RenderWindow(sf::VideoMode(1280, 720), "GameName");
 }
 
 Game::~Game()

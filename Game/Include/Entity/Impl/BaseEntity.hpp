@@ -1,25 +1,29 @@
 #pragma once
 
-#include <Entity/AbstractEntity.hpp>
-#include <sstream>
-#include <ostream>
+#include <System/ColorCoding.hpp>
+#include <Entity/Impl/EntityType.hpp>
+#include <SFML/Graphics.hpp>
+#define TILE_SIZE 50
 
-class BaseEntity : public AbstractEntity
+
+class BaseEntity 
 {
 public:
-	BaseEntity();
+	BaseEntity(EntityType type);
 	~BaseEntity();
 
-	void Initialize(float posX, float posY) override;
-
-	void Update(float deltaT) override;
-	void Render(sf::RenderWindow* window) override;
+	void Initialize(float posX, float posY, const std::string& texturePath);
 	
-	const ColorCoding& GetColor() override { return m_color; }
-
-protected:
+	virtual void Update(float deltaT);
+	virtual void Render(sf::RenderWindow* window);
 	
+	const ColorCoding& GetColor() { return m_color; }
+	const sf::FloatRect& GetCollisionRectangle() { return m_collisionRectangle; }
+
+protected:	
+	sf::FloatRect m_collisionRectangle;
 	ColorCoding m_color;
 	sf::Texture m_texture;
 	sf::RectangleShape m_shape;
+	EntityType m_type;
 };

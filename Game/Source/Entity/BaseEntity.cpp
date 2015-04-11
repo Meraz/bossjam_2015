@@ -1,14 +1,11 @@
 #include <Entity/Impl/BaseEntity.hpp>
 
-BaseEntity::BaseEntity()
-{
-	m_shape = sf::RectangleShape(sf::Vector2f(50, 50));
+#include <sstream>
 
-	std::string name = "tile";
-	std::stringstream stream;
-	stream << name << "_r" << m_color.r << "_g" << m_color.g << "_b" << m_color.b << ".png";
-	m_texture.loadFromFile(stream.str());
-	m_shape.setTexture(&m_texture);
+BaseEntity::BaseEntity(EntityType type):
+m_shape(sf::Vector2f(TILE_SIZE, TILE_SIZE)),
+	m_type(type)
+{
 }
 
 BaseEntity::~BaseEntity()
@@ -16,8 +13,11 @@ BaseEntity::~BaseEntity()
 
 }
 
-void BaseEntity::Initialize(float posX, float posY)
+void BaseEntity::Initialize(float posX, float posY, const std::string& texturePath)
 {
+	m_texture.loadFromFile(texturePath);
+	m_shape.setTexture(&m_texture);
+
 	m_shape.setPosition(sf::Vector2f(posX, posY));
 }
 
