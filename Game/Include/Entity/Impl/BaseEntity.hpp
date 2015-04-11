@@ -13,7 +13,10 @@ public:
 	~BaseEntity();
 
 	void Initialize(float posX, float posY, const std::string& texturePath);
-	
+
+	void setSize(int sizeX, int sizeY);
+	sf::FloatRect getCollisionRect();
+
 	virtual void Update(float deltaT);
 	virtual void Render(sf::RenderWindow* window);
 	

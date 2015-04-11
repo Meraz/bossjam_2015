@@ -14,6 +14,8 @@ CharacterSelectScene::CharacterSelectScene()
 	for (size_t i = 0; i < 4; i++)
 	{
 		PlayerContext::GetPlayerContext()->GetPlayer(i);
+		m_players[i].isActive = false;
+		m_players[i].isLocked = false;
 	}
 }
 
@@ -53,7 +55,7 @@ void CharacterSelectScene::Update(float deltaTime)
 	{
 		Player* curPlayer = PlayerContext::GetPlayerContext()->GetPlayer(i);
 		XboxController* controller = curPlayer->GetController();
-		
+		controller->Update();
 		
 		if (controller->GetAButtonState().current && !controller->GetAButtonState().last)
 		{
@@ -61,6 +63,9 @@ void CharacterSelectScene::Update(float deltaTime)
 			if (!m_players[i].isActive)
 			{
 				m_players[i].isActive = true;
+				m_players[i].chosenChar.x = 1;
+				m_players[i].chosenChar.y = 0;
+				GetNextAvailableColor(m_players[i].chosenChar.x, m_players[i].chosenChar.y);
 			}
 			//if A and is active: lock character
 			else if (m_players[i].isActive)
@@ -73,6 +78,8 @@ void CharacterSelectScene::Update(float deltaTime)
 				bool allLocked = true;
 				for (size_t j = 0; j < 4; j++)
 				{
+					if (!m_players[j].isActive)
+						continue;
 					allLocked = m_players[j].isLocked;
 					if (!allLocked)
 						break;
@@ -144,8 +151,8 @@ void CharacterSelectScene::Render(sf::RenderWindow* window)
 {
 	
 	Text sceneTitle;
-	sceneTitle.Init("Select Character", sf::Color::Yellow, sf::Vector2f(window->getSize().x / 2.f, 0));
-	sceneTitle.SetPositionCenter(sf::Vector2f(window->getSize().x / 2.f, 20));
+	sceneTitle.Init("Select Character", sf::Color::Yellow, sf::Vector2f(window->getSize().x / 2.f, 0.f));
+	sceneTitle.SetPositionCenter(sf::Vector2f(window->getSize().x / 2.f, 20.f));
 	sceneTitle.SetSize(50);
 	window->draw(sceneTitle.GetText());
 
@@ -155,7 +162,7 @@ void CharacterSelectScene::Render(sf::RenderWindow* window)
 		float curMiddle = spacing + i * spacing * 2.f;
 		//PX
 		Text playerText;
-		playerText.Init("P" + std::to_string(i + 1), sf::Color::Green, sf::Vector2f(curMiddle, 150.f));
+		playerText.Init("P" + std::to_string(i + 1), sf::Color::Green, sf::Vector2f(curMiddle-spacing/2.f, 150.f));
 		//playerText.SetPositionCenter(sf::Vector2f(curMiddle, 150.f));
 		//Portrait
 		sf::Sprite sprite;
@@ -202,13 +209,20 @@ int CharacterSelectScene::GetNextAvailableColor(int character, int currentColor)
 		wantColor = 0;
 	while (wantColor != currentColor)
 	{
+		bool okColor = false;
 		for (size_t i = 0; i < 4; i++)
 		{
 			if (m_players[i].chosenChar.x != character)
 				continue;
 			if (m_players[i].chosenChar.y == wantColor)
+			{
+				okColor = false;
 				break;
+			}
+			okColor = true;
 		}
+		if (okColor)
+			return wantColor;
 		wantColor++;
 		if (wantColor == m_totalColors)
 			wantColor = 0;
@@ -219,20 +233,27 @@ int CharacterSelectScene::GetNextAvailableColor(int character, int currentColor)
 int CharacterSelectScene::GetPrevAvailableColor(int character, int currentColor)
 {
 	int wantColor = currentColor - 1;
-	if (wantColor == 0)
-		wantColor = m_totalColors;
+	if (wantColor < 0)
+		wantColor = m_totalColors-1;
 	while (wantColor != currentColor)
 	{
+		bool okColor = false;
 		for (size_t i = 0; i < 4; i++)
 		{
 			if (m_players[i].chosenChar.x != character)
 				continue;
 			if (m_players[i].chosenChar.y == wantColor)
+			{
+				okColor = false;
 				break;
+			}
+			okColor = true;
 		}
+		if (okColor)
+			return wantColor;
 		wantColor--;
-		if (wantColor == 0)
-			wantColor = m_totalColors;
+		if (wantColor < 0)
+			wantColor = m_totalColors-1;
 	}
 	return currentColor;
 }

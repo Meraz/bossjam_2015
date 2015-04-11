@@ -1,5 +1,9 @@
 #pragma once
 #include <Scene/Impl/BaseScene.hpp>
+#include <Player.hpp>
+#include <vector>
+#include <Collision\CollisionHandler.hpp>
+
 class Level;
 class Player;
 
@@ -13,8 +17,11 @@ public:
 	void Render(sf::RenderWindow* window) override;
 
 private:
-	Player* m_player1;
-	Player* m_player2;
+
+	std::vector<Player*> m_players;
+	int playerCount;
+
 	Level* m_level;
-	
+
+	CollisionHandler collisionHandler;
 };

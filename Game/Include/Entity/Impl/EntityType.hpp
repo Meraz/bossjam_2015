@@ -2,6 +2,7 @@
 
 enum class EntityType
 {
+	EMPTY,
 	PLAYER,
 	TELEPORTER,
 	WALL
