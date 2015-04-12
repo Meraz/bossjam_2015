@@ -10,6 +10,9 @@ SoundManager* SoundManager::GetSoundManagerContext()
 		soundManagerContext = new SoundManager();
 		SoundManager::GetSoundManagerContext()->LoadSound("Audio/Dash.flac");
 		SoundManager::GetSoundManagerContext()->LoadSound("Audio/LockIn.flac");
+		SoundManager::GetSoundManagerContext()->LoadSound("Audio/Jump.flac");
+		SoundManager::GetSoundManagerContext()->LoadSound("Audio/DeathSound.flac");
+
 
 	}
 	return soundManagerContext;
@@ -46,4 +49,11 @@ void SoundManager::StopSound(std::string songName)
 	m_songList.RetrieveEntry(songName, &temp);
 
 	temp->sound.stop();
+}
+
+void SoundManager::SetVolume(const std::string& songName, float volume)
+{
+	Sound* temp = nullptr;
+	m_songList.RetrieveEntry(songName, &temp);
+	temp->sound.setVolume(volume);
 }

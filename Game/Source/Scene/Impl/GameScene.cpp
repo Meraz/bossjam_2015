@@ -6,7 +6,7 @@
 #include <Audio/MusicManager.hpp>
 
 GameScene::GameScene(AbstractSceneManager* sceneManager)
-: BaseScene(SceneType::GAME, sceneManager)
+: BaseScene(SceneType::GAME, sceneManager), m_renderEndTexture(false)
 {
 	m_level = new Level();
 
@@ -32,6 +32,10 @@ GameScene::GameScene(AbstractSceneManager* sceneManager)
 		//city
 	}
 	playerCount = PlayerContext::GetPlayerContext()->NrOfActivePlayers;
+	
+	m_endTexture.loadFromFile("Scorescreen.png");
+	m_endRect = sf::RectangleShape(sf::Vector2f(1280, 720));
+	m_endRect.setTexture(&m_endTexture);
 
 	m_backGroundRectangle = sf::RectangleShape(sf::Vector2f(1280, 720));
 	m_backGroundRectangle.setTexture(&m_backgroundTexture);
@@ -117,12 +121,20 @@ void GameScene::Update(sf::Time deltaT)
 	}
 	else if (m_gameTimer > -m_startAndEndDelay)
 	{
+		m_renderEndTexture = true;
 		//End of game, pause here for a while maybe?
 	}
 	else
 	{
-		m_sceneManager->ChangeScene(SceneType::CHARSELECT);
+		for (int i = 0; i < playerCount; ++i)
+		{
+			if (m_players.at(i)->GetController()->GetAButtonState().current && m_players.at(i)->GetController()->GetAButtonState().last == false)
+			{
+				m_sceneManager->ChangeScene(SceneType::CHARSELECT);
+			}
+		}
 	}
+
 	m_gameTimer -= deltaT.asSeconds();
 }
 
@@ -145,7 +157,7 @@ void GameScene::Render(sf::RenderWindow* window)
 
 	//Draw timer
 	Text time;
-	time.Init("", sf::Color::White, sf::Vector2f(window->getSize().x / 2.f, 50.f));
+	time.Init("", sf::Color::White, sf::Vector2f(window->getSize().x / 2.f-10.f, 7.f));
 	int minutes = (int)(m_gameTimer / 60);
 	int seconds = (int)m_gameTimer % 60;
 	int tenth = (int)(10 * (m_gameTimer - (int)m_gameTimer));
@@ -167,4 +179,6 @@ void GameScene::Render(sf::RenderWindow* window)
 		time.SetText("END");
 	}
 	window->draw(time.GetText());
+	if (m_renderEndTexture)
+		window->draw(m_endRect);
 }
