@@ -184,6 +184,9 @@ std::string Level::GetTextureFromColorCoding(size_t g)
 	case 11:
 		texture = "city_smog_platform_right.png";
 		break;
+	case 12:
+		texture = "platform_branch_end_right.png";
+		break;
 	default:
 		break;
 	}
