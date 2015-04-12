@@ -13,6 +13,9 @@ GameScene::GameScene(AbstractSceneManager* sceneManager)
 	{
 		MusicManager::GetMusicManagerContext()->PlaySongExclusiveFromStart("Audio/bensound-happyrock.flac");
 		MusicManager::GetMusicManagerContext()->SetVolume("Audio/bensound-happyrock.flac", 10);
+
+		m_backgroundTexture.loadFromFile("forest_background.png");
+		m_scoreTexture.loadFromFile("Simple_ui_forest.png");
 		// Djungle
 	}
 	else 
@@ -20,15 +23,16 @@ GameScene::GameScene(AbstractSceneManager* sceneManager)
 		MusicManager::GetMusicManagerContext()->PlaySongExclusiveFromStart("Audio/bensound-happyrock.flac");
 		MusicManager::GetMusicManagerContext()->SetVolume("Audio/bensound-happyrock.flac", 10);
 
+		m_backgroundTexture.loadFromFile("city_background_sky.png");
+		m_scoreTexture.loadFromFile("Simple_ui_city.png");
+
 		//city
 	}
 	playerCount = PlayerContext::GetPlayerContext()->NrOfActivePlayers;
 
-	m_backgroundTexture.loadFromFile("forest_background.png");
 	m_backGroundRectangle = sf::RectangleShape(sf::Vector2f(1280, 720));
 	m_backGroundRectangle.setTexture(&m_backgroundTexture);
 
-	m_scoreTexture.loadFromFile("Simple_ui_forest.png");
 	m_scoreRectangle = sf::RectangleShape(sf::Vector2f(1280, 720));
 	m_scoreRectangle.setTexture(&m_scoreTexture);
 	
