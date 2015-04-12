@@ -8,6 +8,8 @@
 GameScene::GameScene(AbstractSceneManager* sceneManager)
 : BaseScene(SceneType::GAME, sceneManager)
 {
+	m_level = new Level();
+
 	srand(reinterpret_cast<unsigned int>(this));
 	if (rand() % 2 == 0)
 	{
@@ -16,6 +18,7 @@ GameScene::GameScene(AbstractSceneManager* sceneManager)
 
 		m_backgroundTexture.loadFromFile("forest_background.png");
 		m_scoreTexture.loadFromFile("Simple_ui_forest.png");
+		m_level->Initialize("Levels/Level-Platforms.ppm");
 		// Djungle
 	}
 	else 
@@ -25,7 +28,7 @@ GameScene::GameScene(AbstractSceneManager* sceneManager)
 
 		m_backgroundTexture.loadFromFile("city_background_sky.png");
 		m_scoreTexture.loadFromFile("Simple_ui_city.png");
-
+		m_level->Initialize("Levels/Level-Kingofthehill.ppm");
 		//city
 	}
 	playerCount = PlayerContext::GetPlayerContext()->NrOfActivePlayers;
@@ -36,8 +39,6 @@ GameScene::GameScene(AbstractSceneManager* sceneManager)
 	m_scoreRectangle = sf::RectangleShape(sf::Vector2f(1280, 720));
 	m_scoreRectangle.setTexture(&m_scoreTexture);
 	
-	m_level = new Level();
-	m_level->Initialize("Levels/Level-Platforms.ppm");
 
 
 	m_maxGameTime = 120.f;
