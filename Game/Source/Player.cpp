@@ -60,6 +60,10 @@ void Player::InitAnimation(std::string texture)
 
 	m_walkingAnimatedSprite = AnimatedSprite(sf::seconds(0.15), true, true);
 	m_walkingAnimatedSprite.setPosition(m_shape.getPosition());
+	m_time = 0;
+	m_dashTimer = 0;
+	m_maxDashTime = 0.05f;
+	m_dashing = false;
 }
 
 void Player::Update(sf::Time deltaT)
@@ -218,7 +222,7 @@ void Player::HandleMovement(float deltaT)
 	}
 	if (notMoving)
 	{
-		float friction = 5000.f;
+		float friction = 2000.f;
 		if (m_vel.x > 0.f)
 		{
 			m_vel.x -= friction * deltaT;
@@ -257,8 +261,39 @@ void Player::HandleMovement(float deltaT)
 		m_timesJumped++;
 	}
 
+	if (m_playerController->GetLTriggerState().current < -0.1f || m_playerController->GetRTriggerState().current < -0.1f) // Any of the two L/R buttons
+	{
+		if (m_playerController->GetLTriggerState().current < -0.1f && m_playerController->GetLTriggerState().last > -0.1)
+		{
+			m_dashing = true;
+			m_dashTimer = 0.0f;
+		}
+		else if (m_playerController->GetRTriggerState().current < -0.1f && m_playerController->GetRTriggerState().last > -0.1)
+		{
+			m_dashing = true;
+			m_dashTimer = 0.0f;
+		}		
+		if (m_playerController->GetLTriggerState().current < -0.1f && m_dashTimer < m_maxDashTime)
+		{
+			m_vel.x = -1500.0f;
+		}
+		else if (m_playerController->GetRTriggerState().current < -0.1f && m_dashTimer < m_maxDashTime)
+		{
+			m_vel.x = 1500.0f;
+		}		
+	}
+	if (m_dashing)
+	{
+		m_dashTimer += deltaT;
+		if (m_dashTimer > m_maxDashTime)
+		{
+			m_dashing = false;
+		}
+	}
+
 	//Gravity
-	m_vel.y += grav*deltaT;
+	if (!m_dashing)
+		m_vel.y += grav*deltaT;
 	m_shape.move(m_vel*deltaT); //os?ker
 }
 

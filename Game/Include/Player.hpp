@@ -60,6 +60,12 @@ private:
 	std::string m_textureName;
 	std::string m_scriptName;
 	int m_color;
+
+	float m_dashTimer;
+	float m_maxDashTime;
+	bool m_dashing;
+	float m_dashCooldownCurrent;
+	float m_dashCooldownMax;
 	
 	int m_score;
 	sf::Texture m_animationTexture;
