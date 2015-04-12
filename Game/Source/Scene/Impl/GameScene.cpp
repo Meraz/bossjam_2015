@@ -6,7 +6,7 @@
 #include <Audio/MusicManager.hpp>
 
 GameScene::GameScene(AbstractSceneManager* sceneManager)
-: BaseScene(SceneType::GAME, sceneManager)
+: BaseScene(SceneType::GAME, sceneManager), m_renderEndTexture(false)
 {
 	srand(reinterpret_cast<unsigned int>(this));
 	if (rand() % 2 == 0)
@@ -23,6 +23,10 @@ GameScene::GameScene(AbstractSceneManager* sceneManager)
 		//city
 	}
 	playerCount = PlayerContext::GetPlayerContext()->NrOfActivePlayers;
+	
+	m_endTexture.loadFromFile("Scorescreen.png");
+	m_endRect = sf::RectangleShape(sf::Vector2f(1280, 720));
+	m_endRect.setTexture(&m_endTexture);
 
 	m_backgroundTexture.loadFromFile("forest_background.png");
 	m_backGroundRectangle = sf::RectangleShape(sf::Vector2f(1280, 720));
@@ -113,12 +117,20 @@ void GameScene::Update(sf::Time deltaT)
 	}
 	else if (m_gameTimer > -m_startAndEndDelay)
 	{
+		m_renderEndTexture = true;
 		//End of game, pause here for a while maybe?
 	}
 	else
 	{
-		m_sceneManager->ChangeScene(SceneType::CHARSELECT);
+		for (int i = 0; i < playerCount; ++i)
+		{
+			if (m_players.at(i)->GetController()->GetAButtonState().current && m_players.at(i)->GetController()->GetAButtonState().last == false)
+			{
+				m_sceneManager->ChangeScene(SceneType::CHARSELECT);
+			}
+		}
 	}
+
 	m_gameTimer -= deltaT.asSeconds();
 }
 
@@ -162,4 +174,6 @@ void GameScene::Render(sf::RenderWindow* window)
 		time.SetText("END");
 	}
 	window->draw(time.GetText());
+	if (m_renderEndTexture)
+		window->draw(m_endRect);
 }

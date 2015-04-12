@@ -32,6 +32,10 @@ private:
 	sf::Texture m_backgroundTexture;
 	sf::RectangleShape m_backGroundRectangle;
 
+	sf::Texture m_endTexture;
+	sf::RectangleShape m_endRect;
+	bool m_renderEndTexture;
+
 	sf::Texture m_scoreTexture;
 	sf::RectangleShape m_scoreRectangle;
 
