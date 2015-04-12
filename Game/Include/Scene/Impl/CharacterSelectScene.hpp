@@ -58,6 +58,8 @@ private:
 	int GetNextAvailableColor(int character, int currentColor);
 	int GetPrevAvailableColor(int character, int currentColor);
 
+	void SetCharacterNamesToPlayer();
+
 	sf::Texture m_backgroundTexture;
 	sf::RectangleShape m_backGroundRectangle;
 };

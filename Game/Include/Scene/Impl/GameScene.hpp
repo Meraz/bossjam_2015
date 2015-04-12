@@ -23,5 +23,8 @@ private:
 
 	Level* m_level;
 
-	CollisionHandler collisionHandler;
+	CollisionHandler collisionHandler; 
+
+	sf::Texture m_backgroundTexture;
+	sf::RectangleShape m_backGroundRectangle;
 };

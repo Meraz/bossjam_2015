@@ -72,7 +72,8 @@ void CharacterSelectScene::Update(sf::Time deltaT)
 			{
 				m_players[i].isActive = true;
 				m_players[i].chosenChar.x = 1;
-				m_players[i].chosenChar.y = 0;
+				m_players[i].chosenChar.y = 3;
+				SelectNextCharacter(i);
 				GetNextAvailableColor(m_players[i].chosenChar.x, m_players[i].chosenChar.y);
 			}
 			//if A and is active: lock character
@@ -94,6 +95,7 @@ void CharacterSelectScene::Update(sf::Time deltaT)
 				}
 				if (allLocked)
 				{
+					SetCharacterNamesToPlayer();
 					m_sceneManager->ChangeScene(SceneType::GAME);
 				}
 			}
@@ -229,11 +231,51 @@ void CharacterSelectScene::Render(sf::RenderWindow* window)
 	}
 }
 
+void CharacterSelectScene::SetCharacterNamesToPlayer()
+{
+	for (size_t i = 0; i < 4; i++)
+	{
+		switch (m_players[i].chosenChar.x)
+		{
+		case(1) :
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetTextureName("spritesheet_moose_5.png");
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetScriptName("CharacterScripts/moose.lua");
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetColor(3 - m_players[i].chosenChar.y);
+			break;
+		case(2) :
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetTextureName("spritesheet_tiger_5.png");
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetScriptName("CharacterScripts/tiger.lua");
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetColor(3 - m_players[i].chosenChar.y);
+			break;
+		case(3) :
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetTextureName("spritesheet_horse_5.png");
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetScriptName("CharacterScripts/horse.lua");
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetColor(3 - m_players[i].chosenChar.y);
+			break;
+		case(4) :
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetTextureName("spritesheet_rabbit_5.png");
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetScriptName("CharacterScripts/rabbit.lua");
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetColor(3 - m_players[i].chosenChar.y);
+			break;
+		}
+		if (m_players[i].chosenChar.x != 0)
+		{
+			PlayerContext::GetPlayerContext()->NrOfActivePlayers++;
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->InitAnimation(PlayerContext::GetPlayerContext()->GetPlayer(i)->GetTextureName());
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->LoadInitStats(PlayerContext::GetPlayerContext()->GetPlayer(i)->GetScriptName());
+		}
+	}
+}
+
 void CharacterSelectScene::SelectNextCharacter(int playerID)
 {
 	m_players[playerID].chosenChar.x++;
 	if (m_players[playerID].chosenChar.x == m_totalCharacters)
 		m_players[playerID].chosenChar.x = 1; // 0 is the none character
+	m_players[playerID].chosenChar.y--;
+	if (m_players[playerID].chosenChar.y < 0)
+		m_players[playerID].chosenChar.y = m_totalColors - 1;
+	m_players[playerID].chosenChar.y = GetNextAvailableColor(m_players[playerID].chosenChar.x, m_players[playerID].chosenChar.y);
 }
 
 void CharacterSelectScene::SelectPrevCharacter(int playerID)
@@ -241,6 +283,10 @@ void CharacterSelectScene::SelectPrevCharacter(int playerID)
 	m_players[playerID].chosenChar.x--;
 	if (m_players[playerID].chosenChar.x == 0) // 0 is the none character
 		m_players[playerID].chosenChar.x = m_totalCharacters - 1;
+	m_players[playerID].chosenChar.y--;
+	if (m_players[playerID].chosenChar.y < 0)
+		m_players[playerID].chosenChar.y = m_totalColors - 1;
+	m_players[playerID].chosenChar.y = GetNextAvailableColor(m_players[playerID].chosenChar.x, m_players[playerID].chosenChar.y);
 }
 
 void CharacterSelectScene::SelectNextColor(int playerID)

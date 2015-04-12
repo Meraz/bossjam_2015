@@ -1,21 +1,25 @@
 #include <Scene/Impl/GameScene.hpp>
-
+#include <PlayerContext.hpp>
 #include <Player.hpp>
 #include <Level/Level.hpp>
 
 GameScene::GameScene(AbstractSceneManager* sceneManager)
 : BaseScene(SceneType::GAME, sceneManager)
 {
-	playerCount = 0;
+	playerCount = PlayerContext::GetPlayerContext()->NrOfActivePlayers;
+
+	m_backgroundTexture.loadFromFile("forest_background.png");
+	m_backGroundRectangle = sf::RectangleShape(sf::Vector2f(1280, 720));
+	m_backGroundRectangle.setTexture(&m_backgroundTexture);
 
 	m_level = new Level();
 	m_level->Initialize("Levels/Level-Platforms.ppm");
 
-	m_players.push_back(new Player(playerCount++));
-	m_players.push_back(new Player(playerCount++));
-
-	m_players.at(0)->LoadInitStats("CharacterScripts/tiger.lua");
-	m_players.at(1)->LoadInitStats("CharacterScripts/tiger.lua");
+	for (size_t i = 0; i < 4; i++)
+	{
+		if (PlayerContext::GetPlayerContext()->GetPlayer(i)->GetColor() >= 0)
+			m_players.push_back(PlayerContext::GetPlayerContext()->GetPlayer(i));
+	}
 }
 
 GameScene::~GameScene()
@@ -30,7 +34,7 @@ void GameScene::Update(sf::Time deltaT)
 	for (int i = 0; i < playerCount; ++i)
 	{
 		m_players.at(i)->Update(deltaT);
-		m_players.at(i)->LoadStats("CharacterScripts/tiger.lua");
+		m_players.at(i)->LoadStats(m_players.at(i)->GetScriptName());
 		all = m_level->GetAllObjects();
 		for (int j = 0; j < all->size(); ++j)
 		{
@@ -52,6 +56,9 @@ void GameScene::Update(sf::Time deltaT)
 
 void GameScene::Render(sf::RenderWindow* window)
 {
+
+	window->draw(m_backGroundRectangle);
+
 	m_level->Render(window);
 
 	for (int i = 0; i < playerCount; ++i)

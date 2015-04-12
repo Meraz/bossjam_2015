@@ -10,6 +10,7 @@ class PlayerContext
 public:
 	static PlayerContext* GetPlayerContext();
 	Player* GetPlayer(int index);
+	int NrOfActivePlayers;
 private:
 	PlayerContext();
 	~PlayerContext(){};
