@@ -5,6 +5,7 @@ PlayerContext* PlayerContext::m_context = nullptr;
 
 PlayerContext::PlayerContext()
 {
+	NrOfActivePlayers = 0;
 	m_players[0] = nullptr;
 	m_players[1] = nullptr;
 	m_players[2] = nullptr;

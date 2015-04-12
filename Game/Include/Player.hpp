@@ -73,7 +73,6 @@ private:
 
 	bool m_isDead;
 
-	void InitAnimation(std::string texture);
 	void HandleBoundaries();
 
 public:
@@ -83,6 +82,8 @@ public:
 
 	void Update(sf::Time deltaT) override;
 	void Render(sf::RenderWindow* window) override;
+
+	void InitAnimation(std::string texture);
 
 	void LoadStats(std::string characterName);
 	void LoadInitStats(std::string characterName);

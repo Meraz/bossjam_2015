@@ -11,7 +11,7 @@ Player::Player(int playerNr)
 
 	//controller
 	m_playerController = new XboxController(playerNr);
-		
+	
 
 	//PlayerBox
 	m_shape.setPosition(100 * (playerNr + 1), 50);
@@ -28,8 +28,9 @@ Player::Player(int playerNr)
 	m_score = 0;
 
 	m_isDead = false;
+	m_color = -1;
 
-	InitAnimation("spritesheet_rabbit_5.png");
+	//InitAnimation("spritesheet_rabbit_5.png");
 
 	m_time = 0;
 }
@@ -53,7 +54,7 @@ void Player::InitAnimation(std::string texture)
 	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 5, CHAR_HEIGHT * m_color, CHAR_WIDTH, CHAR_HEIGHT));
 
 	m_jumpingAnimation.setSpriteSheet(m_animationTexture);
-	m_jumpingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_jumpingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 2, CHAR_HEIGHT * m_color, CHAR_WIDTH, CHAR_HEIGHT));
 
 	m_currentAnimation = &m_walkingAnimation;
 
