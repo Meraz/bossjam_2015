@@ -269,7 +269,6 @@ void Player::HandleMovement(float deltaT)
 			m_dashing = true;
 			m_dashTimer = 0.0f;
 			SoundManager::GetSoundManagerContext()->PlaySound("Audio/Dash.flac");
-
 		}		
 		if (m_playerController->GetLTriggerState().current < -0.1f && m_dashTimer < m_maxDashTime)
 		{

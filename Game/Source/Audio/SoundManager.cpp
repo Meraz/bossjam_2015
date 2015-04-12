@@ -9,6 +9,7 @@ SoundManager* SoundManager::GetSoundManagerContext()
 	{
 		soundManagerContext = new SoundManager();
 		SoundManager::GetSoundManagerContext()->LoadSound("Audio/Dash.flac");
+		SoundManager::GetSoundManagerContext()->LoadSound("Audio/LockIn.flac");
 
 	}
 	return soundManagerContext;
