@@ -13,7 +13,9 @@ Player::Player(int playerNr)
 
 	//controller
 	m_playerController = new XboxController(playerNr);
-	
+
+	m_flag = 0;
+	m_animal = 0;
 
 	//PlayerBox
 	m_shape.setPosition(100 * (playerNr + 1), 50);
@@ -359,6 +361,28 @@ void Player::PlayerCollisionEvent(sf::Vector2f velocity)
 		m_walkingAnimatedSprite.SetFlippedYAxis(true);
 	}
 }
+
+
+void Player::SetAnimal(int animal)
+{
+	m_animal = animal;
+}
+
+void Player::SetFlag(int flag)
+{
+	m_flag = flag;
+}
+
+int Player::GetAnimal()
+{
+	return m_animal;
+}
+
+int Player::GetFlag()
+{
+	return m_flag;
+}
+
 
 //set
 void Player::SetTextureName(std::string texture)
