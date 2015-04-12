@@ -241,21 +241,29 @@ void CharacterSelectScene::SetCharacterNamesToPlayer()
 			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetTextureName("spritesheet_moose_5.png");
 			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetScriptName("CharacterScripts/moose.lua");
 			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetColor(3 - m_players[i].chosenChar.y);
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetAnimal(m_players[i].chosenChar.x - 1);
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetFlag(3 - m_players[i].chosenChar.y - 1);
 			break;
 		case(2) :
 			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetTextureName("spritesheet_tiger_5.png");
 			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetScriptName("CharacterScripts/tiger.lua");
 			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetColor(3 - m_players[i].chosenChar.y);
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetAnimal(m_players[i].chosenChar.x - 1);
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetFlag(3 - m_players[i].chosenChar.y - 1);
 			break;
 		case(3) :
 			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetTextureName("spritesheet_horse_5.png");
 			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetScriptName("CharacterScripts/horse.lua");
 			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetColor(3 - m_players[i].chosenChar.y);
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetAnimal(m_players[i].chosenChar.x - 1);
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetFlag(3 - m_players[i].chosenChar.y - 1);
 			break;
 		case(4) :
 			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetTextureName("spritesheet_rabbit_5.png");
 			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetScriptName("CharacterScripts/rabbit.lua");
 			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetColor(3 - m_players[i].chosenChar.y);
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetAnimal(m_players[i].chosenChar.x - 1);
+			PlayerContext::GetPlayerContext()->GetPlayer(i)->SetFlag(3 - m_players[i].chosenChar.y - 1);
 			break;
 		}
 		if (m_players[i].chosenChar.x != 0)
