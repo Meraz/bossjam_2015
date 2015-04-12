@@ -36,33 +36,6 @@ GameScene::GameScene(AbstractSceneManager* sceneManager)
 	m_scoreRectangle = sf::RectangleShape(sf::Vector2f(1280, 720));
 	m_scoreRectangle.setTexture(&m_scoreTexture);
 	
-	sf::Texture temp1;
-	temp1.loadFromFile("ui_spritesheet_live.png");
-	m_uiPlayerTexture.push_back(temp1);
-	sf::RectangleShape temp2 = sf::RectangleShape(sf::Vector2f(75, 75));
-	temp2.setTextureRect(sf::IntRect(0, 0, 75, 75));
-	temp2.move(213, 0);
-	m_uiPlayerRect.push_back(temp2);
-	m_uiPlayerRect.at(0).setTexture(&m_uiPlayerTexture.at(0));
-
-	temp2 = sf::RectangleShape(sf::Vector2f(75, 75));
-	temp2.setTextureRect(sf::IntRect(0, 0, 75, 75));
-	temp2.move(414, 0);
-	m_uiPlayerRect.push_back(temp2);
-	m_uiPlayerRect.at(1).setTexture(&m_uiPlayerTexture.at(0));
-
-	temp2 = sf::RectangleShape(sf::Vector2f(75, 75));
-	temp2.setTextureRect(sf::IntRect(0, 0, 75, 75));
-	temp2.move(830, 0);
-	m_uiPlayerRect.push_back(temp2);
-	m_uiPlayerRect.at(2).setTexture(&m_uiPlayerTexture.at(0));
-
-	temp2 = sf::RectangleShape(sf::Vector2f(75, 75));
-	temp2.setTextureRect(sf::IntRect(0, 0, 75, 75));
-	temp2.move(1026, 0);
-	m_uiPlayerRect.push_back(temp2);
-	m_uiPlayerRect.at(3).setTexture(&m_uiPlayerTexture.at(0));
-
 	m_level = new Level();
 	m_level->Initialize("Levels/Level-Platforms.ppm");
 
@@ -77,6 +50,32 @@ GameScene::GameScene(AbstractSceneManager* sceneManager)
 			m_players.push_back(PlayerContext::GetPlayerContext()->GetPlayer(i));
 	}
 
+	for (size_t i = 0; i < PlayerContext::GetPlayerContext()->NrOfActivePlayers; i++)
+	{
+		sf::Texture temp1;
+		temp1.loadFromFile("ui_spritesheet_live.png");
+		m_uiPlayerTexture.push_back(temp1);
+		sf::RectangleShape temp2 = sf::RectangleShape(sf::Vector2f(75, 75));
+		temp2.setTextureRect(sf::IntRect(PlayerContext::GetPlayerContext()->GetPlayer(i)->GetFlag() * 75, PlayerContext::GetPlayerContext()->GetPlayer(i)->GetAnimal() * 75, 75, 75));
+		switch (i)
+		{
+		case(0) :
+			temp2.move(213, 0);
+			break;
+		case(1) :
+			temp2.move(414, 0);
+			break;
+		case(2) :
+			temp2.move(830, 0);
+			break;
+		case(3) :
+			temp2.move(1026, 0);
+			break;
+		}
+
+		m_uiPlayerRect.push_back(temp2);
+		m_uiPlayerRect.at(i).setTexture(&m_uiPlayerTexture.at(0));
+	}
 }
 
 GameScene::~GameScene()
@@ -138,10 +137,11 @@ void GameScene::Render(sf::RenderWindow* window)
 {
 	window->draw(m_backGroundRectangle);
 	window->draw(m_scoreRectangle);
-	window->draw(m_uiPlayerRect.at(0));
-	window->draw(m_uiPlayerRect.at(1));
-	window->draw(m_uiPlayerRect.at(2));
-	window->draw(m_uiPlayerRect.at(3));
+
+	for (size_t i = 0; i < PlayerContext::GetPlayerContext()->NrOfActivePlayers; i++)
+	{
+		window->draw(m_uiPlayerRect.at(i));
+	}
 
 	m_level->Render(window);
 
@@ -152,7 +152,7 @@ void GameScene::Render(sf::RenderWindow* window)
 
 	//Draw timer
 	Text time;
-	time.Init("", sf::Color::White, sf::Vector2f(window->getSize().x / 2.f, 50.f));
+	time.Init("", sf::Color::White, sf::Vector2f(window->getSize().x / 2.f-10.f, 7.f));
 	int minutes = (int)(m_gameTimer / 60);
 	int seconds = (int)m_gameTimer % 60;
 	int tenth = (int)(10 * (m_gameTimer - (int)m_gameTimer));

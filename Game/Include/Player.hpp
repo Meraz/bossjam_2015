@@ -32,6 +32,8 @@ private:
 	bool m_isJumping;
 	int m_timesJumped;
 	float m_timeJumpButtonHeld;
+	int m_flag;
+	int m_animal;
 
 
 	//controller
@@ -103,6 +105,12 @@ public:
 	void PlayerCollisionEvent(sf::Vector2f velocity);
 
 	bool IsDead() { return m_isDead; };
+
+
+	void SetAnimal(int animal);
+	void SetFlag(int flag);
+	int GetAnimal();
+	int GetFlag();
 
 	//Set
 	void SetTextureName(std::string texture);
