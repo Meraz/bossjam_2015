@@ -56,6 +56,11 @@ private:
 	float m_groundControlCurrent;
 	float m_groundControlDefault;
 	float m_groundControlMax;
+	float m_dashTimer;
+	float m_maxDashTime;
+	bool m_dashing;
+	float m_dashCooldownCurrent;
+	float m_dashCooldownMax;
 	
 	int m_score;
 	sf::Texture m_animationTexture;
