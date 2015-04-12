@@ -324,6 +324,10 @@ void Player::CollisionEvent(sf::Vector2f velocity)
 		m_timesJumped = 0;
 		m_currentAnimation = &m_walkingAnimation;
 	}
+	else if (velocity.y > 0)
+	{
+		m_vel.y = 0;
+	}
 }
 
 void Player::PlayerCollisionEvent(sf::Vector2f velocity)
