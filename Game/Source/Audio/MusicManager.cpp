@@ -10,6 +10,8 @@ MusicManager* MusicManager::GetMusicManagerContext()
 		musicManagerContext = new MusicManager();
 		musicManagerContext->LoadSong("Audio/PATGOIN_-_SPANISH_GUITAR.flac");
 		musicManagerContext->LoadSong("Audio/Dash.flac");
+		musicManagerContext->LoadSong("Audio/bensound-happyrock.flac");
+
 	}
 	return musicManagerContext;
 }
@@ -112,4 +114,11 @@ void MusicManager::StopAllOtherSongs(std::string songName)
 			//If it goes here it is on the song it shouldn't stop
 		}
 	}
+}
+
+void MusicManager::SetVolume(const std::string& songName, float volume)
+{
+	Song* temp = nullptr;
+	m_songList.RetrieveEntry(songName, &temp);
+	temp->song.setVolume(volume);
 }

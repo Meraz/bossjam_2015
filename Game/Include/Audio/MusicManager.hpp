@@ -1,5 +1,4 @@
-#ifndef MUSICMANAGER_H
-#define MUSICMANAGER_H
+#pragma once
 
 #include <SFML/Audio.hpp>
 #include <vector>
@@ -51,6 +50,6 @@ public:
 
 	//Stops all except chosen song
 	void StopAllOtherSongs(std::string songName);
-};
 
-#endif
+	void SetVolume(const std::string& songName, float volume);
+};
