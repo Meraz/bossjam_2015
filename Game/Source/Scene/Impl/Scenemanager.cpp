@@ -9,7 +9,6 @@ m_menuScene(nullptr),
 m_gameScene(nullptr),
 m_currentSceneEnum(SceneType::UNKNOWN)
 {
-	m_musicManager = new MusicManager();
 	ChangeScene(SceneType::CHARSELECT);
 }
 
@@ -45,9 +44,4 @@ void SceneManager::ChangeScene(SceneType newScene)
 	{
 		m_currentScene = new CharacterSelectScene(this);
 	}
-}
-
-MusicManager* SceneManager::GetMusicManager()
-{
-	return m_musicManager;
 }
