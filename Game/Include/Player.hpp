@@ -60,8 +60,8 @@ private:
 	int m_score;
 	sf::Texture m_animationTexture;
 	Animation* m_currentAnimation;
-	Animation m_walkingRight;
-	Animation m_walkingLeft;
+	Animation m_walkingAnimation;
+	Animation m_jumpingAnimation;
 	AnimatedSprite m_walkingAnimatedSprite; 
 	float m_time;
 	sf::Time m_deltaT;
