@@ -1,6 +1,20 @@
 #include <Audio/MusicManager.hpp>
 
 
+MusicManager* MusicManager::musicManagerContext = nullptr;
+
+MusicManager* MusicManager::GetMusicManagerContext()
+{
+	if (musicManagerContext == nullptr)
+	{
+		musicManagerContext = new MusicManager();
+		musicManagerContext->LoadSong("Audio/PATGOIN_-_SPANISH_GUITAR.flac");
+		musicManagerContext->LoadSong("Audio/Dash.flac");
+	}
+	return musicManagerContext;
+}
+
+
 MusicManager::MusicManager()
 {
 	m_songCount = 0;
@@ -17,7 +31,7 @@ bool MusicManager::LoadSong(std::string songName)
 	song->songName = songName;
 	if (!song->song.openFromFile(songName))
 		return false;
-
+	song->song.setLoop(false);
 	return m_songList.AddEntry(songName, song);
 }
 
@@ -41,8 +55,6 @@ void MusicManager::PlaySongFromStart(std::string songName)
 {
 	Song* temp = nullptr;
 	m_songList.RetrieveEntry(songName, &temp);
-
-
 	temp->song.play();
 }
 

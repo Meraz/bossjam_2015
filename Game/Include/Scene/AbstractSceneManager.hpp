@@ -8,5 +8,4 @@ class AbstractSceneManager
 {
 public:
 	virtual void ChangeScene(SceneType newScene) = 0;
-	virtual MusicManager* GetMusicManager() =  0;
 };

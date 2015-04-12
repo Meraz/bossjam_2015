@@ -9,8 +9,8 @@ m_shutdownState(ShutdownState::UNKNOWN),
 m_sceneManager(nullptr),
 m_hasFocus(true)
 {
-	m_sceneManager = new SceneManager();
 	m_window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Excruciating Funk Training");
+	m_sceneManager = new SceneManager();
 }
 
 Game::~Game()

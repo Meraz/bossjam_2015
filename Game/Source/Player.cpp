@@ -1,5 +1,6 @@
 #include <Player.hpp>
 #include <LuaScript.hpp>
+#include <Audio/SoundManager.hpp>
 
 Player::Player(int playerNr)
 :
@@ -11,7 +12,7 @@ Player::Player(int playerNr)
 
 	//controller
 	m_playerController = new XboxController(playerNr);
-		
+	
 
 	//PlayerBox
 	m_shape.setPosition(100 * (playerNr + 1), 50);
@@ -28,19 +29,33 @@ Player::Player(int playerNr)
 	m_score = 0;
 
 	m_isDead = false;
+	m_color = -1;
 
-	m_animationTexture.loadFromFile("spritesheet_rabbit_5.png");
+	//InitAnimation("spritesheet_rabbit_5.png");
 
+	m_time = 0;
+}
+
+Player::~Player()
+{
+	// TODO
+}
+
+void Player::InitAnimation(std::string texture)
+{
+	m_animationTexture.loadFromFile(texture);
+	//m_animationTexture.loadFromFile("spritesheet_rabbit_5.png");
+	
 	m_walkingAnimation.setSpriteSheet(m_animationTexture);
-	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 0, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 1, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 3, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 4, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 0, CHAR_HEIGHT * m_color, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 1, CHAR_HEIGHT * m_color, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 2, CHAR_HEIGHT * m_color, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 3, CHAR_HEIGHT * m_color, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 4, CHAR_HEIGHT * m_color, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 5, CHAR_HEIGHT * m_color, CHAR_WIDTH, CHAR_HEIGHT));
 
 	m_jumpingAnimation.setSpriteSheet(m_animationTexture);
-	m_jumpingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_jumpingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 2, CHAR_HEIGHT * m_color, CHAR_WIDTH, CHAR_HEIGHT));
 
 	m_currentAnimation = &m_walkingAnimation;
 
@@ -50,11 +65,6 @@ Player::Player(int playerNr)
 	m_dashTimer = 0;
 	m_maxDashTime = 0.05f;
 	m_dashing = false;
-}
-
-Player::~Player()
-{
-	// TODO
 }
 
 void Player::Update(sf::Time deltaT)
@@ -258,11 +268,14 @@ void Player::HandleMovement(float deltaT)
 		{
 			m_dashing = true;
 			m_dashTimer = 0.0f;
+			SoundManager::GetSoundManagerContext()->PlaySound("Audio/Dash.flac");
 		}
 		else if (m_playerController->GetRTriggerState().current < -0.1f && m_playerController->GetRTriggerState().last > -0.1)
 		{
 			m_dashing = true;
 			m_dashTimer = 0.0f;
+			SoundManager::GetSoundManagerContext()->PlaySound("Audio/Dash.flac");
+
 		}		
 		if (m_playerController->GetLTriggerState().current < -0.1f && m_dashTimer < m_maxDashTime)
 		{
@@ -337,6 +350,21 @@ void Player::PlayerCollisionEvent(sf::Vector2f velocity)
 }
 
 //set
+void Player::SetTextureName(std::string texture)
+{
+	m_textureName = texture;
+}
+
+void Player::SetScriptName(std::string script)
+{
+	m_scriptName = script;
+}
+
+void Player::SetColor(int color)
+{
+	m_color = color;
+}
+
 void Player::SetCurrentMoveSpeed(float moveSpeed)
 {
 	m_moveSpeedCurrent = moveSpeed;
