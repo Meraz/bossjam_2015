@@ -161,10 +161,10 @@ std::string Level::GetTextureFromColorCoding(size_t g)
 		texture = "stone_tile.png";
 		break;
 	case 4:
-		texture = "";
+		texture = "platform_branch.png";
 		break;
 	case 5:
-		texture = "";
+		texture = "platform__branch_end.png";
 		break;
 	default:
 		break;

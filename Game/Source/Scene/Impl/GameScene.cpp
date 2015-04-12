@@ -8,6 +8,10 @@ GameScene::GameScene(AbstractSceneManager* sceneManager)
 {
 	playerCount = 0;
 
+	m_backgroundTexture.loadFromFile("forest_background.png");
+	m_backGroundRectangle = sf::RectangleShape(sf::Vector2f(1280, 720));
+	m_backGroundRectangle.setTexture(&m_backgroundTexture);
+
 	m_level = new Level();
 	m_level->Initialize("Levels/Level-Platforms.ppm");
 
@@ -52,6 +56,9 @@ void GameScene::Update(sf::Time deltaT)
 
 void GameScene::Render(sf::RenderWindow* window)
 {
+
+	window->draw(m_backGroundRectangle);
+
 	m_level->Render(window);
 
 	for (int i = 0; i < playerCount; ++i)
