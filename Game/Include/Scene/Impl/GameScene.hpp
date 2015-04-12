@@ -2,7 +2,7 @@
 #include <Scene/Impl/BaseScene.hpp>
 #include <Player.hpp>
 #include <vector>
-#include <Collision\CollisionHandler.hpp>
+#include <Collision/CollisionHandler.hpp>
 
 class Level;
 class Player;
@@ -22,6 +22,10 @@ private:
 	int playerCount;
 
 	Level* m_level;
+
+	float m_maxGameTime;
+	float m_gameTimer;
+	float m_startAndEndDelay;
 
 	CollisionHandler collisionHandler; 
 
