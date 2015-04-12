@@ -189,41 +189,35 @@ void Player::HandleMovement(float deltaT)
 	float grav = 9.81f * 400.f;
 	float acc = 100.f * m_accelerationCurrent;
 	bool notMoving = true;
+	float controlStickNormalized = m_playerController->GetLStickXState().current / 100.f;
+	float adjuster = std::abs(std::pow(controlStickNormalized, 1));
 	if (m_playerController->GetLStickXState().current < 0)
 	{
 		notMoving = false;
-		m_vel.x -= acc*deltaT;
-		if (m_vel.x < -m_moveSpeedCurrent)
+		if (m_timesJumped > 0)
+			m_vel.x -= acc*deltaT * m_airControlCurrent;
+		else
+			m_vel.x -= acc*deltaT * m_groundControlCurrent;
+		if (m_vel.x < -1.f * adjuster * m_moveSpeedCurrent)
 		{
-			if (m_timesJumped > 0)
-			{
-				m_vel.x = -m_moveSpeedCurrent * m_airControlCurrent;
-			}
-			else
-			{
-				m_vel.x = -m_moveSpeedCurrent * m_groundControlCurrent;
-			}
+			m_vel.x = -1.f * adjuster * m_moveSpeedCurrent;
 		}
 	}
-	if (m_playerController->GetLStickXState().current > 0)
+	else if (m_playerController->GetLStickXState().current > 0)
 	{
 		notMoving = false;
-		m_vel.x += acc*deltaT;
-		if (m_vel.x > m_moveSpeedCurrent)
+		if (m_timesJumped > 0)
+			m_vel.x += acc*deltaT * m_airControlCurrent;
+		else
+			m_vel.x += acc*deltaT * m_groundControlCurrent;
+		if (m_vel.x > adjuster * m_moveSpeedCurrent)
 		{
-			if (m_timesJumped > 0)
-			{
-				m_vel.x = m_moveSpeedCurrent * m_airControlCurrent;
-			}
-			else
-			{
-				m_vel.x = m_moveSpeedCurrent * m_groundControlCurrent;
-			}
+			m_vel.x = adjuster * m_moveSpeedCurrent;
 		}
 	}
 	if (notMoving)
 	{
-		float friction = 2000.f;
+		float friction = 3000.f;
 		if (m_vel.x > 0.f)
 		{
 			m_vel.x -= friction * deltaT;
