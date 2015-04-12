@@ -210,7 +210,7 @@ void Player::HandleMovement(float deltaT)
 	}
 	if (notMoving)
 	{
-		float friction = 1000.f;
+		float friction = 2000.f;
 		if (m_vel.x > 0.f)
 		{
 			m_vel.x -= friction * deltaT;
