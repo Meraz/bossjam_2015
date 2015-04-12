@@ -27,4 +27,10 @@ private:
 
 	sf::Texture m_backgroundTexture;
 	sf::RectangleShape m_backGroundRectangle;
+
+	sf::Texture m_scoreTexture;
+	sf::RectangleShape m_scoreRectangle;
+
+	std::vector<sf::Texture> m_uiPlayerTexture;
+	std::vector<sf::RectangleShape> m_uiPlayerRect;
 };

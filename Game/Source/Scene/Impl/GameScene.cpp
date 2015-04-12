@@ -12,6 +12,37 @@ GameScene::GameScene(AbstractSceneManager* sceneManager)
 	m_backGroundRectangle = sf::RectangleShape(sf::Vector2f(1280, 720));
 	m_backGroundRectangle.setTexture(&m_backgroundTexture);
 
+	m_scoreTexture.loadFromFile("Simple_ui_forest.png");
+	m_scoreRectangle = sf::RectangleShape(sf::Vector2f(1280, 720));
+	m_scoreRectangle.setTexture(&m_scoreTexture);
+	
+	sf::Texture temp1;
+	temp1.loadFromFile("ui_spritesheet_live.png");
+	m_uiPlayerTexture.push_back(temp1);
+	sf::RectangleShape temp2 = sf::RectangleShape(sf::Vector2f(75, 75));
+	temp2.setTextureRect(sf::IntRect(0, 0, 75, 75));
+	temp2.move(213, 0);
+	m_uiPlayerRect.push_back(temp2);
+	m_uiPlayerRect.at(0).setTexture(&m_uiPlayerTexture.at(0));
+
+	temp2 = sf::RectangleShape(sf::Vector2f(75, 75));
+	temp2.setTextureRect(sf::IntRect(0, 0, 75, 75));
+	temp2.move(414, 0);
+	m_uiPlayerRect.push_back(temp2);
+	m_uiPlayerRect.at(1).setTexture(&m_uiPlayerTexture.at(0));
+
+	temp2 = sf::RectangleShape(sf::Vector2f(75, 75));
+	temp2.setTextureRect(sf::IntRect(0, 0, 75, 75));
+	temp2.move(830, 0);
+	m_uiPlayerRect.push_back(temp2);
+	m_uiPlayerRect.at(2).setTexture(&m_uiPlayerTexture.at(0));
+
+	temp2 = sf::RectangleShape(sf::Vector2f(75, 75));
+	temp2.setTextureRect(sf::IntRect(0, 0, 75, 75));
+	temp2.move(1026, 0);
+	m_uiPlayerRect.push_back(temp2);
+	m_uiPlayerRect.at(3).setTexture(&m_uiPlayerTexture.at(0));
+
 	m_level = new Level();
 	m_level->Initialize("Levels/Level-Platforms.ppm");
 
@@ -58,6 +89,11 @@ void GameScene::Render(sf::RenderWindow* window)
 {
 
 	window->draw(m_backGroundRectangle);
+	window->draw(m_scoreRectangle);
+	window->draw(m_uiPlayerRect.at(0));
+	window->draw(m_uiPlayerRect.at(1));
+	window->draw(m_uiPlayerRect.at(2));
+	window->draw(m_uiPlayerRect.at(3));
 
 	m_level->Render(window);
 
