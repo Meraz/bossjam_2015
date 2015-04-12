@@ -31,24 +31,18 @@ Player::Player(int playerNr)
 
 	m_animationTexture.loadFromFile("spritesheet_rabbit_5.png");
 
-	m_walkingRight.setSpriteSheet(m_animationTexture);
-	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 0, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 1, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 3, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 4, 0, CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingAnimation.setSpriteSheet(m_animationTexture);
+	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 0, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 1, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 3, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 4, 0, CHAR_WIDTH, CHAR_HEIGHT));
+	m_walkingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, CHAR_WIDTH, CHAR_HEIGHT));
 
-	m_walkingLeft.setSpriteSheet(m_animationTexture);
-	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, -CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 5, 0, -CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 4, 0, -CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 3, 0, -CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, -CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 1, 0, -CHAR_WIDTH, CHAR_HEIGHT));
-	m_walkingLeft.addFrame(sf::IntRect(CHAR_WIDTH * 0, 0, -CHAR_WIDTH, CHAR_HEIGHT));
+	m_jumpingAnimation.setSpriteSheet(m_animationTexture);
+	m_jumpingAnimation.addFrame(sf::IntRect(CHAR_WIDTH * 2, 0, CHAR_WIDTH, CHAR_HEIGHT));
 
-	m_currentAnimation = &m_walkingRight;
+	m_currentAnimation = &m_walkingAnimation;
 
 	m_walkingAnimatedSprite = AnimatedSprite(sf::seconds(0.15), true, true);
 	m_walkingAnimatedSprite.setPosition(m_shape.getPosition());
@@ -235,6 +229,7 @@ void Player::HandleMovement(float deltaT)
 
 	if (m_playerController->GetAButtonState().current == true && m_timesJumped < m_jumpNrCurrent)
 	{
+		m_currentAnimation = &m_jumpingAnimation;
 		if (m_playerController->GetAButtonState().last == false)
 		{
 			m_timeJumpButtonHeld = 0;
@@ -287,6 +282,7 @@ void Player::CollisionEvent(sf::Vector2f velocity)
 	{
 		m_vel.y = 0;
 		m_timesJumped = 0;
+		m_currentAnimation = &m_walkingAnimation;
 	}
 }
 
