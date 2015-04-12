@@ -1,5 +1,4 @@
-#ifndef MUSICMANAGER_H
-#define MUSICMANAGER_H
+#pragma once
 
 #include <SFML/Audio.hpp>
 #include <vector>
@@ -33,5 +32,3 @@ public:
 	//Stops chosen song
 	void StopSound(std::string soundName);
 };
-
-#endif

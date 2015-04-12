@@ -5,6 +5,7 @@
 #include <XboxController.hpp>
 #include <iostream>
 #include <Audio/MusicManager.hpp>
+#include <Audio/SoundManager.hpp>
 
 CharacterSelectScene::CharacterSelectScene(AbstractSceneManager* sceneManager)
 : BaseScene(SceneType::CHARSELECT, sceneManager)
@@ -78,7 +79,9 @@ void CharacterSelectScene::Update(sf::Time deltaT)
 			}
 			//if A and is active: lock character
 			else if (m_players[i].isActive)
-			{
+			{			
+				SoundManager::GetSoundManagerContext()->PlaySound("Audio/LockIn.flac");
+
 				m_players[i].isLocked = true;
 			}
 			//if A and all active players characters are locked: start game

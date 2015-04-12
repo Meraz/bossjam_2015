@@ -3,10 +3,25 @@
 #include <Player.hpp>
 #include <Level/Level.hpp>
 #include <System/Text.hpp>
+#include <Audio/MusicManager.hpp>
 
 GameScene::GameScene(AbstractSceneManager* sceneManager)
 : BaseScene(SceneType::GAME, sceneManager)
 {
+	srand(reinterpret_cast<unsigned int>(this));
+	if (rand() % 2 == 0)
+	{
+		MusicManager::GetMusicManagerContext()->PlaySongExclusiveFromStart("Audio/bensound-happyrock.flac");
+		MusicManager::GetMusicManagerContext()->SetVolume("Audio/bensound-happyrock.flac", 10);
+		// Djungle
+	}
+	else 
+	{
+		MusicManager::GetMusicManagerContext()->PlaySongExclusiveFromStart("Audio/bensound-happyrock.flac");
+		MusicManager::GetMusicManagerContext()->SetVolume("Audio/bensound-happyrock.flac", 10);
+
+		//city
+	}
 	playerCount = PlayerContext::GetPlayerContext()->NrOfActivePlayers;
 
 	m_backgroundTexture.loadFromFile("forest_background.png");
