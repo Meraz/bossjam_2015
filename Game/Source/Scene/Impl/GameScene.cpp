@@ -128,9 +128,11 @@ void GameScene::Update(sf::Time deltaT)
 	{
 		for (int i = 0; i < playerCount; ++i)
 		{
+			m_players.at(i)->GetController()->Update();
 			if (m_players.at(i)->GetController()->GetAButtonState().current && m_players.at(i)->GetController()->GetAButtonState().last == false)
 			{
 				m_sceneManager->ChangeScene(SceneType::CHARSELECT);
+				return;
 			}
 		}
 	}
