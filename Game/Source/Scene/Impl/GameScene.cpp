@@ -45,7 +45,7 @@ GameScene::GameScene(AbstractSceneManager* sceneManager)
 	
 
 
-	m_maxGameTime = 120.f;
+	m_maxGameTime = 3;
 	m_startAndEndDelay = 2.f;
 	m_gameTimer = m_maxGameTime + m_startAndEndDelay;
 

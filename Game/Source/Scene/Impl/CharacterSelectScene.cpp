@@ -176,7 +176,7 @@ void CharacterSelectScene::Render(sf::RenderWindow* window)
 		float curMiddle = spacing + i * spacing * 2.f;
 		//PX
 		Text playerText;
-		playerText.Init("P" + std::to_string(i + 1), sf::Color::Blue, sf::Vector2f(curMiddle - spacing / 2.f, 150.f));
+		playerText.Init("P" + std::to_string(i + 1), sf::Color::Yellow, sf::Vector2f(curMiddle - spacing / 2.f, 150.f));
 		//playerText.SetPositionCenter(sf::Vector2f(curMiddle, 150.f));
 		//Portrait
 		sf::Sprite sprite;
