@@ -1,5 +1,6 @@
 #include <Player.hpp>
 #include <LuaScript.hpp>
+#include <System/Text.hpp>
 #include <Audio/SoundManager.hpp>
 
 Player::Player(int playerNr)
@@ -111,6 +112,19 @@ void Player::Render(sf::RenderWindow* window)
 	{
 		m_walkingAnimatedSprite.update(m_deltaT);
 	}
+	Text score;
+	sf::Vector2f scorePos;
+	if (m_playerNr == 0)
+		scorePos = sf::Vector2f(245.f, 78.f);
+	if (m_playerNr == 1)
+		scorePos = sf::Vector2f(445.f, 78.f);
+	if (m_playerNr == 2)
+		scorePos = sf::Vector2f(860.f, 78.f);
+	if (m_playerNr == 3)
+		scorePos = sf::Vector2f(1057.f, 78.f);
+	score.Init(std::to_string(m_score), sf::Color::White, scorePos);
+	score.SetSize(15);
+	window->draw(score.GetText());
 	window->draw(m_walkingAnimatedSprite);
 }
 

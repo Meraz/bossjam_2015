@@ -140,7 +140,7 @@ void GameScene::Render(sf::RenderWindow* window)
 
 	//Draw timer
 	Text time;
-	time.Init("", sf::Color::White, sf::Vector2f(window->getSize().x / 2.f, 50.f));
+	time.Init("", sf::Color::White, sf::Vector2f(window->getSize().x / 2.f-10.f, 7.f));
 	int minutes = (int)(m_gameTimer / 60);
 	int seconds = (int)m_gameTimer % 60;
 	int tenth = (int)(10 * (m_gameTimer - (int)m_gameTimer));
