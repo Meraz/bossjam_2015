@@ -22,8 +22,7 @@ CharacterSelectScene::CharacterSelectScene(AbstractSceneManager* sceneManager)
 	m_backgroundTexture.loadFromFile("FlamePainter_Background1.jpg");
 	m_backGroundRectangle = sf::RectangleShape(sf::Vector2f(1280, 720));
 	m_backGroundRectangle.setTexture(&m_backgroundTexture);
-	m_sceneManager->GetMusicManager()->LoadSong("Audio/PATGOIN_-_SPANISH_GUITAR.flac");
-	m_sceneManager->GetMusicManager()->PlaySong("Audio/PATGOIN_-_SPANISH_GUITAR.flac");
+	MusicManager::GetMusicManagerContext()->PlaySong("Audio/PATGOIN_-_SPANISH_GUITAR.flac");
 }
 
 CharacterSelectScene::~CharacterSelectScene()

@@ -7,7 +7,12 @@
 
 class MusicManager
 {
+public:
+	static MusicManager* GetMusicManagerContext();
 private:
+	static MusicManager* musicManagerContext;
+	MusicManager();
+	~MusicManager();
 	struct Song
 	{
 		std::string songName;
@@ -20,9 +25,7 @@ private:
 	std::string currentlyPlaying;
 	
 public:
-	MusicManager();
-	~MusicManager();
-
+	
 	bool LoadSong(std::string songName);
 
 	//Will continue playing the song if it is already playing

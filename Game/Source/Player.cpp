@@ -1,5 +1,6 @@
 #include <Player.hpp>
 #include <LuaScript.hpp>
+#include <Audio/SoundManager.hpp>
 
 Player::Player(int playerNr)
 :
@@ -267,11 +268,14 @@ void Player::HandleMovement(float deltaT)
 		{
 			m_dashing = true;
 			m_dashTimer = 0.0f;
+			SoundManager::GetSoundManagerContext()->PlaySound("Audio/Dash.flac");
 		}
 		else if (m_playerController->GetRTriggerState().current < -0.1f && m_playerController->GetRTriggerState().last > -0.1)
 		{
 			m_dashing = true;
 			m_dashTimer = 0.0f;
+			SoundManager::GetSoundManagerContext()->PlaySound("Audio/Dash.flac");
+
 		}		
 		if (m_playerController->GetLTriggerState().current < -0.1f && m_dashTimer < m_maxDashTime)
 		{
