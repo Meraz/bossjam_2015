@@ -229,6 +229,11 @@ void CharacterSelectScene::Render(sf::RenderWindow* window)
 	}
 }
 
+void CharacterSelectScene::SetCharacterNamesToPlayer()
+{
+
+}
+
 void CharacterSelectScene::SelectNextCharacter(int playerID)
 {
 	m_players[playerID].chosenChar.x++;

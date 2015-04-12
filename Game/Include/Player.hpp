@@ -56,6 +56,10 @@ private:
 	float m_groundControlCurrent;
 	float m_groundControlDefault;
 	float m_groundControlMax;
+
+	std::string m_textureName;
+	std::string m_scriptName;
+	int m_color;
 	
 	int m_score;
 	sf::Texture m_animationTexture;
@@ -66,8 +70,10 @@ private:
 	float m_time;
 	sf::Time m_deltaT;
 	bool m_animating;
+
 	bool m_isDead;
 
+	void InitAnimation(std::string texture);
 	void HandleBoundaries();
 
 public:
@@ -92,6 +98,10 @@ public:
 	bool IsDead() { return m_isDead; };
 
 	//Set
+	void SetTextureName(std::string texture);
+	void SetScriptName(std::string script);
+	void SetColor(int color);
+
 	void SetCurrentMoveSpeed(float moveSpeed);
 	void SetDefaultMoveSpeed(float moveSpeed);
 	void SetMaxMoveSpeed(float moveSpeed);
@@ -117,6 +127,10 @@ public:
 	void SetMaxGroundControl(float groundControl);
 
 	//get
+	std::string GetTextureName() { return m_textureName; };
+	std::string GetScriptName() { return m_scriptName; };
+	int GetColor() { return m_color; };
+
 	float GetCurrentMoveSpeed();
 	float GetDefaultMoveSpeed();
 	float GetMaxMoveSpeed();

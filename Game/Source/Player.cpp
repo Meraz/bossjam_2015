@@ -29,8 +29,20 @@ Player::Player(int playerNr)
 
 	m_isDead = false;
 
-	m_animationTexture.loadFromFile("spritesheet_rabbit_5.png");
+	InitAnimation("spritesheet_rabbit_5.png");
 
+	m_time = 0;
+}
+
+Player::~Player()
+{
+	// TODO
+}
+
+void Player::InitAnimation(std::string texture)
+{
+	m_animationTexture.loadFromFile(texture);
+	//m_animationTexture.loadFromFile("spritesheet_rabbit_5.png");
 	m_walkingRight.setSpriteSheet(m_animationTexture);
 	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 0, 0, CHAR_WIDTH, CHAR_HEIGHT));
 	m_walkingRight.addFrame(sf::IntRect(CHAR_WIDTH * 1, 0, CHAR_WIDTH, CHAR_HEIGHT));
@@ -52,12 +64,6 @@ Player::Player(int playerNr)
 
 	m_walkingAnimatedSprite = AnimatedSprite(sf::seconds(0.15), true, true);
 	m_walkingAnimatedSprite.setPosition(m_shape.getPosition());
-	m_time = 0;
-}
-
-Player::~Player()
-{
-	// TODO
 }
 
 void Player::Update(sf::Time deltaT)
@@ -307,6 +313,21 @@ void Player::PlayerCollisionEvent(sf::Vector2f velocity)
 }
 
 //set
+void Player::SetTextureName(std::string texture)
+{
+	m_textureName = texture;
+}
+
+void Player::SetScriptName(std::string script)
+{
+	m_scriptName = script;
+}
+
+void Player::SetColor(int color)
+{
+	m_color = color;
+}
+
 void Player::SetCurrentMoveSpeed(float moveSpeed)
 {
 	m_moveSpeedCurrent = moveSpeed;
