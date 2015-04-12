@@ -31,4 +31,5 @@ public:
 
 	//Stops chosen song
 	void StopSound(std::string soundName);
+	void SetVolume(const std::string& songName, float volume);
 };

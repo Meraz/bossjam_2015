@@ -245,6 +245,9 @@ void Player::HandleMovement(float deltaT)
 		m_currentAnimation = &m_jumpingAnimation;
 		if (m_playerController->GetAButtonState().last == false)
 		{
+			SoundManager::GetSoundManagerContext()->PlaySound("Audio/Jump.flac");
+			SoundManager::GetSoundManagerContext()->SetVolume("Audio/Jump.flac", 50.0f);
+
 			m_timeJumpButtonHeld = 0;
 			m_vel.y = -m_jumpHeightCurrent;
 		}
@@ -345,6 +348,7 @@ void Player::PlayerCollisionEvent(sf::Vector2f velocity)
 		//Start death animation
 		m_isDead = true;
 		m_walkingAnimatedSprite.SetFlippedYAxis(true);
+		SoundManager::GetSoundManagerContext()->PlaySound("Audio/DeathSound.flac");
 	}
 }
 
